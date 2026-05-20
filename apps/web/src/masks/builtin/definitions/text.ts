@@ -20,10 +20,7 @@ import {
 	getBoxMaskRectOverlay,
 } from "@/masks/handle-positions";
 import { computeFeatherUpdate } from "@/masks/param-update";
-import {
-	setMaskLocalCenter,
-	toGlobalMaskSnapLines,
-} from "@/masks/geometry";
+import { setMaskLocalCenter, toGlobalMaskSnapLines } from "@/masks/geometry";
 import {
 	snapPosition,
 	snapRotation,

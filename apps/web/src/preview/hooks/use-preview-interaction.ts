@@ -66,10 +66,7 @@ export function usePreviewInteraction({
 	);
 
 	const [, rerender] = useReducer((n: number) => n + 1, 0);
-	useEffect(
-		() => controller.subscribe({ listener: rerender }),
-		[controller],
-	);
+	useEffect(() => controller.subscribe({ listener: rerender }), [controller]);
 
 	useEffect(() => {
 		if (!controller.isDragging) return;

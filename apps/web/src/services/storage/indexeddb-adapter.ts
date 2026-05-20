@@ -47,13 +47,7 @@ export class IndexedDBAdapter<T> implements StorageAdapter<T> {
 		});
 	}
 
-	async set({
-		key,
-		value,
-	}: {
-		key: string;
-		value: T;
-	}): Promise<void> {
+	async set({ key, value }: { key: string; value: T }): Promise<void> {
 		const db = await this.getDB();
 		const transaction = db.transaction([this.storeName], "readwrite");
 		const store = transaction.objectStore(this.storeName);

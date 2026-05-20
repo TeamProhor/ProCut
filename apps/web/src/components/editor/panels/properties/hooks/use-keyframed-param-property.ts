@@ -7,10 +7,7 @@ import {
 	hasKeyframesForPath,
 	upsertPathKeyframe,
 } from "@/animation";
-import type {
-	AnimationPath,
-	ElementAnimations,
-} from "@/animation/types";
+import type { AnimationPath, ElementAnimations } from "@/animation/types";
 import {
 	coerceParamValue,
 	getParamChannelLayout,

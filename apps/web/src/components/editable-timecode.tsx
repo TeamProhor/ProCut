@@ -7,11 +7,7 @@ import {
 	type TimeCodeFormat,
 } from "opencut-wasm";
 import { cn } from "@/utils/ui";
-import {
-	parseMediaTimecode,
-	snapSeekMediaTime,
-	type MediaTime,
-} from "@/wasm";
+import { parseMediaTimecode, snapSeekMediaTime, type MediaTime } from "@/wasm";
 
 interface EditableTimecodeProps {
 	time: MediaTime;

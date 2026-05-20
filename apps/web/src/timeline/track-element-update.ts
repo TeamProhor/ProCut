@@ -34,7 +34,9 @@ export function updateTrackInSceneTracks({
 		};
 	}
 
-	const overlayTrackIndex = tracks.overlay.findIndex((track) => track.id === trackId);
+	const overlayTrackIndex = tracks.overlay.findIndex(
+		(track) => track.id === trackId,
+	);
 	if (overlayTrackIndex >= 0) {
 		return {
 			...tracks,
@@ -44,7 +46,9 @@ export function updateTrackInSceneTracks({
 		};
 	}
 
-	const audioTrackIndex = tracks.audio.findIndex((track) => track.id === trackId);
+	const audioTrackIndex = tracks.audio.findIndex(
+		(track) => track.id === trackId,
+	);
 	if (audioTrackIndex >= 0) {
 		return {
 			...tracks,
@@ -109,7 +113,9 @@ export function updateElementInSceneTracks({
 		};
 	}
 
-	const overlayTrackIndex = tracks.overlay.findIndex((track) => track.id === trackId);
+	const overlayTrackIndex = tracks.overlay.findIndex(
+		(track) => track.id === trackId,
+	);
 	if (overlayTrackIndex >= 0) {
 		return {
 			...tracks,
@@ -126,7 +132,9 @@ export function updateElementInSceneTracks({
 		};
 	}
 
-	const audioTrackIndex = tracks.audio.findIndex((track) => track.id === trackId);
+	const audioTrackIndex = tracks.audio.findIndex(
+		(track) => track.id === trackId,
+	);
 	if (audioTrackIndex >= 0) {
 		return {
 			...tracks,

@@ -1,4 +1,10 @@
-import { type ComponentProps, forwardRef, useEffect, useRef, useState } from "react";
+import {
+	type ComponentProps,
+	forwardRef,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { cn } from "@/utils/ui";
 import { Input } from "./input";
 import {
@@ -171,8 +177,14 @@ function ColorPickerContent({
 		if (!saturationElement) return;
 		setIsDragging("saturation");
 		const rect = saturationElement.getBoundingClientRect();
-		const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-		const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+		const x = Math.max(
+			0,
+			Math.min(1, (event.clientX - rect.left) / rect.width),
+		);
+		const y = Math.max(
+			0,
+			Math.min(1, (event.clientY - rect.top) / rect.height),
+		);
 		const newHex = appendAlpha({
 			rgbHex: hsvToHex({ h: displayHue, s: x, v: 1 - y }),
 			alpha,
@@ -187,7 +199,10 @@ function ColorPickerContent({
 		if (!hueElement) return;
 		setIsDragging("hue");
 		const rect = hueElement.getBoundingClientRect();
-		const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+		const x = Math.max(
+			0,
+			Math.min(1, (event.clientX - rect.left) / rect.width),
+		);
 		const newH = x * 360;
 		setInternalHue(newH);
 		if (s > 0) {
@@ -206,7 +221,10 @@ function ColorPickerContent({
 		if (!opacityElement) return;
 		setIsDragging("opacity");
 		const rect = opacityElement.getBoundingClientRect();
-		const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+		const x = Math.max(
+			0,
+			Math.min(1, (event.clientX - rect.left) / rect.width),
+		);
 		const newHex = appendAlpha({ rgbHex: rgbValue, alpha: x });
 		latestDragColorRef.current = newHex;
 		onChange?.(newHex);
@@ -353,7 +371,10 @@ function ColorPickerContent({
 					type="button"
 					onMouseDown={handleOpacityMouseDown}
 				>
-					<div className="absolute inset-0 dark:invert" style={CHECKERBOARD_STYLE} />
+					<div
+						className="absolute inset-0 dark:invert"
+						style={CHECKERBOARD_STYLE}
+					/>
 					<div
 						className="absolute inset-0 rounded-lg"
 						style={{

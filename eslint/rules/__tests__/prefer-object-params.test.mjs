@@ -28,7 +28,9 @@ ruleTester.run("prefer-object-params", rule, {
 		{ code: "const f = (a) => a;" },
 		{ code: "const f = function (a) { return a; };" },
 		{ code: "function f({ a, b }) { return a + b; }" },
-		{ code: "function f({ a, b }: { a: number; b: number }) { return a + b; }" },
+		{
+			code: "function f({ a, b }: { a: number; b: number }) { return a + b; }",
+		},
 
 		// Direct callbacks: positional args are dictated by the caller.
 		{ code: "[1, 2, 3].reduce((acc, cur) => acc + cur, 0);" },

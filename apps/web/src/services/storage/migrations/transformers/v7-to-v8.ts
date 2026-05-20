@@ -81,7 +81,8 @@ function migrateElement({ element }: { element: unknown }): unknown {
 	if (element.type !== "video" && element.type !== "audio") return element;
 	if (typeof element.sourceDuration === "number") return element;
 
-	const trimStart = typeof element.trimStart === "number" ? element.trimStart : 0;
+	const trimStart =
+		typeof element.trimStart === "number" ? element.trimStart : 0;
 	const duration = typeof element.duration === "number" ? element.duration : 0;
 	const trimEnd = typeof element.trimEnd === "number" ? element.trimEnd : 0;
 

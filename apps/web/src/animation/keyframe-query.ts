@@ -17,11 +17,7 @@ import {
 } from "./interpolation";
 import { isAnimationPath } from "./path";
 
-function getChannelFallbackValue({
-	channel,
-}: {
-	channel: AnimationChannel;
-}) {
+function getChannelFallbackValue({ channel }: { channel: AnimationChannel }) {
 	if (channel.keys.length === 0) {
 		return isScalarChannel(channel) ? 0 : false;
 	}
@@ -73,18 +69,12 @@ function getUniqueChannelKeyframeMatches({
 
 	for (const match of sortedMatches) {
 		const previousMatch = uniqueMatches[uniqueMatches.length - 1];
-		if (
-			!previousMatch ||
-			previousMatch.keyframe.time !== match.keyframe.time
-		) {
+		if (!previousMatch || previousMatch.keyframe.time !== match.keyframe.time) {
 			uniqueMatches.push(match);
 			continue;
 		}
 
-		if (
-			previousMatch.componentIndex !== 0 &&
-			match.componentIndex === 0
-		) {
+		if (previousMatch.componentIndex !== 0 && match.componentIndex === 0) {
 			uniqueMatches[uniqueMatches.length - 1] = match;
 		}
 	}
@@ -98,9 +88,7 @@ function getPreferredChannelKeyframeMatch({
 	matches: ChannelKeyframeMatch[];
 }): ChannelKeyframeMatch | null {
 	return (
-		matches.find((match) => match.componentIndex === 0) ??
-		matches[0] ??
-		null
+		matches.find((match) => match.componentIndex === 0) ?? matches[0] ?? null
 	);
 }
 
@@ -215,10 +203,9 @@ export function getElementKeyframes({
 		return [];
 	}
 
-	return Object.entries(animations).filter(([key]) =>
-		isAnimationStorageKey({ key }),
-	).flatMap(
-		([propertyPath, data]) => {
+	return Object.entries(animations)
+		.filter(([key]) => isAnimationStorageKey({ key }))
+		.flatMap(([propertyPath, data]) => {
 			if (!data || !isAnimationPath(propertyPath)) {
 				return [];
 			}
@@ -237,8 +224,7 @@ export function getElementKeyframes({
 
 				return [keyframe];
 			});
-		},
-	);
+		});
 }
 
 export function hasKeyframesForPath({

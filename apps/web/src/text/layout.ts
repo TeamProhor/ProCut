@@ -30,8 +30,9 @@ export function setCanvasLetterSpacing({
 	letterSpacingPx: number;
 }): void {
 	if ("letterSpacing" in ctx) {
-		(ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
-			`${letterSpacingPx}px`;
+		(
+			ctx as CanvasRenderingContext2D & { letterSpacing: string }
+		).letterSpacing = `${letterSpacingPx}px`;
 	}
 }
 

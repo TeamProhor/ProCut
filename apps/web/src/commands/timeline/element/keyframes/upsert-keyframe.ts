@@ -4,10 +4,7 @@ import { upsertPathKeyframe } from "@/animation";
 import { updateElementInSceneTracks } from "@/timeline";
 import type { SceneTracks } from "@/timeline";
 import { resolveAnimationTarget } from "@/timeline/animation-targets";
-import type {
-	AnimationPath,
-	AnimationInterpolation,
-} from "@/animation/types";
+import type { AnimationPath, AnimationInterpolation } from "@/animation/types";
 import type { ParamValue } from "@/params";
 import {
 	type MediaTime,

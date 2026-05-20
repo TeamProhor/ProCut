@@ -206,7 +206,10 @@ export function formatRulerLabel({
 		return formatTimestamp({ timeInSeconds });
 	}
 
-	const frameWithinSecond = getFrameWithinSecond({ timeInSeconds, fps: frameRateToFloat(fps) });
+	const frameWithinSecond = getFrameWithinSecond({
+		timeInSeconds,
+		fps: frameRateToFloat(fps),
+	});
 	return `${frameWithinSecond}f`;
 }
 

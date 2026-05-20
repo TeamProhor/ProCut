@@ -841,7 +841,9 @@ export class TimelineManager {
 	}): void {
 		const shouldMute = elements.some(({ trackId, elementId }) => {
 			const element = this.getElementByRef({ trackId, elementId });
-			return element && canElementHaveAudio(element) && !isElementMuted({ element });
+			return (
+				element && canElementHaveAudio(element) && !isElementMuted({ element })
+			);
 		});
 
 		const nextUpdates = elements.flatMap(({ trackId, elementId }) => {

@@ -78,7 +78,6 @@ export function useElementSelection() {
 		[editor],
 	);
 
-
 	/**
 	 * Merges elements into the current selection, deduplicating by identity.
 	 * Used for additive box-select where the pre-drag selection is preserved.
@@ -100,7 +99,6 @@ export function useElementSelection() {
 		},
 		[selectedElements, editor],
 	);
-
 
 	/**
 	 * Handles click interaction on an element.

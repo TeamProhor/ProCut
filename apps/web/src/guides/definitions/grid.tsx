@@ -5,11 +5,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { NumberField } from "@/components/ui/number-field";
-import {
-	GRID_MIN,
-	GRID_MAX,
-	DEFAULT_GRID_CONFIG,
-} from "@/guides/grid";
+import { GRID_MIN, GRID_MAX, DEFAULT_GRID_CONFIG } from "@/guides/grid";
 import { usePreviewStore } from "@/preview/preview-store";
 import { clampRound } from "@/utils/math";
 import { cn } from "@/utils/ui";

@@ -25,22 +25,17 @@ import {
 } from "@/masks/freeform/path";
 import { getBoxMaskHandlePositions } from "@/masks/handle-positions";
 import { computeFeatherUpdate } from "@/masks/param-update";
-import {
-	setMaskLocalCenter,
-	toGlobalMaskSnapLines,
-} from "@/masks/geometry";
-import {
-	snapPosition,
-	snapRotation,
-	snapScale,
-} from "@/preview/preview-snap";
+import { setMaskLocalCenter, toGlobalMaskSnapLines } from "@/masks/geometry";
+import { snapPosition, snapRotation, snapScale } from "@/preview/preview-snap";
 
 const PERCENTAGE_DISPLAY = {
 	displayMultiplier: 100,
 	step: 1,
 } as const;
 
-const FREEFORM_PATH_MASK_PARAMS: ParamDefinition<keyof FreeformPathMaskParams & string>[] = [
+const FREEFORM_PATH_MASK_PARAMS: ParamDefinition<
+	keyof FreeformPathMaskParams & string
+>[] = [
 	{
 		key: "centerX",
 		label: "X",
@@ -132,16 +127,18 @@ function getFreeformDisplayHandles({
 				scale: params.scale,
 				bounds,
 				closed: true,
-			}).map((segment): MaskOverlay => ({
-				id: `segment:${segment.index}`,
-				type: "canvas-path" as const,
-				pathData: segment.pathData,
-				coordinateSpace: "canvas" as const,
-				handleId: { kind: "segment", index: segment.index },
-				cursor: PEN_CURSOR,
-				strokeOpacity: 0,
-				strokeWidth: segmentStrokeWidth,
-			})),
+			}).map(
+				(segment): MaskOverlay => ({
+					id: `segment:${segment.index}`,
+					type: "canvas-path" as const,
+					pathData: segment.pathData,
+					coordinateSpace: "canvas" as const,
+					handleId: { kind: "segment", index: segment.index },
+					cursor: PEN_CURSOR,
+					strokeOpacity: 0,
+					strokeWidth: segmentStrokeWidth,
+				}),
+			),
 		);
 	}
 

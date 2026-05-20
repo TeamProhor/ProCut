@@ -154,7 +154,9 @@ function migrateAnimationChannel({ channel }: { channel: unknown }): unknown {
 
 	return {
 		...channel,
-		keys: channel.keys.map((keyframe) => migrateAnimationKeyframe({ keyframe })),
+		keys: channel.keys.map((keyframe) =>
+			migrateAnimationKeyframe({ keyframe }),
+		),
 	};
 }
 

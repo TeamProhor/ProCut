@@ -1,8 +1,5 @@
 import { EditorCore } from "@/core";
-import {
-	hasKeyframesForPath,
-	removeElementKeyframe,
-} from "@/animation";
+import { hasKeyframesForPath, removeElementKeyframe } from "@/animation";
 import { Command, type CommandResult } from "@/commands/base-command";
 import { updateElementInSceneTracks } from "@/timeline";
 import type { AnimationPath } from "@/animation/types";

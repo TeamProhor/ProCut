@@ -53,7 +53,11 @@ function migrateScene({ scene }: { scene: unknown }): unknown {
 	const tracks = scene.tracks;
 
 	// Already in the correct shape — nothing to repair
-	if (isRecord(tracks) && Array.isArray(tracks.overlay) && Array.isArray(tracks.audio)) {
+	if (
+		isRecord(tracks) &&
+		Array.isArray(tracks.overlay) &&
+		Array.isArray(tracks.audio)
+	) {
 		return scene;
 	}
 

@@ -1,7 +1,4 @@
-import type {
-	AnimationPath,
-	ElementAnimations,
-} from "@/animation/types";
+import type { AnimationPath, ElementAnimations } from "@/animation/types";
 import type { TimelineTrack } from "@/timeline";
 import { getElementKeyframes } from "@/animation";
 import { KEYFRAME_LANE_HEIGHT_PX } from "./layout";
@@ -16,7 +13,9 @@ interface PropertyGroupDefinition {
 }
 
 const PROPERTY_GROUPS: PropertyGroupDefinition[] = [
-	{ matchesPath: (path) => path.startsWith("transform.") || path === "opacity" },
+	{
+		matchesPath: (path) => path.startsWith("transform.") || path === "opacity",
+	},
 	{ matchesPath: (path) => path === "volume" || path === "color" },
 	{ matchesPath: (path) => path.startsWith("background.") },
 	{ matchesPath: (path) => path.startsWith("params.") },
@@ -62,9 +61,7 @@ export function getExpandedRows({
 	const rows: ExpandedRow[] = [];
 
 	for (const group of PROPERTY_GROUPS) {
-		const groupPaths = propertyPaths.filter((path) =>
-			group.matchesPath(path),
-		);
+		const groupPaths = propertyPaths.filter((path) => group.matchesPath(path));
 		for (const path of groupPaths) {
 			rows.push({ propertyPath: path, label: getPropertyLabel(path) });
 		}

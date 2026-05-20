@@ -28,10 +28,10 @@ describe("V22 to V23 Migration", () => {
 				scenes: [
 					{
 						id: "scene-1",
-					bookmarks: [
-						{ time: 2.5, duration: 0.75, note: "Marker", color: "#ff0000" },
-						{ time: 4.5 },
-					],
+						bookmarks: [
+							{ time: 2.5, duration: 0.75, note: "Marker", color: "#ff0000" },
+							{ time: 4.5 },
+						],
 						tracks: [
 							{
 								id: "track-1",

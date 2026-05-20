@@ -1,9 +1,6 @@
 import type { IconProps } from "./types";
 
-export function OcVideoIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcVideoIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -30,10 +27,7 @@ export function OcVideoIcon({
 	);
 }
 
-export function OcCheckerboardIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcCheckerboardIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -103,10 +97,7 @@ export function OcSlidersVerticalIcon({
 	);
 }
 
-export function OcSocialIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcSocialIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={Math.round(size * (38 / 24))}
@@ -149,10 +140,7 @@ export function OcSocialIcon({
 	);
 }
 
-export function OcTextWidthIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcTextWidthIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={Math.round((size * 17) / 24)}
@@ -174,10 +162,7 @@ export function OcTextWidthIcon({
 	);
 }
 
-export function OcTextHeightIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcTextHeightIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={Math.round((size * 20) / 23)}
@@ -199,10 +184,7 @@ export function OcTextHeightIcon({
 	);
 }
 
-export function OcFontIcon({
-	className = "",
-	size = 32,
-	}: IconProps) {
+export function OcFontIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -262,10 +244,7 @@ export function OcShapesIcon({
 	);
 }
 
-export function OcMirrorIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcMirrorIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -318,7 +297,13 @@ export function OcSquarePlusIcon({
 			<defs>
 				<mask id="frameMask" maskUnits="userSpaceOnUse">
 					<rect width="24" height="24" fill="white" />
-					<rect x="14.636" y="14.636" width="9.364" height="9.364" fill="black" />
+					<rect
+						x="14.636"
+						y="14.636"
+						width="9.364"
+						height="9.364"
+						fill="black"
+					/>
 				</mask>
 				<clipPath id="plusClip" clipPathUnits="userSpaceOnUse">
 					<rect x="16" y="16" width="9" height="8" />
@@ -401,4 +386,3 @@ export function OcRippleIcon({
 		</svg>
 	);
 }
-

@@ -1,7 +1,4 @@
-import type {
-	TranscriptionModel,
-	TranscriptionModelId,
-} from "./types";
+import type { TranscriptionModel, TranscriptionModelId } from "./types";
 
 export const TRANSCRIPTION_MODELS: TranscriptionModel[] = [
 	{

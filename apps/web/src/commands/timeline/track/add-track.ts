@@ -11,13 +11,7 @@ export class AddTrackCommand extends Command {
 	private trackId: string;
 	private savedState: SceneTracks | null = null;
 
-	constructor({
-		type,
-		index,
-	}: {
-		type: TrackType;
-		index?: number;
-	}) {
+	constructor({ type, index }: { type: TrackType; index?: number }) {
 		super();
 		this.type = type;
 		this.index = index;

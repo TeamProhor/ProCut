@@ -34,7 +34,8 @@ export function frameRatesEqual({
 
 export function floatToFrameRate(fps: number): FrameRate {
 	const standard = STANDARD_FRAME_RATES.find(
-		(candidate) => Math.abs(fps - candidate.value) <= STANDARD_FRAME_RATE_TOLERANCE,
+		(candidate) =>
+			Math.abs(fps - candidate.value) <= STANDARD_FRAME_RATE_TOLERANCE,
 	);
 	if (standard) return standard.rate;
 
@@ -96,7 +97,10 @@ export function getRaisedProjectFpsForImportedMedia({
 
 	const currentFpsFloat = frameRateToFloat(currentFps);
 
-	if (highestImportedVideoFps === null || highestImportedVideoFps <= currentFpsFloat) {
+	if (
+		highestImportedVideoFps === null ||
+		highestImportedVideoFps <= currentFpsFloat
+	) {
 		return null;
 	}
 

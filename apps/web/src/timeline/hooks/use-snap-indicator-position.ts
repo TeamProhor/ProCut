@@ -21,7 +21,9 @@ export function useSnapIndicatorPosition({
 	timelineRef,
 	tracksScrollRef,
 }: UseSnapIndicatorPositionParams): SnapIndicatorPosition {
-	const { height: timelineHeight } = useContainerSize({ containerRef: timelineRef });
+	const { height: timelineHeight } = useContainerSize({
+		containerRef: timelineRef,
+	});
 	const { scrollLeft } = useScrollPosition({ scrollRef: tracksScrollRef });
 	const timelineContainerHeight = timelineHeight || 400;
 	const totalHeight = timelineContainerHeight - 8; // 8px padding from edges

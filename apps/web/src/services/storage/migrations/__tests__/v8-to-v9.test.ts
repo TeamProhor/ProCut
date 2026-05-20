@@ -71,7 +71,9 @@ describe("V8 to V9 Migration", () => {
 		expect(result.skipped).toBe(false);
 		expect(result.project.version).toBe(9);
 
-		const track = asRecordArray(asRecordArray(result.project.scenes)[0].tracks)[0];
+		const track = asRecordArray(
+			asRecordArray(result.project.scenes)[0].tracks,
+		)[0];
 		const elements = asRecordArray(track.elements);
 		const background0 = asRecord(elements[0].background);
 		const background1 = asRecord(elements[1].background);
@@ -117,7 +119,9 @@ describe("V8 to V9 Migration", () => {
 		const result = transformProjectV8ToV9({ project: projectWithEnabled });
 
 		expect(result.skipped).toBe(false);
-		const track = asRecordArray(asRecordArray(result.project.scenes)[0].tracks)[0];
+		const track = asRecordArray(
+			asRecordArray(result.project.scenes)[0].tracks,
+		)[0];
 		const elements = asRecordArray(track.elements);
 		expect(asRecord(elements[0].background).enabled).toBe(false);
 	});

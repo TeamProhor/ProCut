@@ -1,14 +1,8 @@
-import type {
-	AnimationPath,
-	ElementAnimations,
-} from "@/animation/types";
+import type { AnimationPath, ElementAnimations } from "@/animation/types";
 import { formatLinearRgba, parseColorToLinearRgba } from "@/params";
 import type { ParamValue } from "@/params";
 import { isCompositeChannelData, isLeafChannelData } from "./channel-data";
-import {
-	getChannelValueAtTime,
-	isScalarChannel,
-} from "./interpolation";
+import { getChannelValueAtTime, isScalarChannel } from "./interpolation";
 
 export function getElementLocalTime({
 	timelineTime,
@@ -98,7 +92,10 @@ export function resolveAnimationPathValueAtTime({
 				fallbackValue,
 			});
 		}
-		if (typeof fallbackValue === "string" || typeof fallbackValue === "boolean") {
+		if (
+			typeof fallbackValue === "string" ||
+			typeof fallbackValue === "boolean"
+		) {
 			return getChannelValueAtTime({
 				channel: !isScalarChannel(data) ? data : undefined,
 				time: localTime,

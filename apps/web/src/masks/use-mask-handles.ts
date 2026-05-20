@@ -96,7 +96,9 @@ export function useMaskHandles({
 	const editor = useEditor();
 	const isShiftHeldRef = useShiftKey();
 	const viewport = usePreviewViewport();
-	const [activeHandleId, setActiveHandleId] = useState<MaskHandleId | null>(null);
+	const [activeHandleId, setActiveHandleId] = useState<MaskHandleId | null>(
+		null,
+	);
 	const dragStateRef = useRef<DragState | null>(null);
 	const pendingSegmentInsertRef = useRef<PendingSegmentInsertState | null>(
 		null,

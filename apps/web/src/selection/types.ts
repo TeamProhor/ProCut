@@ -15,8 +15,9 @@ export interface SelectionBoxBounds {
 	height: number;
 }
 
-export interface BoxSelectionChange<TId = string>
-	extends BoxSelectionSnapshot<TId> {
+export interface BoxSelectionChange<
+	TId = string,
+> extends BoxSelectionSnapshot<TId> {
 	intersectedIds: TId[];
 	isAdditive: boolean;
 }
@@ -39,8 +40,7 @@ export interface SelectableSurfaceProps {
 	onSelectionChange?: (state: SelectionState) => void;
 }
 
-export interface SelectableItemProps
-	extends React.HTMLAttributes<HTMLDivElement> {
+export interface SelectableItemProps extends React.HTMLAttributes<HTMLDivElement> {
 	id: string;
 	children: React.ReactNode;
 }

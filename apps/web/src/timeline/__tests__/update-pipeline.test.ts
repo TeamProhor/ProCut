@@ -13,7 +13,9 @@ function buildTransform(): Transform {
 	};
 }
 
-function buildVideoElement(overrides: Partial<VideoElement> = {}): VideoElement {
+function buildVideoElement(
+	overrides: Partial<VideoElement> = {},
+): VideoElement {
 	return {
 		id: "video-1",
 		type: "video",

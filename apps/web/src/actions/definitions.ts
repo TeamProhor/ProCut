@@ -160,10 +160,7 @@ export function isActionWithOptionalArgs(
 	}
 	const action = value as TAction;
 	// Exclude those that REQUIRE args according to TActionArgsMap in types.ts
-	if (
-		action === "remove-media-asset" ||
-		action === "remove-media-assets"
-	) {
+	if (action === "remove-media-asset" || action === "remove-media-assets") {
 		return false;
 	}
 	return true;

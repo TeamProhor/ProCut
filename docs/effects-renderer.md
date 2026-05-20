@@ -7,6 +7,7 @@
 3. Register it in `apps/web/src/lib/effects/definitions/index.ts`
 
 An effect definition has:
+
 - `type` — unique string identifier
 - `name` — display name
 - `keywords` — for search
@@ -59,6 +60,7 @@ This handles the `buildPasses` vs static `passes` dispatch automatically.
 Linear effect chains go through `gpuRenderer.applyEffect()` in `apps/web/src/services/renderer/gpu-renderer.ts`.
 
 TypeScript resolves `EffectPass[]` from effect definitions. Each pass contains:
+
 - `shader` — a stable identifier such as `"gaussian-blur"`
 - `uniforms` — resolved numeric values for that pass
 
@@ -69,6 +71,7 @@ Rust maps the shader identifier to a precompiled WGSL pipeline in `rust/crates/g
 Effect-specific WGSL shaders live in `rust/crates/gpu/src/shaders/`. Add the shader file there, then register its identifier in `rust/crates/gpu/src/shader_registry.rs`.
 
 Available uniforms (automatically injected, no need to pass them manually):
+
 - `u_texture` — the input texture (sampler2D)
 - `u_resolution` — canvas size in pixels (vec2)
 

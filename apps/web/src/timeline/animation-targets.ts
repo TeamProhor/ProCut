@@ -3,12 +3,8 @@ import type {
 	AnimationPath,
 	NumericSpec,
 } from "@/animation/types";
-import {
-	parseEffectParamPath,
-} from "@/animation/effect-param-channel";
-import {
-	parseGraphicParamPath,
-} from "@/animation/graphic-param-channel";
+import { parseEffectParamPath } from "@/animation/effect-param-channel";
+import { parseGraphicParamPath } from "@/animation/graphic-param-channel";
 import { effectsRegistry, registerDefaultEffects } from "@/effects";
 import { getGraphicDefinition } from "@/graphics";
 import {
@@ -21,9 +17,7 @@ import {
 	type ParamValue,
 	type ParamValues,
 } from "@/params";
-import {
-	getElementParam,
-} from "@/params/registry";
+import { getElementParam } from "@/params/registry";
 import type { TimelineElement } from "@/timeline";
 import { isVisualElement } from "@/timeline/element-utils";
 
@@ -116,7 +110,9 @@ function buildGraphicParamDescriptor({
 	const definition = getGraphicDefinition({
 		definitionId: element.definitionId,
 	});
-	const param = definition.params.find((candidate) => candidate.key === paramKey);
+	const param = definition.params.find(
+		(candidate) => candidate.key === paramKey,
+	);
 	if (!param) {
 		return null;
 	}
@@ -144,14 +140,18 @@ function buildEffectParamDescriptor({
 		return null;
 	}
 
-	const effect = element.effects?.find((candidate) => candidate.id === effectId);
+	const effect = element.effects?.find(
+		(candidate) => candidate.id === effectId,
+	);
 	if (!effect) {
 		return null;
 	}
 
 	registerDefaultEffects();
 	const definition = effectsRegistry.get(effect.type);
-	const param = definition.params.find((candidate) => candidate.key === paramKey);
+	const param = definition.params.find(
+		(candidate) => candidate.key === paramKey,
+	);
 	if (!param) {
 		return null;
 	}

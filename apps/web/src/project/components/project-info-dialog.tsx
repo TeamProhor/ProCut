@@ -38,8 +38,11 @@ export function ProjectInfoDialog({
 	const durationSeconds = mediaTimeToSeconds({ time: project.duration });
 	const durationFormatted =
 		project.duration > 0
-		? (formatTimecode({ time: project.duration, format: durationSeconds >= 3600 ? "HH:MM:SS" : "MM:SS" }) ?? "")
-		: "0:00";
+			? (formatTimecode({
+					time: project.duration,
+					format: durationSeconds >= 3600 ? "HH:MM:SS" : "MM:SS",
+				}) ?? "")
+			: "0:00";
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onOpenChange}>

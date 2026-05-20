@@ -104,7 +104,10 @@ export function getSplitMaskStrokeSegment({
 			y2,
 		});
 
-		if (!hit || intersections.some((point) => pointsEqual({ a: point, b: hit }))) {
+		if (
+			!hit ||
+			intersections.some((point) => pointsEqual({ a: point, b: hit }))
+		) {
 			continue;
 		}
 
@@ -312,13 +315,8 @@ export const splitMaskDefinition: MaskDefinition<"split"> = {
 						[0, height, 0, 0],
 					];
 
-					const isInsideHalfPlane = ({
-						x,
-						y,
-					}: {
-						x: number;
-						y: number;
-					}) => halfPlaneSign({ lineX, lineY, normalX, normalY, x, y }) >= 0;
+					const isInsideHalfPlane = ({ x, y }: { x: number; y: number }) =>
+						halfPlaneSign({ lineX, lineY, normalX, normalY, x, y }) >= 0;
 
 					const vertices: [number, number][] = [];
 					for (const [x1, y1, x2, y2] of edges) {

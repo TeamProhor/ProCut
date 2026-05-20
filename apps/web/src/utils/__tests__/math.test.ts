@@ -81,7 +81,9 @@ describe("evaluateMathExpression", () => {
 		it("should return null for invalid characters", () => {
 			expect(evaluateMathExpression({ input: "1+2a" })).toBeNull();
 			expect(evaluateMathExpression({ input: "alert(1)" })).toBeNull();
-			expect(evaluateMathExpression({ input: "1+2; doSomething()" })).toBeNull();
+			expect(
+				evaluateMathExpression({ input: "1+2; doSomething()" }),
+			).toBeNull();
 		});
 
 		it("should return null for unbalanced parentheses", () => {
@@ -106,8 +108,14 @@ describe("evaluateMathExpression", () => {
 			expect(evaluateMathExpression({ input: "process.exit()" })).toBeNull();
 			expect(evaluateMathExpression({ input: "require('fs')" })).toBeNull();
 			expect(evaluateMathExpression({ input: "eval('1+1')" })).toBeNull();
-			expect(evaluateMathExpression({ input: "Function('return 1')()" })).toBeNull();
-			expect(evaluateMathExpression({ input: "constructor.constructor('return 1')()" })).toBeNull();
+			expect(
+				evaluateMathExpression({ input: "Function('return 1')()" }),
+			).toBeNull();
+			expect(
+				evaluateMathExpression({
+					input: "constructor.constructor('return 1')()",
+				}),
+			).toBeNull();
 			expect(evaluateMathExpression({ input: "this.toString" })).toBeNull();
 			expect(evaluateMathExpression({ input: "__proto__" })).toBeNull();
 		});

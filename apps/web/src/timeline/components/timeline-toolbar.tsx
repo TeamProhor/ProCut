@@ -356,9 +356,7 @@ function ToolbarButton({
 	action?: TActionWithOptionalArgs;
 }) {
 	const { shortcuts } = useKeyboardShortcutsHelp();
-	const shortcut = action
-		? shortcuts.find((s) => s.action === action)
-		: null;
+	const shortcut = action ? shortcuts.find((s) => s.action === action) : null;
 
 	const tooltipContent = shortcut
 		? `${tooltip} (${shortcut.keys.join(" or ")})`

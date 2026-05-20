@@ -38,11 +38,7 @@ function migrateVideoSourceAudioState({
 	};
 }
 
-function migrateScene({
-	scene,
-}: {
-	scene: unknown;
-}): unknown {
+function migrateScene({ scene }: { scene: unknown }): unknown {
 	if (!isRecord(scene) || !Array.isArray(scene.tracks)) {
 		return scene;
 	}
@@ -53,11 +49,7 @@ function migrateScene({
 	};
 }
 
-function migrateTrack({
-	track,
-}: {
-	track: unknown;
-}): unknown {
+function migrateTrack({ track }: { track: unknown }): unknown {
 	if (!isRecord(track) || !Array.isArray(track.elements)) {
 		return track;
 	}
@@ -68,11 +60,7 @@ function migrateTrack({
 	};
 }
 
-function migrateElement({
-	element,
-}: {
-	element: unknown;
-}): unknown {
+function migrateElement({ element }: { element: unknown }): unknown {
 	if (!isRecord(element) || element.type !== "video") {
 		return element;
 	}

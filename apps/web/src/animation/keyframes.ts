@@ -74,7 +74,8 @@ function toAnimation({
 }): ElementAnimations | undefined {
 	const nextAnimations = Object.fromEntries(
 		Object.entries(animations).filter(
-			([key, data]) => isAnimationStorageKey({ key }) && hasChannelData({ data }),
+			([key, data]) =>
+				isAnimationStorageKey({ key }) && hasChannelData({ data }),
 		),
 	);
 	if (Object.keys(nextAnimations).length === 0) {
@@ -628,7 +629,9 @@ export function removeKeyframe({
 	}
 
 	if (isScalarChannel(channel)) {
-		const nextKeys = channel.keys.filter((keyframe) => keyframe.id !== keyframeId);
+		const nextKeys = channel.keys.filter(
+			(keyframe) => keyframe.id !== keyframeId,
+		);
 		if (nextKeys.length === 0) {
 			return undefined;
 		}
@@ -641,7 +644,9 @@ export function removeKeyframe({
 		});
 	}
 
-	const nextKeys = channel.keys.filter((keyframe) => keyframe.id !== keyframeId);
+	const nextKeys = channel.keys.filter(
+		(keyframe) => keyframe.id !== keyframeId,
+	);
 	if (nextKeys.length === 0) {
 		return undefined;
 	}
@@ -773,7 +778,9 @@ export function updateScalarKeyframeCurve({
 		return animations;
 	}
 
-	const keyframeIndex = channel.keys.findIndex((keyframe) => keyframe.id === keyframeId);
+	const keyframeIndex = channel.keys.findIndex(
+		(keyframe) => keyframe.id === keyframeId,
+	);
 	if (keyframeIndex < 0) {
 		return animations;
 	}
@@ -785,11 +792,11 @@ export function updateScalarKeyframeCurve({
 		leftHandle:
 			patch.leftHandle === undefined
 				? currentKey.leftHandle
-				: patch.leftHandle ?? undefined,
+				: (patch.leftHandle ?? undefined),
 		rightHandle:
 			patch.rightHandle === undefined
 				? currentKey.rightHandle
-				: patch.rightHandle ?? undefined,
+				: (patch.rightHandle ?? undefined),
 		segmentToNext: patch.segmentToNext ?? currentKey.segmentToNext,
 		tangentMode: patch.tangentMode ?? currentKey.tangentMode,
 	};
@@ -845,8 +852,8 @@ export function cloneAnimations({
 	}
 
 	const nextAnimations = cloneAnimationsState({ animations });
-	for (const [propertyPath, data] of Object.entries(animations).filter(([key]) =>
-		isAnimationStorageKey({ key }),
+	for (const [propertyPath, data] of Object.entries(animations).filter(
+		([key]) => isAnimationStorageKey({ key }),
 	)) {
 		const channels = getChannelsFromData({ data });
 		const primaryChannel = channels[0];
@@ -871,9 +878,7 @@ export function cloneAnimations({
 			nextAnimations[propertyPath] = Object.fromEntries(
 				Object.entries(data).map(([componentKey, channel]) => [
 					componentKey,
-					channel
-						? cloneChannelWithKeyIds({ channel, keyIdMap })
-						: undefined,
+					channel ? cloneChannelWithKeyIds({ channel, keyIdMap }) : undefined,
 				]),
 			);
 		}
@@ -1025,7 +1030,10 @@ function splitScalarChannelAtTime({
 	const hasBoundaryOnRight = rightKeys.some((key) =>
 		isNearlySameTime({ leftTime: key.time, rightTime: 0 }),
 	);
-	if (!shouldIncludeSplitBoundary || (hasBoundaryOnLeft && hasBoundaryOnRight)) {
+	if (
+		!shouldIncludeSplitBoundary ||
+		(hasBoundaryOnLeft && hasBoundaryOnRight)
+	) {
 		return {
 			leftChannel: leftKeys.length
 				? normalizeChannel({
@@ -1046,15 +1054,14 @@ function splitScalarChannelAtTime({
 		};
 	}
 
-	for (let keyIndex = 0; keyIndex < normalizedChannel.keys.length - 1; keyIndex++) {
+	for (
+		let keyIndex = 0;
+		keyIndex < normalizedChannel.keys.length - 1;
+		keyIndex++
+	) {
 		const leftKey = normalizedChannel.keys[keyIndex];
 		const rightKey = normalizedChannel.keys[keyIndex + 1];
-		if (
-			!(
-				splitTime > leftKey.time &&
-				splitTime < rightKey.time
-			)
-		) {
+		if (!(splitTime > leftKey.time && splitTime < rightKey.time)) {
 			continue;
 		}
 
@@ -1247,8 +1254,8 @@ export function splitAnimationsAtTime({
 	const leftAnimations = cloneAnimationsState({ animations: undefined });
 	const rightAnimations = cloneAnimationsState({ animations: undefined });
 
-	for (const [propertyPath, data] of Object.entries(animations).filter(([key]) =>
-		isAnimationStorageKey({ key }),
+	for (const [propertyPath, data] of Object.entries(animations).filter(
+		([key]) => isAnimationStorageKey({ key }),
 	)) {
 		if (!data) {
 			continue;
@@ -1304,7 +1311,10 @@ export function removeElementKeyframe({
 
 	const nextAnimations = cloneAnimationsState({ animations });
 	if (isLeafChannelData(data)) {
-		nextAnimations[propertyPath] = removeKeyframe({ channel: data, keyframeId });
+		nextAnimations[propertyPath] = removeKeyframe({
+			channel: data,
+			keyframeId,
+		});
 	} else if (isCompositeChannelData(data)) {
 		let nextData: ChannelData | undefined = data;
 		for (const [componentKey, channel] of Object.entries(data)) {

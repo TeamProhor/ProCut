@@ -126,9 +126,7 @@ export function useEditorActions() {
 		() => {
 			const fps = editor.project.getActive().settings.fps;
 			const ticksPerFrame = mediaTime({
-				ticks: Math.round(
-					(TICKS_PER_SECOND * fps.denominator) / fps.numerator,
-				),
+				ticks: Math.round((TICKS_PER_SECOND * fps.denominator) / fps.numerator),
 			});
 			editor.playback.seek({
 				time: minMediaTime({
@@ -148,9 +146,7 @@ export function useEditorActions() {
 		() => {
 			const fps = editor.project.getActive().settings.fps;
 			const ticksPerFrame = mediaTime({
-				ticks: Math.round(
-					(TICKS_PER_SECOND * fps.denominator) / fps.numerator,
-				),
+				ticks: Math.round((TICKS_PER_SECOND * fps.denominator) / fps.numerator),
 			});
 			editor.playback.seek({
 				time: maxMediaTime({

@@ -40,9 +40,7 @@ export function snapToStep({
 }): number {
 	if (step <= 0) return value;
 	const snappedValue = Math.round(value / step) * step;
-	return Number(
-		snappedValue.toFixed(getFractionDigitsForStep({ step })),
-	);
+	return Number(snappedValue.toFixed(getFractionDigitsForStep({ step })));
 }
 
 export function isNearlyEqual({

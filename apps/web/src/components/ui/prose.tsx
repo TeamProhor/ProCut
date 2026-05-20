@@ -85,11 +85,17 @@ function renderHastNode({
 		renderHastNode({ node: childNode, key: `${key}-${index}` }),
 	);
 
-	return createElement(node.tagName, { ...toReactProps({ properties: node.properties }), key }, children);
+	return createElement(
+		node.tagName,
+		{ ...toReactProps({ properties: node.properties }), key },
+		children,
+	);
 }
 
 function renderHtmlNodes({ html }: { html: string }): React.ReactNode {
-	const rootNode = unified().use(rehypeParse, { fragment: true }).parse(html) as HastRootNode;
+	const rootNode = unified()
+		.use(rehypeParse, { fragment: true })
+		.parse(html) as HastRootNode;
 	return (rootNode.children ?? []).map((childNode, index) =>
 		renderHastNode({ node: childNode, key: `prose-node-${index}` }),
 	);

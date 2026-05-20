@@ -282,14 +282,14 @@ export class KeyframeDragController {
 					elementId: ref.elementId,
 					propertyPath: ref.propertyPath,
 					keyframeId: ref.keyframeId,
-				nextTime: clampMediaTime({
-					time: addMediaTime({
-						a: keyframe.time,
-						b: mediaTime({ ticks: deltaTicks }),
+					nextTime: clampMediaTime({
+						time: addMediaTime({
+							a: keyframe.time,
+							b: mediaTime({ ticks: deltaTicks }),
+						}),
+						min: ZERO_MEDIA_TIME,
+						max: element.duration,
 					}),
-					min: ZERO_MEDIA_TIME,
-					max: element.duration,
-				}),
 				}),
 			];
 		});

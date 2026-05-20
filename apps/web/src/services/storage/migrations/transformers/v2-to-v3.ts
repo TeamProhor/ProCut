@@ -46,8 +46,7 @@ function getScenes({ project }: { project: ProjectRecord }): unknown[] {
 function getDurationFromScenes({ scenes }: { scenes: unknown[] }): number {
 	const mainScene =
 		scenes.find(
-			(s): s is Record<string, unknown> =>
-				isRecord(s) && s.isMain === true,
+			(s): s is Record<string, unknown> => isRecord(s) && s.isMain === true,
 		) ??
 		scenes.find(isRecord) ??
 		null;

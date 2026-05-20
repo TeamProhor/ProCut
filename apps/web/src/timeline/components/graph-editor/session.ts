@@ -62,8 +62,7 @@ interface GraphEditorBaseSelectionState {
 	message: string;
 }
 
-export interface GraphEditorUnavailableState
-	extends GraphEditorBaseSelectionState {
+export interface GraphEditorUnavailableState extends GraphEditorBaseSelectionState {
 	status: "unavailable";
 	reason: GraphEditorUnavailableReason;
 }

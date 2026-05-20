@@ -30,7 +30,11 @@ export function transformProjectV29ToV30({
 	};
 }
 
-function migrateProject({ project }: { project: ProjectRecord }): ProjectRecord {
+function migrateProject({
+	project,
+}: {
+	project: ProjectRecord;
+}): ProjectRecord {
 	const nextProject = { ...project };
 	if (Array.isArray(project.scenes)) {
 		nextProject.scenes = project.scenes.map((scene) => migrateScene({ scene }));
@@ -132,7 +136,11 @@ function migrateAnimations({
 	return nextAnimations;
 }
 
-function migrateChannel({ channel }: { channel: ProjectRecord }): ProjectRecord {
+function migrateChannel({
+	channel,
+}: {
+	channel: ProjectRecord;
+}): ProjectRecord {
 	const { kind: _kind, ...nextChannel } = channel;
 	return nextChannel;
 }

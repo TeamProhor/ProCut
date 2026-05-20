@@ -83,7 +83,7 @@ export default [
 			],
 			"no-empty": "warn",
 			"opencut/prefer-object-params": "error",
-			
+
 			// `react/prop-types` is for the JS-era React workflow where runtime
 			// `propTypes` declarations are the prop contract. In this TS-only
 			// scope the prop types already are the contract; the rule's only

@@ -98,7 +98,8 @@ export async function runStorageMigrations({
 			await projectsAdapter.set({
 				key: projectId,
 				value: result.project,
-			});			migratedCount++;
+			});
+			migratedCount++;
 			currentVersion = migration.to;
 			projectRecord = result.project;
 		}

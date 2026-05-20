@@ -96,6 +96,8 @@ export function savePreset({ value }: { value: NormalizedCubicBezier }): void {
 }
 
 export function removePreset({ id }: { id: string }): void {
-	writeToStorage({ presets: getSnapshot().filter((preset) => preset.id !== id) });
+	writeToStorage({
+		presets: getSnapshot().filter((preset) => preset.id !== id),
+	});
 	notify();
 }

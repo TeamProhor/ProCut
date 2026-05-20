@@ -113,7 +113,9 @@ function filterCountriesByQuery({
 	const regionIds = resolveQueryToRegions({ query });
 
 	if (regionIds) {
-		return countries.filter((country) => country.region && regionIds.has(country.region));
+		return countries.filter(
+			(country) => country.region && regionIds.has(country.region),
+		);
 	}
 
 	return countries.filter((country) => {

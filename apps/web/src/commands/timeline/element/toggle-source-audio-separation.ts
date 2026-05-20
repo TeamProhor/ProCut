@@ -5,10 +5,7 @@ import {
 	canExtractSourceAudio,
 	isSourceAudioSeparated,
 } from "@/timeline/audio-separation";
-import {
-	applyPlacement,
-	resolveTrackPlacement,
-} from "@/timeline/placement";
+import { applyPlacement, resolveTrackPlacement } from "@/timeline/placement";
 import { updateElementInSceneTracks } from "@/timeline/track-element-update";
 import type {
 	SceneTracks,

@@ -17,7 +17,7 @@ has crossed into domain territory.
 Primitives have:
 
 - No domain-specific invariants (a 2D position doesn't care that it's a clip's
-position; it's just `{ x, y }`).
+  position; it's just `{ x, y }`).
 - No dependencies on other parts of the app — they're leaves.
 - Multiple unrelated consumers across domains.
 - A name that would make sense in any 2D editor / video tool / graphics lib.
@@ -52,6 +52,6 @@ location, that file collapses back into `apps/web/src/animation/values.ts`
 alongside the other resolve-at-time helpers — there's no remaining reason to
 split them.
 
-When moving a primitive, look at what *else* in its current folder only exists
+When moving a primitive, look at what _else_ in its current folder only exists
 because of that primitive. Those usually want to move too (or merge somewhere
 else once the anchor is gone).

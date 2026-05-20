@@ -68,10 +68,7 @@ export function decodePersistedKeybindingsState({
 	}
 
 	if (dropped.length > 0) {
-		console.warn(
-			"[keybindings] Dropped invalid persisted entries:",
-			dropped,
-		);
+		console.warn("[keybindings] Dropped invalid persisted entries:", dropped);
 	}
 
 	return {
@@ -109,9 +106,7 @@ export function parseImportedKeybindings({
 			throw new Error(`Invalid shortcut key: ${JSON.stringify(key)}`);
 		}
 		if (!isActionWithOptionalArgs(action)) {
-			throw new Error(
-				`Invalid action for "${key}": ${JSON.stringify(action)}`,
-			);
+			throw new Error(`Invalid action for "${key}": ${JSON.stringify(action)}`);
 		}
 		result.set(key, action);
 	}

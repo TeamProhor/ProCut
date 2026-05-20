@@ -12,7 +12,8 @@ const inputVariants = cva(
 	{
 		variants: {
 			variant: {
-				default: "selection:bg-primary selection:text-primary-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/20",
+				default:
+					"selection:bg-primary selection:text-primary-foreground focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/20",
 				outline: "bg-background",
 				destructive:
 					"selection:bg-destructive selection:text-destructive-foreground focus-visible:border-destructive focus-visible:ring-destructive/10",
@@ -32,7 +33,8 @@ const inputVariants = cva(
 );
 
 interface InputProps
-	extends Omit<ComponentProps<"input">, "size">,
+	extends
+		Omit<ComponentProps<"input">, "size">,
 		VariantProps<typeof inputVariants> {
 	showPassword?: boolean;
 	onShowPasswordChange?: (show: boolean) => void;

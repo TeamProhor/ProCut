@@ -74,7 +74,10 @@ export function getEditableScalarChannel({
 	componentKey: string;
 }): ScalarGraphChannel | null {
 	const result = getEditableScalarChannels({ animations, propertyPath });
-	return result?.channels.find((channel) => channel.componentKey === componentKey) ?? null;
+	return (
+		result?.channels.find((channel) => channel.componentKey === componentKey) ??
+		null
+	);
 }
 
 export function getScalarKeyframeContext({

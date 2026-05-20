@@ -23,9 +23,7 @@ export default {
 
 		function isDirectCallback(node) {
 			const parent = node.parent;
-			return (
-				isCallArgument(parent) && parent.arguments.includes(node)
-			);
+			return isCallArgument(parent) && parent.arguments.includes(node);
 		}
 
 		// Some APIs receive callbacks via a property somewhere inside an inline
@@ -48,14 +46,14 @@ export default {
 			let objectExpression = property.parent;
 			while (objectExpression?.type === "ObjectExpression") {
 				const parent = objectExpression.parent;
-				if (isCallArgument(parent) && parent.arguments.includes(objectExpression)) {
+				if (
+					isCallArgument(parent) &&
+					parent.arguments.includes(objectExpression)
+				) {
 					return true;
 				}
 
-				if (
-					parent?.type !== "Property" ||
-					parent.value !== objectExpression
-				) {
+				if (parent?.type !== "Property" || parent.value !== objectExpression) {
 					return false;
 				}
 

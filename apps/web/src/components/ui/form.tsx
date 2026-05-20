@@ -55,9 +55,7 @@ function Form<
 		try {
 			const stored = store.getItem(persistKeyOnMount.current);
 			if (stored) {
-				resetRef.current(
-					JSON.parse(stored) as DefaultValues<TFieldValues>,
-				);
+				resetRef.current(JSON.parse(stored) as DefaultValues<TFieldValues>);
 			}
 		} catch {
 			// Storage may be unavailable (private browsing, storage blocked)

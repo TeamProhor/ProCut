@@ -257,21 +257,21 @@ export function MaskHandles({
 					);
 				}
 
-			if (handle.kind === "point") {
-				return (
-					<CircleHandle
-						key={key}
-						screen={screen}
-						size={CUSTOM_MASK_ANCHOR_SIZE}
-						isSelected={handle.isSelected}
-						onPointerDown={(event) =>
-							handleMaskPointerDown({ event, handleId: handle.id })
-						}
-						onPointerMove={onPointerMove}
-						onPointerUp={onPointerUp}
-					/>
-				);
-			}
+				if (handle.kind === "point") {
+					return (
+						<CircleHandle
+							key={key}
+							screen={screen}
+							size={CUSTOM_MASK_ANCHOR_SIZE}
+							isSelected={handle.isSelected}
+							onPointerDown={(event) =>
+								handleMaskPointerDown({ event, handleId: handle.id })
+							}
+							onPointerMove={onPointerMove}
+							onPointerUp={onPointerUp}
+						/>
+					);
+				}
 
 				if (handle.kind === "corner") {
 					return (

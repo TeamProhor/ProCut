@@ -8,11 +8,10 @@ export interface PreviewViewportGeometry {
 	viewportWidth: number;
 }
 
-function getCanvasOrigin({
-	geometry,
-}: {
-	geometry: PreviewViewportGeometry;
-}): { x: number; y: number } {
+function getCanvasOrigin({ geometry }: { geometry: PreviewViewportGeometry }): {
+	x: number;
+	y: number;
+} {
 	return {
 		x: geometry.viewportWidth / 2 - geometry.centerX * geometry.scale,
 		y: geometry.viewportHeight / 2 - geometry.centerY * geometry.scale,

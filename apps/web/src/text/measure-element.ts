@@ -3,9 +3,7 @@ import { DEFAULTS } from "@/timeline/defaults";
 import type { TextElement } from "@/timeline";
 import type { TextBackground } from "@/text/background";
 import { resolveNumberAtTime } from "@/animation/values";
-import {
-	getTextVisualRect,
-} from "./layout";
+import { getTextVisualRect } from "./layout";
 import {
 	measureTextLayout,
 	type MeasuredTextLayout,

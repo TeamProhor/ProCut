@@ -70,7 +70,10 @@ export const starGraphicDefinition: GraphicDefinition = {
 		const stroke = String(params.stroke ?? "#000000");
 		const strokeWidth = Math.max(0, Number(params.strokeWidth ?? 0));
 		const strokeAlign = (params.strokeAlign ?? "center") as GraphicStrokeAlign;
-		const points = Math.max(3, Math.min(12, Math.round(Number(params.points ?? 5))));
+		const points = Math.max(
+			3,
+			Math.min(12, Math.round(Number(params.points ?? 5))),
+		);
 		const depth = Math.max(1, Math.min(99, Number(params.depth ?? 45))) / 100;
 		const inset = strokeAlign === "center" ? strokeWidth / 2 : 0;
 		const outerRadius = Math.max(1, Math.min(width, height) / 2 - inset);

@@ -44,7 +44,8 @@ export class AddMediaAssetCommand extends Command {
 		editor.media.setAssets({
 			assets: [...this.savedAssets, this.createdAsset],
 		});
-		this.previousProjectFps = editor.project.getActiveOrNull()?.settings.fps ?? null;
+		this.previousProjectFps =
+			editor.project.getActiveOrNull()?.settings.fps ?? null;
 		this.appliedProjectFps = editor.project.ratchetFpsForImportedMedia({
 			importedAssets: [this.createdAsset],
 		});
@@ -121,7 +122,8 @@ export class AddMediaAssetCommand extends Command {
 	}: {
 		editor: EditorCore;
 	}): void {
-		if (this.previousProjectFps === null || this.appliedProjectFps === null) return;
+		if (this.previousProjectFps === null || this.appliedProjectFps === null)
+			return;
 
 		const activeProject = editor.project.getActiveOrNull();
 		if (!activeProject) return;
@@ -137,7 +139,8 @@ export class AddMediaAssetCommand extends Command {
 		const highestRemainingVideoFps = getHighestImportedVideoFps({
 			mediaAssets: editor.media.getAssets(),
 		});
-		const appliedFpsFloat = this.appliedProjectFps.numerator / this.appliedProjectFps.denominator;
+		const appliedFpsFloat =
+			this.appliedProjectFps.numerator / this.appliedProjectFps.denominator;
 		if (
 			highestRemainingVideoFps !== null &&
 			highestRemainingVideoFps >= appliedFpsFloat
@@ -145,6 +148,8 @@ export class AddMediaAssetCommand extends Command {
 			return;
 		}
 
-		new UpdateProjectSettingsCommand({ fps: this.previousProjectFps }).execute();
+		new UpdateProjectSettingsCommand({
+			fps: this.previousProjectFps,
+		}).execute();
 	}
 }

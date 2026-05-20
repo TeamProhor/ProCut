@@ -20,4 +20,3 @@ Each app is a frontend that calls into Rust. Logic is never duplicated between a
 ### React
 
 - Read components before using them. They may already apply classes, which affects what you need to pass and how to override them.
-

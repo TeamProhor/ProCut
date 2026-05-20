@@ -45,16 +45,14 @@ export default function PrivacyPage() {
 								your files
 							</li>
 							<li>
-								AI features like auto captions run locally in your browser
-								too - nothing is uploaded
+								AI features like auto captions run locally in your browser too -
+								nothing is uploaded
 							</li>
-							<li>
-								OpenCut does not currently require an account or login
-							</li>
+							<li>OpenCut does not currently require an account or login</li>
 							<li>Project data stays on your device, not our servers</li>
 							<li>
-								We use anonymized analytics to improve the app, but no personal video
-								content is tracked
+								We use anonymized analytics to improve the app, but no personal
+								video content is tracked
 							</li>
 							<li>You can clear local data from your browser at any time</li>
 							<li>
@@ -100,8 +98,8 @@ export default function PrivacyPage() {
 				</p>
 				<p>
 					Your projects are never stored on our servers. All project data,
-					including names, thumbnails, and creation dates, is stored locally
-					in your browser using IndexedDB.
+					including names, thumbnails, and creation dates, is stored locally in
+					your browser using IndexedDB.
 				</p>
 			</section>
 
@@ -132,7 +130,9 @@ export default function PrivacyPage() {
 				<ul className="list-disc space-y-2 pl-6">
 					<li>Save your projects locally on your device</li>
 					<li>Remember your editor preferences and settings</li>
-					<li>Store app state needed for the editor to work between sessions</li>
+					<li>
+						Store app state needed for the editor to work between sessions
+					</li>
 				</ul>
 				<p>
 					All data stays on your device and can be cleared at any time through

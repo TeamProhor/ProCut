@@ -16,10 +16,7 @@ export function OcVercelIcon({ className }: IconProps) {
 	);
 }
 
-export function OcMarbleIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcMarbleIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -39,10 +36,7 @@ export function OcMarbleIcon({
 	);
 }
 
-export function OcDataBuddyIcon({
-	className = "",
-	size = 32,
-}: IconProps) {
+export function OcDataBuddyIcon({ className = "", size = 32 }: IconProps) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

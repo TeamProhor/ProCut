@@ -162,8 +162,7 @@ export function useBookmarkDrag({
 					zoomLevel,
 					scrollLeft,
 				});
-				const clampedTime =
-					mouseTime > duration ? duration : mouseTime;
+				const clampedTime = mouseTime > duration ? duration : mouseTime;
 				const frameSnappedTime = roundFrameTime({
 					time: clampedTime,
 					fps: activeProject.settings.fps,
@@ -194,8 +193,7 @@ export function useBookmarkDrag({
 				zoomLevel,
 				scrollLeft,
 			});
-			const clampedTime =
-				mouseTime > duration ? duration : mouseTime;
+			const clampedTime = mouseTime > duration ? duration : mouseTime;
 			const frameSnappedTime = roundFrameTime({
 				time: clampedTime,
 				fps: activeProject.settings.fps,

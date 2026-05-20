@@ -1,9 +1,6 @@
 import { EditorCore } from "@/core";
 import { Command, type CommandResult } from "@/commands/base-command";
-import {
-	buildEffectParamPath,
-	upsertPathKeyframe,
-} from "@/animation";
+import { buildEffectParamPath, upsertPathKeyframe } from "@/animation";
 import { updateElementInSceneTracks } from "@/timeline";
 import { isVisualElement } from "@/timeline/element-utils";
 import { resolveAnimationTarget } from "@/timeline/animation-targets";

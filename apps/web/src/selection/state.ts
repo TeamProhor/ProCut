@@ -1,7 +1,4 @@
-import type {
-	BoxSelectionChange,
-	SelectionState,
-} from "@/selection/types";
+import type { BoxSelectionChange, SelectionState } from "@/selection/types";
 
 function dedupeIds({ ids }: { ids: string[] }) {
 	return [...new Set(ids)];
@@ -61,7 +58,7 @@ export function pruneSelection({
 	const anchorId =
 		state.anchorId && validIds.has(state.anchorId)
 			? state.anchorId
-			: selectedIds[selectedIds.length - 1] ?? null;
+			: (selectedIds[selectedIds.length - 1] ?? null);
 	const isUnchanged =
 		selectedIds.length === state.selectedIds.length &&
 		anchorId === state.anchorId;
@@ -94,10 +91,12 @@ export function toggleSelection({
 	id: string;
 }): SelectionState {
 	if (isSelected({ state, id })) {
-		const selectedIds = state.selectedIds.filter((selectedId) => selectedId !== id);
+		const selectedIds = state.selectedIds.filter(
+			(selectedId) => selectedId !== id,
+		);
 		const anchorId =
 			state.anchorId === id
-				? selectedIds[selectedIds.length - 1] ?? null
+				? (selectedIds[selectedIds.length - 1] ?? null)
 				: state.anchorId;
 		return replaceSelection({
 			ids: selectedIds,
@@ -155,8 +154,8 @@ export function applyBoxSelection({
 			})
 		: intersectedIds;
 	const anchorId = isAdditive
-		? initialAnchorId ?? intersectedIds[intersectedIds.length - 1] ?? null
-		: intersectedIds[intersectedIds.length - 1] ?? null;
+		? (initialAnchorId ?? intersectedIds[intersectedIds.length - 1] ?? null)
+		: (intersectedIds[intersectedIds.length - 1] ?? null);
 
 	return replaceSelection({
 		ids: selectedIds,

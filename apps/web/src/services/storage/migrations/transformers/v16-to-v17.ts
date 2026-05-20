@@ -69,7 +69,10 @@ function backfillMaskStrokeAlign({
 					}
 
 					const paramsValue = mask.params;
-					if (!isRecord(paramsValue) || typeof paramsValue.strokeAlign === "string") {
+					if (
+						!isRecord(paramsValue) ||
+						typeof paramsValue.strokeAlign === "string"
+					) {
 						return mask;
 					}
 

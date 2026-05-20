@@ -1,6 +1,4 @@
-import {
-	STICKER_CATEGORIES,
-} from "@/stickers/categories";
+import { STICKER_CATEGORIES } from "@/stickers/categories";
 import { STICKER_INTRINSIC_SIZE_FALLBACK } from "@/stickers/intrinsic-size";
 import type { StickerCategory } from "@/stickers/types";
 import { stickersRegistry } from "./registry";
@@ -262,17 +260,17 @@ export async function browseAll({
 			}
 
 			const category = provider.id as StickerCategory;
-		return {
-			...firstSection,
-			id: category,
-			title: STICKER_CATEGORIES[category] ?? firstSection.title,
-			layout: "row" as const,
-			action: {
-				type: "see-all" as const,
-				category,
-				sectionId: firstSection.id,
-			},
-		};
+			return {
+				...firstSection,
+				id: category,
+				title: STICKER_CATEGORIES[category] ?? firstSection.title,
+				layout: "row" as const,
+				action: {
+					type: "see-all" as const,
+					category,
+					sectionId: firstSection.id,
+				},
+			};
 		}),
 	);
 

@@ -22,13 +22,7 @@ function buildHeartPath({
 	halfHeight: number;
 	rotationRad: number;
 }): Path2D {
-	const toPoint = ({
-		localX,
-		localY,
-	}: {
-		localX: number;
-		localY: number;
-	}) =>
+	const toPoint = ({ localX, localY }: { localX: number; localY: number }) =>
 		rotatePoint({
 			x: centerX + localX,
 			y: centerY + localY,

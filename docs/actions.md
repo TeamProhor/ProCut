@@ -29,12 +29,15 @@ if (key === "escape") return "escape";
 
 ```typescript
 export function vNToVN1({ state }: { state: unknown }): unknown {
-    const s = state as { keybindings: Record<string, string>; isCustomized: boolean };
-    const keybindings = { ...s.keybindings };
-    if (!keybindings["my-key"]) {
-        keybindings["my-key"] = "my-action";
-    }
-    return { ...s, keybindings };
+	const s = state as {
+		keybindings: Record<string, string>;
+		isCustomized: boolean;
+	};
+	const keybindings = { ...s.keybindings };
+	if (!keybindings["my-key"]) {
+		keybindings["my-key"] = "my-action";
+	}
+	return { ...s, keybindings };
 }
 ```
 
@@ -44,11 +47,11 @@ export function vNToVN1({ state }: { state: unknown }): unknown {
 
 ```typescript
 useActionHandler(
-    "my-action",
-    () => {
-        editor.timeline.doSomething();
-    },
-    undefined, // isActive: MutableRefObject<boolean> | boolean | undefined
+	"my-action",
+	() => {
+		editor.timeline.doSomething();
+	},
+	undefined, // isActive: MutableRefObject<boolean> | boolean | undefined
 );
 ```
 
@@ -58,8 +61,8 @@ Only required if your action accepts arguments:
 
 ```typescript
 export type TActionArgsMap = {
-    // ...existing actions...
-    "my-action": { someValue: number } | undefined; // | undefined = optional args
+	// ...existing actions...
+	"my-action": { someValue: number } | undefined; // | undefined = optional args
 };
 ```
 

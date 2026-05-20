@@ -64,9 +64,6 @@ export {
 	type GroupKeyframeRef,
 } from "./property-groups";
 
-export {
-	isAnimationPath,
-	isAnimationPropertyPath,
-} from "./path";
+export { isAnimationPath, isAnimationPropertyPath } from "./path";
 
 export type { NumericSpec } from "./types";

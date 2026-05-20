@@ -86,11 +86,7 @@ export function parseColorToLinearRgba({
 	};
 }
 
-export function formatLinearRgba({
-	color,
-}: {
-	color: LinearRgba;
-}): string {
+export function formatLinearRgba({ color }: { color: LinearRgba }): string {
 	const rgb: {
 		mode: "rgb";
 		r: number;
@@ -153,24 +149,25 @@ const colorComponent = (
 	defaultInterpolation: "linear",
 });
 
-export const COLOR_CHANNEL_LAYOUT: CompositeChannelLayout<string, LinearRgba> = {
-	kind: "composite",
-	components: [
-		colorComponent("r"),
-		colorComponent("g"),
-		colorComponent("b"),
-		colorComponent("a"),
-	],
-	easingMode: "shared",
-	decompose: (value) => parseColorToLinearRgba({ color: value }),
-	compose: ({ r, g, b, a }) =>
-		typeof r === "number" &&
-		typeof g === "number" &&
-		typeof b === "number" &&
-		typeof a === "number"
-			? formatLinearRgba({ color: { r, g, b, a } })
-			: null,
-};
+export const COLOR_CHANNEL_LAYOUT: CompositeChannelLayout<string, LinearRgba> =
+	{
+		kind: "composite",
+		components: [
+			colorComponent("r"),
+			colorComponent("g"),
+			colorComponent("b"),
+			colorComponent("a"),
+		],
+		easingMode: "shared",
+		decompose: (value) => parseColorToLinearRgba({ color: value }),
+		compose: ({ r, g, b, a }) =>
+			typeof r === "number" &&
+			typeof g === "number" &&
+			typeof b === "number" &&
+			typeof a === "number"
+				? formatLinearRgba({ color: { r, g, b, a } })
+				: null,
+	};
 
 interface BaseParamDefinition<TKey extends string = string> {
 	key: TKey;
@@ -180,8 +177,9 @@ interface BaseParamDefinition<TKey extends string = string> {
 	dependencies?: Array<{ param: string; equals: ParamValue }>;
 }
 
-export interface NumberParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface NumberParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "number";
 	default: number;
 	channels?: LeafChannelLayout<number>;
@@ -196,37 +194,42 @@ export interface NumberParamDefinition<TKey extends string = string>
 	shortLabel?: string;
 }
 
-export interface BooleanParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface BooleanParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "boolean";
 	default: boolean;
 	channels?: LeafChannelLayout<boolean>;
 }
 
-export interface ColorParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface ColorParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "color";
 	default: string;
 	channels?: ChannelLayout<string, LinearRgba>;
 }
 
-export interface SelectParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface SelectParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "select";
 	default: string;
 	channels?: LeafChannelLayout<string>;
 	options: Array<{ value: string; label: string }>;
 }
 
-export interface TextParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface TextParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "text";
 	default: string;
 	channels?: LeafChannelLayout<string>;
 }
 
-export interface FontParamDefinition<TKey extends string = string>
-	extends BaseParamDefinition<TKey> {
+export interface FontParamDefinition<
+	TKey extends string = string,
+> extends BaseParamDefinition<TKey> {
 	type: "font";
 	default: string;
 	channels?: LeafChannelLayout<string>;

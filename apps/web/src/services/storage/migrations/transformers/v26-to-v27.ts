@@ -27,11 +27,7 @@ function isFreeformPathPoint(value: unknown): value is FreeformPathPoint {
 	);
 }
 
-function parseFreeformPath({
-	path,
-}: {
-	path: string;
-}): FreeformPathPoint[] {
+function parseFreeformPath({ path }: { path: string }): FreeformPathPoint[] {
 	if (!path) {
 		return [];
 	}

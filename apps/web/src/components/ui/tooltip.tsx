@@ -39,7 +39,8 @@ const tooltipVariants = cva(
 );
 
 interface TooltipContentProps
-	extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
+	extends
+		React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
 		VariantProps<typeof tooltipVariants> {}
 
 const TooltipContent = React.forwardRef<

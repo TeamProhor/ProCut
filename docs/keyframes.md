@@ -10,7 +10,7 @@ Every `BaseTimelineElement` has an optional `animations?: ElementAnimations` fie
 
 ```typescript
 interface ElementAnimations {
-    channels: Record<string, AnimationChannel | undefined>;
+	channels: Record<string, AnimationChannel | undefined>;
 }
 ```
 
@@ -47,8 +47,8 @@ Using `"background.paddingX"` as an example.
 
 ```typescript
 export const ANIMATION_PROPERTY_PATHS = [
-    // ...existing paths
-    "background.paddingX",
+	// ...existing paths
+	"background.paddingX",
 ] as const;
 ```
 
@@ -72,6 +72,7 @@ export const ANIMATION_PROPERTY_PATHS = [
 ```
 
 **Notes:**
+
 - `getValue` must return the effective value including any defaults — this is what gets recorded when a keyframe is added.
 - `setValue` receives `AnimationValue` (`number | string | boolean`). Cast to the correct type since `coerceAnimationValueForProperty` already validated it upstream.
 - For color properties, use `valueKind: "color"` and cast `value as string`.
@@ -84,10 +85,10 @@ For **numbers**, use the existing generic `resolveNumberAtTime`:
 import { resolveNumberAtTime } from "@/lib/animation";
 
 const resolvedPaddingX = resolveNumberAtTime({
-    baseValue: element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
-    animations: element.animations,
-    propertyPath: "background.paddingX",
-    localTime,
+	baseValue: element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
+	animations: element.animations,
+	propertyPath: "background.paddingX",
+	localTime,
 });
 ```
 
@@ -95,10 +96,10 @@ For **colors**, use `resolveColorAtTime`:
 
 ```typescript
 const resolvedColor = resolveColorAtTime({
-    baseColor: element.color,
-    animations: element.animations,
-    propertyPath: "color",
-    localTime,
+	baseColor: element.color,
+	animations: element.animations,
+	propertyPath: "color",
+	localTime,
 });
 ```
 
@@ -110,10 +111,11 @@ In the relevant node (`src/services/renderer/nodes/`), call the resolve function
 
 ```typescript
 const resolvedPaddingX = resolveNumberAtTime({
-    baseValue: this.params.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
-    animations: this.params.animations,
-    propertyPath: "background.paddingX",
-    localTime,
+	baseValue:
+		this.params.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
+	animations: this.params.animations,
+	propertyPath: "background.paddingX",
+	localTime,
 });
 ```
 
@@ -127,33 +129,33 @@ In the properties panel, replace `usePropertyDraft` with the appropriate keyfram
 
 ```typescript
 const { localTime, isPlayheadWithinElementRange } = useElementPlayhead({
-    startTime: element.startTime,
-    duration: element.duration,
+	startTime: element.startTime,
+	duration: element.duration,
 });
 
 const resolvedPaddingX = resolveNumberAtTime({
-    baseValue: element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
-    animations: element.animations,
-    propertyPath: "background.paddingX",
-    localTime,
+	baseValue: element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
+	animations: element.animations,
+	propertyPath: "background.paddingX",
+	localTime,
 });
 
 const paddingX = useKeyframedNumberProperty({
-    trackId,
-    elementId: element.id,
-    animations: element.animations,
-    propertyPath: "background.paddingX",
-    localTime,
-    isPlayheadWithinElementRange,
-    displayValue: Math.round(resolvedPaddingX).toString(),
-    parse: (input) => {
-        const parsed = parseFloat(input);
-        return Number.isNaN(parsed) ? null : Math.max(0, Math.round(parsed));
-    },
-    valueAtPlayhead: resolvedPaddingX,
-    buildBaseUpdates: ({ value }) => ({
-        background: { ...element.background, paddingX: value },
-    }),
+	trackId,
+	elementId: element.id,
+	animations: element.animations,
+	propertyPath: "background.paddingX",
+	localTime,
+	isPlayheadWithinElementRange,
+	displayValue: Math.round(resolvedPaddingX).toString(),
+	parse: (input) => {
+		const parsed = parseFloat(input);
+		return Number.isNaN(parsed) ? null : Math.max(0, Math.round(parsed));
+	},
+	valueAtPlayhead: resolvedPaddingX,
+	buildBaseUpdates: ({ value }) => ({
+		background: { ...element.background, paddingX: value },
+	}),
 });
 ```
 
@@ -161,32 +163,35 @@ In JSX:
 
 ```tsx
 <SectionField
-    label="Width"
-    beforeLabel={
-        <KeyframeToggle
-            isActive={paddingX.isKeyframedAtTime}
-            isDisabled={!isPlayheadWithinElementRange}
-            title="Toggle background width keyframe"
-            onToggle={paddingX.toggleKeyframe}
-        />
-    }
+	label="Width"
+	beforeLabel={
+		<KeyframeToggle
+			isActive={paddingX.isKeyframedAtTime}
+			isDisabled={!isPlayheadWithinElementRange}
+			title="Toggle background width keyframe"
+			onToggle={paddingX.toggleKeyframe}
+		/>
+	}
 >
-    <NumberField
-        value={paddingX.displayValue}
-        onFocus={paddingX.onFocus}
-        onChange={paddingX.onChange}
-        onBlur={paddingX.onBlur}
-        onScrub={paddingX.scrubTo}
-        onScrubEnd={paddingX.commitScrub}
-        onReset={() => paddingX.commitValue({ value: DEFAULT_TEXT_BACKGROUND.paddingX })}
-        isDefault={isPropertyAtDefault({
-            hasAnimatedKeyframes: paddingX.hasAnimatedKeyframes,
-            isPlayheadWithinElementRange,
-            resolvedValue: resolvedPaddingX,
-            staticValue: element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
-            defaultValue: DEFAULT_TEXT_BACKGROUND.paddingX,
-        })}
-    />
+	<NumberField
+		value={paddingX.displayValue}
+		onFocus={paddingX.onFocus}
+		onChange={paddingX.onChange}
+		onBlur={paddingX.onBlur}
+		onScrub={paddingX.scrubTo}
+		onScrubEnd={paddingX.commitScrub}
+		onReset={() =>
+			paddingX.commitValue({ value: DEFAULT_TEXT_BACKGROUND.paddingX })
+		}
+		isDefault={isPropertyAtDefault({
+			hasAnimatedKeyframes: paddingX.hasAnimatedKeyframes,
+			isPlayheadWithinElementRange,
+			resolvedValue: resolvedPaddingX,
+			staticValue:
+				element.background.paddingX ?? DEFAULT_TEXT_BACKGROUND.paddingX,
+			defaultValue: DEFAULT_TEXT_BACKGROUND.paddingX,
+		})}
+	/>
 </SectionField>
 ```
 

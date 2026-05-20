@@ -450,9 +450,7 @@ export function usePreviewViewportState({
 				return false;
 			}
 
-			if (
-				event.currentTarget.hasPointerCapture(panSession.pointerId)
-			) {
+			if (event.currentTarget.hasPointerCapture(panSession.pointerId)) {
 				event.currentTarget.releasePointerCapture(panSession.pointerId);
 			}
 

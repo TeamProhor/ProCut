@@ -97,8 +97,10 @@ function scrubAcrossRanges({
 	return clampScrubValue({ value: currentValue, min, max });
 }
 
-interface NumberFieldProps
-	extends Omit<ComponentProps<"input">, "size" | "type"> {
+interface NumberFieldProps extends Omit<
+	ComponentProps<"input">,
+	"size" | "type"
+> {
 	icon?: React.ReactNode;
 	suffix?: string;
 	suffixClassName?: string;
@@ -141,7 +143,9 @@ function NumberField({
 	const cumulativeDeltaRef = useRef(0);
 	const [isInputFocused, setIsInputFocused] = useState(false);
 	const [suffixLeft, setSuffixLeft] = useState(0);
-	const ghostValue = Array.isArray(value) ? value.join(", ") : String(value ?? "");
+	const ghostValue = Array.isArray(value)
+		? value.join(", ")
+		: String(value ?? "");
 
 	useLayoutEffect(() => {
 		if (!suffix) {

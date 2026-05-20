@@ -48,30 +48,32 @@ function getCurvePatches({
 		return [];
 	}
 
-	return getChannelEntriesFromData({ data }).flatMap(([componentKey, channel]) => {
-		if (!channel || !isScalarChannel(channel)) {
-			return [];
-		}
+	return getChannelEntriesFromData({ data }).flatMap(
+		([componentKey, channel]) => {
+			if (!channel || !isScalarChannel(channel)) {
+				return [];
+			}
 
-		const keyframe = channel.keys.find(
-			(candidate) => candidate.id === keyframeId,
-		);
-		if (!keyframe) {
-			return [];
-		}
+			const keyframe = channel.keys.find(
+				(candidate) => candidate.id === keyframeId,
+			);
+			if (!keyframe) {
+				return [];
+			}
 
-		return [
-			{
-				componentKey,
-				patch: {
-					leftHandle: keyframe.leftHandle ?? null,
-					rightHandle: keyframe.rightHandle ?? null,
-					segmentToNext: keyframe.segmentToNext,
-					tangentMode: keyframe.tangentMode,
+			return [
+				{
+					componentKey,
+					patch: {
+						leftHandle: keyframe.leftHandle ?? null,
+						rightHandle: keyframe.rightHandle ?? null,
+						segmentToNext: keyframe.segmentToNext,
+						tangentMode: keyframe.tangentMode,
+					},
 				},
-			},
-		];
-	});
+			];
+		},
+	);
 }
 
 function buildClipboardItem({
@@ -157,10 +159,7 @@ export const KeyframesClipboardHandler = {
 		};
 	},
 
-	paste({
-		entry,
-		context: { selectedElements, time },
-	}) {
+	paste({ entry, context: { selectedElements, time } }) {
 		const targetElement = selectedElements[0];
 		if (!targetElement || entry.items.length === 0) {
 			return null;

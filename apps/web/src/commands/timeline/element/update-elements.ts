@@ -1,10 +1,7 @@
 import { EditorCore } from "@/core";
 import { Command, type CommandResult } from "@/commands/base-command";
 import type { SceneTracks, TimelineElement } from "@/timeline";
-import {
-	findTrackInSceneTracks,
-	updateElementInSceneTracks,
-} from "@/timeline";
+import { findTrackInSceneTracks, updateElementInSceneTracks } from "@/timeline";
 import { applyElementUpdate } from "@/timeline/update-pipeline";
 
 export class UpdateElementsCommand extends Command {

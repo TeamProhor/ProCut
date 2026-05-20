@@ -1,4 +1,9 @@
-import { buildGraphicPreviewUrl, buildDefaultGraphicInstance, graphicsRegistry, registerDefaultGraphics } from "@/graphics";
+import {
+	buildGraphicPreviewUrl,
+	buildDefaultGraphicInstance,
+	graphicsRegistry,
+	registerDefaultGraphics,
+} from "@/graphics";
 import type { ParamValues } from "@/params";
 import { buildStickerId, parseStickerId } from "../sticker-id";
 import type {
@@ -68,7 +73,8 @@ function getShapeParams({
 	preset: ShapeGraphicPreset;
 }): ParamValues {
 	return {
-		...buildDefaultGraphicInstance({ definitionId: preset.definitionId }).params,
+		...buildDefaultGraphicInstance({ definitionId: preset.definitionId })
+			.params,
 		...preset.params,
 	};
 }
@@ -117,7 +123,11 @@ function toStickerItem({
 	};
 }
 
-function filterShapesByQuery({ query }: { query: string }): ShapeGraphicPreset[] {
+function filterShapesByQuery({
+	query,
+}: {
+	query: string;
+}): ShapeGraphicPreset[] {
 	const normalizedQuery = query.trim().toLowerCase();
 	const presets = getShapePresets();
 	if (!normalizedQuery) {
