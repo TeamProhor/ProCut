@@ -1,6 +1,5 @@
-import { db, feedback } from "@/db";
-import { generateUUID } from "@/utils/id";
 import type { FeedbackEntry, SubmitFeedbackInput } from "./types";
+import { generateUUID } from "@/utils/id";
 
 export async function submitFeedback({
 	message,
@@ -8,7 +7,7 @@ export async function submitFeedback({
 	const id = generateUUID();
 	const now = new Date();
 
-	await db.insert(feedback).values({ id, message, createdAt: now });
+	console.log(`[Feedback] New feedback received: ${message}`);
 
 	return { id, message, createdAt: now.toISOString() };
 }
