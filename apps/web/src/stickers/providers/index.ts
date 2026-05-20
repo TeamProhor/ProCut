@@ -19,6 +19,9 @@ export function registerDefaultStickerProviders({
 		if (stickersRegistry.has(provider.id)) {
 			continue;
 		}
-		stickersRegistry.register(provider.id, provider);
+		stickersRegistry.register({
+			key: provider.id,
+			definition: provider,
+		});
 	}
 }
