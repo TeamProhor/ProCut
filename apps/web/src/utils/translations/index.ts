@@ -1,11 +1,14 @@
 import { homeTranslations } from "./home";
+import { projectsTranslations } from "./projects";
 
 export const translations = {
 	en: {
 		home: homeTranslations.en,
+		projects: projectsTranslations.en,
 	},
 	bn: {
 		home: homeTranslations.bn,
+		projects: projectsTranslations.bn,
 	},
 } as const;
 

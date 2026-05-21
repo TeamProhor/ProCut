@@ -17,15 +17,16 @@ This document outlines the steps to implement a multi-language system (EN/BN) ac
 - [x] Translate `Hero`
 - [x] Translate `Footer`
 
-### Project Page (Next Steps)
-- [ ] Create `apps/web/src/utils/translations/projects.ts`
-- [ ] Map strings for:
+### Project Page (Completed)
+- [x] Create `apps/web/src/utils/translations/projects.ts`
+- [x] Map strings for:
     - Search placeholder
     - Sort labels (Created, Modified, Name, Duration)
     - Buttons (New project, Duplicate, Delete, Info)
     - Breadcrumbs (Home, All projects)
     - Empty states (No projects yet, No results found)
-- [ ] Integrate `useTranslation` into `ProjectsPage` components.
+- [x] Integrate `useTranslation` into `ProjectsPage` components.
+- [x] Translate project dialogs (Delete, Rename, Info).
 
 ### Editor Page
 - [ ] Create `apps/web/src/utils/translations/editor.ts`
