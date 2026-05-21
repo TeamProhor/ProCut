@@ -1,31 +1,34 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { BasePage } from "@/app/base-page";
 import { Separator } from "@/components/ui/separator";
 import { getPosts } from "@/blog/query";
-import type { Post } from "@/blog/types";
+import type { Post, MarblePostList } from "@/blog/types";
+import { useTranslation } from "@/hooks/use-translation";
 
-export const metadata: Metadata = {
-	title: "Blog - OpenCut",
-	description:
-		"Read the latest news and updates about OpenCut, the free and open-source video editor.",
-	openGraph: {
-		title: "Blog - OpenCut",
-		description:
-			"Read the latest news and updates about OpenCut, the free and open-source video editor.",
-		type: "website",
-	},
-};
+export default function BlogPage() {
+	const { t } = useTranslation();
+	const blog = t.static.blog;
+	const [data, setData] = useState<MarblePostList | null>(null);
 
-export default async function BlogPage() {
-	const data = await getPosts().catch(() => null);
-	if (!data || !data.posts) return <div>No posts yet</div>;
+	useEffect(() => {
+		getPosts().then(setData).catch(() => setData(null));
+	}, []);
+
+	if (!data || !data.posts || data.posts.length === 0) {
+		return (
+			<BasePage title={blog.title} description={blog.description}>
+				<div className="py-12 text-center text-muted-foreground">
+					{blog.noPosts}
+				</div>
+			</BasePage>
+		);
+	}
 
 	return (
-		<BasePage
-			title="Blog"
-			description="Read the latest news and updates about OpenCut, the free and open-source video editor."
-		>
+		<BasePage title={blog.title} description={blog.description}>
 			<div className="flex flex-col">
 				{data.posts.map((post) => (
 					<div key={post.id} className="flex flex-col">
@@ -37,6 +40,7 @@ export default async function BlogPage() {
 		</BasePage>
 	);
 }
+
 
 function BlogPostItem({ post }: { post: Post }) {
 	return (

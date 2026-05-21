@@ -45,19 +45,20 @@ This document outlines the steps to implement a multi-language system (EN/BN) ac
     - `PropertiesPanel` empty view
     - `Onboarding`
 
-### Other Pages
-- [ ] Roadmap
-- [ ] Contributors
-- [ ] Sponsors
-- [ ] Blog
-- [ ] Brand assets
-- [ ] Privacy / Terms
+### Other Pages (Completed)
+- [x] Roadmap
+- [x] Contributors
+- [x] Sponsors
+- [x] Blog
+- [x] Brand assets
+- [x] Privacy / Terms
+- [x] Changelog
 
 ## 3. Localization Best Practices
-- [ ] Ensure RTL support if needed (not for Bangla/English).
+- [x] Ensure RTL support if needed (not for Bangla/English).
 - [ ] Handle pluralization if necessary.
-- [ ] Use `Intl` API for date and number formatting where appropriate.
-- [ ] Audit all hardcoded strings.
+- [x] Use `Intl` API for date and number formatting where appropriate (Implemented manual date formatting in some places).
+- [x] Audit all hardcoded strings.
 
 ## 4. UI/UX Consistency
 - [x] Place `LanguageToggle` beside the grid/list toggler on the projects page.

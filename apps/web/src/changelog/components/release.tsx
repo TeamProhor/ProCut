@@ -86,6 +86,8 @@ export function ReleaseDescription({ children }: { children: ReactNode }) {
 }
 
 export function ReleaseChanges({ release }: { release: Release }) {
+	const { t } = useTranslation();
+	const categories = t.static.changelog.categories;
 	const { grouped, orderedTypes } = groupAndOrderChanges({
 		changes: release.changes,
 	});
@@ -93,7 +95,12 @@ export function ReleaseChanges({ release }: { release: Release }) {
 	return (
 		<div className="flex flex-col gap-4">
 			{orderedTypes.map((type) => (
-				<ReleaseChangeSection key={type} type={type} changes={grouped[type]} />
+				<ReleaseChangeSection
+					key={type}
+					type={type}
+					changes={grouped[type]}
+					title={categories[type as keyof typeof categories] || type}
+				/>
 			))}
 		</div>
 	);
@@ -102,12 +109,12 @@ export function ReleaseChanges({ release }: { release: Release }) {
 function ReleaseChangeSection({
 	type,
 	changes,
+	title,
 }: {
 	type: string;
 	changes: Change[];
+	title: string;
 }) {
-	const title = getSectionTitle({ type });
-
 	if (isSectionCollapsible({ type })) {
 		return (
 			<details className="group flex flex-col gap-1.5">

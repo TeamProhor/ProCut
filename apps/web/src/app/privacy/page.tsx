@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import { BasePage } from "@/app/base-page";
 import {
 	Accordion,
@@ -8,105 +9,61 @@ import {
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { SOCIAL_LINKS } from "@/site/social";
-
-export const metadata: Metadata = {
-	title: "Privacy Policy - OpenCut",
-	description:
-		"Learn how OpenCut handles your data and privacy. Our commitment to protecting your information while you edit videos.",
-	openGraph: {
-		title: "Privacy Policy - OpenCut",
-		description:
-			"Learn how OpenCut handles your data and privacy. Our commitment to protecting your information while you edit videos.",
-		type: "website",
-	},
-};
+import { useTranslation } from "@/hooks/use-translation";
 
 export default function PrivacyPage() {
+	const { t } = useTranslation();
+	const privacy = t.legal.privacy;
+
 	return (
-		<BasePage
-			title="Privacy policy"
-			description="Learn how we handle your data and privacy. Contact us if you have any questions."
-		>
+		<BasePage title={privacy.title} description={privacy.description}>
 			<Accordion type="single" collapsible className="w-full">
 				<AccordionItem
 					value="quick-summary"
 					className="rounded-2xl border px-5"
 				>
 					<AccordionTrigger className="no-underline!">
-						Quick summary
+						{privacy.summary.title}
 					</AccordionTrigger>
 					<AccordionContent>
 						<h3 className="mb-3 text-lg font-medium">
-							Your content never leaves your device.
+							{privacy.summary.heading}
 						</h3>
 						<ol className="list-decimal space-y-2 pl-6">
-							<li>
-								Basic editing happens locally in your browser - we never see
-								your files
-							</li>
-							<li>
-								AI features like auto captions run locally in your browser too -
-								nothing is uploaded
-							</li>
-							<li>OpenCut does not currently require an account or login</li>
-							<li>Project data stays on your device, not our servers</li>
-							<li>
-								We use anonymized analytics to improve the app, but no personal
-								video content is tracked
-							</li>
-							<li>You can clear local data from your browser at any time</li>
-							<li>
-								We don&apos;t sell or share your data with anyone (we don&apos;t
-								even have it)
-							</li>
+							{privacy.summary.items.map((item, index) => (
+								<li key={index}>{item}</li>
+							))}
 						</ol>
 						<p className="mt-4">
-							Questions? Email us at{" "}
+							{privacy.summary.questions.split("{email}")[0]}
 							<a
 								href="mailto:oss@opencut.app"
 								className="text-primary hover:underline"
 							>
 								oss@opencut.app
 							</a>
+							{privacy.summary.questions.split("{email}")[1]}
 						</p>
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">How We Handle Your Content</h2>
-				<p>
-					<strong>
-						All editing and processing happens locally on your device.
-					</strong>{" "}
-					We never upload, store, or have access to your video or audio files.
-					Your content remains completely private and under your control.
-					AI-powered features like auto captions also run in your browser using
-					on-device models - no content ever leaves your device.
-				</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.content.title}</h2>
+				<p>{privacy.sections.content.text}</p>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Accounts & Authentication</h2>
-				<p>
-					OpenCut does not currently offer user accounts, login, or Google
-					sign-in.
-				</p>
-				<p>
-					Because there is no account system today, we do not collect account
-					emails, profile information, or OAuth identity data.
-				</p>
-				<p>
-					Your projects are never stored on our servers. All project data,
-					including names, thumbnails, and creation dates, is stored locally in
-					your browser using IndexedDB.
-				</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.accounts.title}</h2>
+				<p>{privacy.sections.accounts.p1}</p>
+				<p>{privacy.sections.accounts.p2}</p>
+				<p>{privacy.sections.accounts.p3}</p>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Analytics</h2>
+				<h2 className="text-2xl font-semibold">{privacy.sections.analytics.title}</h2>
 				<p>
-					We use{" "}
+					{privacy.sections.analytics.p1.split("{link}")[0]}
 					<a
 						href="https://www.databuddy.cc"
 						target="_blank"
@@ -114,64 +71,48 @@ export default function PrivacyPage() {
 						className="text-primary hover:underline"
 					>
 						Databuddy
-					</a>{" "}
-					for basic, anonymized visitor counts. We do not track clicks,
-					interactions, or how you use the editor.
+					</a>
+					{privacy.sections.analytics.p1.split("{link}")[1]}
 				</p>
-				<p>
-					No personal information is collected, no individual users are tracked,
-					and no data that could identify you is stored.
-				</p>
+				<p>{privacy.sections.analytics.p2}</p>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Local Storage & Cookies</h2>
-				<p>We use browser local storage and IndexedDB to:</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.storage.title}</h2>
+				<p>{privacy.sections.storage.p1}</p>
 				<ul className="list-disc space-y-2 pl-6">
-					<li>Save your projects locally on your device</li>
-					<li>Remember your editor preferences and settings</li>
-					<li>
-						Store app state needed for the editor to work between sessions
-					</li>
+					{privacy.sections.storage.items.map((item, index) => (
+						<li key={index}>{item}</li>
+					))}
 				</ul>
-				<p>
-					All data stays on your device and can be cleared at any time through
-					your browser settings.
-				</p>
+				<p>{privacy.sections.storage.p2}</p>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Third-Party Services</h2>
-				<p>OpenCut integrates with these services:</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.thirdParty.title}</h2>
+				<p>{privacy.sections.thirdParty.p1}</p>
 				<ul className="list-disc space-y-2 pl-6">
-					<li>
-						<strong>Vercel:</strong> For hosting and content delivery
-					</li>
-					<li>
-						<strong>Databuddy:</strong> For anonymized analytics
-					</li>
+					{privacy.sections.thirdParty.items.map((item, index) => (
+						<li key={index}>{item}</li>
+					))}
 				</ul>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Your Rights</h2>
-				<p>You have complete control over your data:</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.rights.title}</h2>
+				<p>{privacy.sections.rights.p1}</p>
 				<ul className="list-disc space-y-2 pl-6">
-					<li>No account is required to use OpenCut today</li>
-					<li>Clear local storage to remove all saved projects</li>
-					<li>Contact us with any privacy concerns</li>
+					{privacy.sections.rights.items.map((item, index) => (
+						<li key={index}>{item}</li>
+					))}
 				</ul>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Open Source Transparency</h2>
+				<h2 className="text-2xl font-semibold">{privacy.sections.transparency.title}</h2>
+				<p>{privacy.sections.transparency.p1}</p>
 				<p>
-					OpenCut is completely open source. You can review our code, see
-					exactly how we handle data, and even self-host the application if you
-					prefer.
-				</p>
-				<p>
-					View our source code on{" "}
+					{privacy.sections.transparency.p2.split("{link}")[0]}
 					<a
 						href={SOCIAL_LINKS.github}
 						target="_blank"
@@ -180,15 +121,16 @@ export default function PrivacyPage() {
 					>
 						GitHub
 					</a>
-					.
+					{privacy.sections.transparency.p2.split("{link}")[1]}
 				</p>
 			</section>
 
 			<section className="flex flex-col gap-3">
-				<h2 className="text-2xl font-semibold">Contact Us</h2>
-				<p>Questions about this privacy policy or how we handle your data?</p>
+				<h2 className="text-2xl font-semibold">{privacy.sections.contact.title}</h2>
+				<p>{privacy.sections.contact.p1}</p>
 				<p>
-					Open an issue on our{" "}
+					{privacy.sections.contact.p2
+						.split("{github}")[0]}
 					<a
 						href={`${SOCIAL_LINKS.github}/issues`}
 						target="_blank"
@@ -197,14 +139,18 @@ export default function PrivacyPage() {
 					>
 						GitHub repository
 					</a>
-					, email us at{" "}
+					{privacy.sections.contact.p2
+						.split("{github}")[1]
+						.split("{email}")[0]}
 					<a
 						href="mailto:oss@opencut.app"
 						className="text-primary hover:underline"
 					>
 						oss@opencut.app
 					</a>
-					, or reach out on{" "}
+					{privacy.sections.contact.p2
+						.split("{email}")[1]
+						.split("{x}")[0]}
 					<a
 						href={SOCIAL_LINKS.x}
 						target="_blank"
@@ -213,15 +159,16 @@ export default function PrivacyPage() {
 					>
 						X (Twitter)
 					</a>
-					.
+					{privacy.sections.contact.p2.split("{x}")[1]}
 				</p>
 			</section>
 
 			<Separator />
 
 			<p className="text-muted-foreground text-sm">
-				Last updated: March 15, 2026
+				{privacy.lastUpdated}
 			</p>
 		</BasePage>
 	);
 }
+

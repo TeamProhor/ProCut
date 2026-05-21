@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { BasePage } from "@/app/base-page";
@@ -7,35 +8,27 @@ import { SPONSORS, type Sponsor } from "@/site/sponsors";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/utils/ui";
-
-export const metadata: Metadata = {
-	title: "Sponsors - OpenCut",
-	description:
-		"Support OpenCut and help us build the future of free and open-source video editing.",
-	openGraph: {
-		title: "Sponsors - OpenCut",
-		description:
-			"Support OpenCut and help us build the future of free and open-source video editing.",
-		type: "website",
-	},
-};
+import { useTranslation } from "@/hooks/use-translation";
 
 export default function SponsorsPage() {
+	const { t } = useTranslation();
+	const sponsors = t.static.sponsors;
+
 	return (
 		<BasePage>
 			<div className="flex flex-col gap-8 text-center">
 				<h1 className="text-5xl font-bold tracking-tight md:text-6xl">
-					Sponsors
+					{sponsors.title}
 				</h1>
 				<p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed text-pretty">
-					Support OpenCut and help us build the future of privacy-first video
-					editing.
+					{sponsors.description}
 				</p>
 			</div>
 			<SponsorsGrid />
 		</BasePage>
 	);
 }
+
 
 function SponsorsGrid() {
 	return (

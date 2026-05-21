@@ -1,22 +1,13 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { GitHubContributeSection } from "@/components/gitHub-contribute-section";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { EXTERNAL_TOOLS } from "@/site/external-tools";
 import { BasePage } from "../base-page";
-
-export const metadata: Metadata = {
-	title: "Contributors - OpenCut",
-	description:
-		"Meet the amazing people who contribute to OpenCut, the free and open-source video editor.",
-	openGraph: {
-		title: "Contributors - OpenCut",
-		description:
-			"Meet the amazing people who contribute to OpenCut, the free and open-source video editor.",
-		type: "website",
-	},
-};
+import { useTranslation } from "@/hooks/use-translation";
 
 interface Contributor {
 	id: number;
@@ -36,7 +27,6 @@ async function getContributors(): Promise<Contributor[]> {
 					Accept: "application/vnd.github.v3+json",
 					"User-Agent": "OpenCut-Web-App",
 				},
-				next: { revalidate: 600 }, // 10 minutes
 			},
 		);
 
@@ -58,8 +48,15 @@ async function getContributors(): Promise<Contributor[]> {
 	}
 }
 
-export default async function ContributorsPage() {
-	const contributors = await getContributors();
+export default function ContributorsPage() {
+	const { t } = useTranslation();
+	const contributorsTrans = t.static.contributors;
+	const [contributors, setContributors] = useState<Contributor[]>([]);
+
+	useEffect(() => {
+		getContributors().then(setContributors);
+	}, []);
+
 	const topContributors = contributors.slice(0, 2);
 	const otherContributors = contributors.slice(2);
 	const totalContributions = contributors.reduce(
@@ -69,25 +66,43 @@ export default async function ContributorsPage() {
 
 	return (
 		<BasePage
-			title="Contributors"
-			description="Meet the amazing people who contribute to OpenCut, the free and open-source video editor."
+			title={contributorsTrans.title}
+			description={contributorsTrans.description}
 		>
 			<div className="-mt-4 flex items-center justify-center gap-8 text-sm">
-				<StatItem value={contributors.length} label="contributors" />
-				<StatItem value={totalContributions} label="contributions" />
+				<StatItem
+					value={contributors.length}
+					label={contributorsTrans.stats.contributors}
+				/>
+				<StatItem
+					value={totalContributions}
+					label={contributorsTrans.stats.contributions}
+				/>
 			</div>
 
 			<div className="mx-auto flex max-w-6xl flex-col gap-20">
 				{topContributors.length > 0 && (
-					<TopContributorsSection contributors={topContributors} />
+					<TopContributorsSection
+						contributors={topContributors}
+						title={contributorsTrans.sections.top.title}
+						description={contributorsTrans.sections.top.description}
+						contributionsLabel={contributorsTrans.stats.contributions}
+					/>
 				)}
 				{otherContributors.length > 0 && (
-					<AllContributorsSection contributors={otherContributors} />
+					<AllContributorsSection
+						contributors={otherContributors}
+						title={contributorsTrans.sections.all.title}
+						description={contributorsTrans.sections.all.description}
+					/>
 				)}
-				<ExternalToolsSection />
+				<ExternalToolsSection
+					title={contributorsTrans.sections.external.title}
+					description={contributorsTrans.sections.external.description}
+				/>
 				<GitHubContributeSection
-					title="Join the community"
-					description="OpenCut is built by developers like you. Every contribution, no matter how small, helps make video editing more accessible for everyone."
+					title={contributorsTrans.joinCommunity.title}
+					description={contributorsTrans.joinCommunity.description}
 				/>
 			</div>
 		</BasePage>
@@ -106,28 +121,42 @@ function StatItem({ value, label }: { value: number; label: string }) {
 
 function TopContributorsSection({
 	contributors,
+	title,
+	description,
+	contributionsLabel,
 }: {
 	contributors: Contributor[];
+	title: string;
+	description: string;
+	contributionsLabel: string;
 }) {
 	return (
 		<div className="flex flex-col gap-10">
 			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">Top contributors</h2>
-				<p className="text-muted-foreground">
-					Leading the way in contributions
-				</p>
+				<h2 className="text-2xl font-semibold">{title}</h2>
+				<p className="text-muted-foreground">{description}</p>
 			</div>
 
 			<div className="mx-auto flex w-full max-w-xl flex-col justify-center gap-6 md:flex-row">
 				{contributors.map((contributor) => (
-					<TopContributorCard key={contributor.id} contributor={contributor} />
+					<TopContributorCard
+						key={contributor.id}
+						contributor={contributor}
+						contributionsLabel={contributionsLabel}
+					/>
 				))}
 			</div>
 		</div>
 	);
 }
 
-function TopContributorCard({ contributor }: { contributor: Contributor }) {
+function TopContributorCard({
+	contributor,
+	contributionsLabel,
+}: {
+	contributor: Contributor;
+	contributionsLabel: string;
+}) {
 	return (
 		<Link
 			href={contributor.html_url}
@@ -150,7 +179,7 @@ function TopContributorCard({ contributor }: { contributor: Contributor }) {
 						<h3 className="text-xl font-semibold">{contributor.login}</h3>
 						<div className="flex items-center justify-center gap-2">
 							<span className="font-medium">{contributor.contributions}</span>
-							<span className="text-muted-foreground">contributions</span>
+							<span className="text-muted-foreground">{contributionsLabel}</span>
 						</div>
 					</div>
 				</CardContent>
@@ -161,16 +190,18 @@ function TopContributorCard({ contributor }: { contributor: Contributor }) {
 
 function AllContributorsSection({
 	contributors,
+	title,
+	description,
 }: {
 	contributors: Contributor[];
+	title: string;
+	description: string;
 }) {
 	return (
 		<div className="flex flex-col gap-12">
 			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">All contributors</h2>
-				<p className="text-muted-foreground">
-					Everyone who makes OpenCut better
-				</p>
+				<h2 className="text-2xl font-semibold">{title}</h2>
+				<p className="text-muted-foreground">{description}</p>
 			</div>
 
 			<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
@@ -206,12 +237,18 @@ function AllContributorsSection({
 	);
 }
 
-function ExternalToolsSection() {
+function ExternalToolsSection({
+	title,
+	description,
+}: {
+	title: string;
+	description: string;
+}) {
 	return (
 		<div className="flex flex-col gap-10">
 			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">External tools</h2>
-				<p className="text-muted-foreground">Tools we use to build OpenCut</p>
+				<h2 className="text-2xl font-semibold">{title}</h2>
+				<p className="text-muted-foreground">{description}</p>
 			</div>
 
 			<div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
@@ -240,3 +277,4 @@ function ExternalToolsSection() {
 		</div>
 	);
 }
+

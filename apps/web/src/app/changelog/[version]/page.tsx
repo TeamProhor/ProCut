@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { BasePage } from "@/app/base-page";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { getReleaseByVersion, getSortedReleases } from "@/changelog/utils";
+import { getSortedReleases } from "@/changelog/utils";
 import {
 	ReleaseArticle,
 	ReleaseMeta,
@@ -12,25 +13,14 @@ import {
 	ReleaseChanges,
 } from "@/changelog/components/release";
 import { CopyMarkdownButton } from "@/changelog/components/copy-markdown-button";
+import { useTranslation } from "@/hooks/use-translation";
 
-type Props = { params: Promise<{ version: string }> };
+export default function ReleaseDetailPage() {
+	const params = useParams();
+	const version = params?.version as string;
+	const { t } = useTranslation();
+	const changelog = t.static.changelog;
 
-export async function generateStaticParams() {
-	return getSortedReleases().map((release) => ({ version: release.version }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { version } = await params;
-	const release = getReleaseByVersion({ version });
-	if (!release) return {};
-	return {
-		title: `${release.title} (${release.version}) - OpenCut Changelog`,
-		description: release.description,
-	};
-}
-
-export default async function ReleaseDetailPage({ params }: Props) {
-	const { version } = await params;
 	const releases = getSortedReleases();
 	const index = releases.findIndex((entry) => entry.version === version);
 	if (index === -1) notFound();
@@ -46,7 +36,7 @@ export default async function ReleaseDetailPage({ params }: Props) {
 					className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 w-fit"
 				>
 					<ChevronLeftIcon className="size-4" />
-					All releases
+					{changelog.allReleases}
 				</Link>
 
 				<ReleaseArticle variant="detail">
@@ -74,7 +64,9 @@ export default async function ReleaseDetailPage({ params }: Props) {
 						>
 							<ChevronLeftIcon className="size-4" />
 							<div className="flex flex-col">
-								<span className="text-xs text-muted-foreground/60">Older</span>
+								<span className="text-xs text-muted-foreground/60">
+									{changelog.older}
+								</span>
 								<span className="font-medium">{older.title}</span>
 							</div>
 						</Link>
@@ -87,7 +79,9 @@ export default async function ReleaseDetailPage({ params }: Props) {
 							className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground group text-right"
 						>
 							<div className="flex flex-col">
-								<span className="text-xs text-muted-foreground/60">Newer</span>
+								<span className="text-xs text-muted-foreground/60">
+									{changelog.newer}
+								</span>
 								<span className="font-medium">{newer.title}</span>
 							</div>
 							<ChevronRightIcon className="size-4" />
