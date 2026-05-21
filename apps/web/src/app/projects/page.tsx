@@ -137,6 +137,8 @@ export default function ProjectsPage() {
 	);
 }
 
+import { LanguageToggle } from "@/components/language-toggle";
+
 function ProjectsHeader() {
 	const { viewMode, isHydrated, setViewMode } = useProjectsStore();
 
@@ -162,23 +164,26 @@ function ProjectsHeader() {
 						</BreadcrumbList>
 					</Breadcrumb>
 
-					<div className="hidden md:flex items-center rounded-md border p-1 px-1.5 h-10">
-						{VIEW_MODE_OPTIONS.map(({ mode, icon, label }) => (
-							<Button
-								key={mode}
-								variant="ghost"
-								size="icon"
-								className={cn(
-									"rounded-sm hover:bg-background",
-									isHydrated && viewMode === mode && "!bg-accent",
-								)}
-								onClick={() => setViewMode({ viewMode: mode })}
-								aria-label={label}
-								aria-pressed={isHydrated && viewMode === mode}
-							>
-								<HugeiconsIcon icon={icon} className="size-4" />
-							</Button>
-						))}
+					<div className="hidden md:flex items-center gap-2">
+						<div className="flex items-center rounded-md border p-1 px-1.5 h-10">
+							{VIEW_MODE_OPTIONS.map(({ mode, icon, label }) => (
+								<Button
+									key={mode}
+									variant="ghost"
+									size="icon"
+									className={cn(
+										"rounded-sm hover:bg-background",
+										isHydrated && viewMode === mode && "!bg-accent",
+									)}
+									onClick={() => setViewMode({ viewMode: mode })}
+									aria-label={label}
+									aria-pressed={isHydrated && viewMode === mode}
+								>
+									<HugeiconsIcon icon={icon} className="size-4" />
+								</Button>
+							))}
+						</div>
+						<LanguageToggle />
 					</div>
 				</div>
 
@@ -978,7 +983,7 @@ function EmptyState() {
 					<div className="flex flex-col items-center gap-3">
 						<h3 className="text-lg font-medium">No results found</h3>
 						<p className="text-muted-foreground max-w-md">
-							Your search for "{searchQuery}" did not return any results.
+							Your search for &quot;{searchQuery}&quot; did not return any results.
 						</p>
 					</div>
 				</div>

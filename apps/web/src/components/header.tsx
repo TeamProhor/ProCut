@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle } from "./language-toggle";
 import {
 	Copy01Icon,
 	Download01Icon,
@@ -16,7 +17,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/utils/ui";
-import { DEFAULT_LOGO_URL, SITE_URL } from "@/site/brand";
+import { DEFAULT_LOGO_URL } from "@/site/brand";
 import { SOCIAL_LINKS } from "@/site/social";
 import {
 	ContextMenu,
@@ -24,26 +25,28 @@ import {
 	ContextMenuItem,
 	ContextMenuTrigger,
 } from "./ui/context-menu";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function Header() {
+	const { t } = useTranslation();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const closeMenu = () => setIsMenuOpen(false);
 
 	const links = [
 		{
-			label: "Roadmap",
+			label: t.home.header.roadmap,
 			href: "/roadmap",
 		},
 		{
-			label: "Contributors",
+			label: t.home.header.contributors,
 			href: "/contributors",
 		},
 		{
-			label: "Sponsors",
+			label: t.home.header.sponsors,
 			href: "/sponsors",
 		},
 		{
-			label: "Blog",
+			label: t.home.header.blog,
 			href: "/blog",
 		},
 	];
@@ -73,7 +76,7 @@ export function Header() {
 								}}
 							>
 								<HugeiconsIcon icon={Copy01Icon} />
-								Copy SVG
+								{t.home.header.copySvg}
 							</ContextMenuItem>
 							<ContextMenuItem
 								onClick={() => {
@@ -84,12 +87,12 @@ export function Header() {
 								}}
 							>
 								<HugeiconsIcon icon={Download01Icon} />
-								Download SVG
+								{t.home.header.downloadSvg}
 							</ContextMenuItem>
 							<Link href="/brand">
 								<ContextMenuItem>
 									<HugeiconsIcon icon={LinkSquare02Icon} />
-									Brand assets
+									{t.home.header.brandAssets}
 								</ContextMenuItem>
 							</Link>
 						</ContextMenuContent>
@@ -108,6 +111,7 @@ export function Header() {
 
 				<div className="relative z-10">
 					<div className="flex items-center gap-3 md:hidden">
+						<LanguageToggle />
 						<Button
 							variant="text"
 							size="icon"
@@ -126,10 +130,11 @@ export function Header() {
 						</Link>
 						<Link href="/projects">
 							<Button className="text-sm">
-								Projects
+								{t.home.header.projects}
 								<ArrowRight className="size-4" />
 							</Button>
 						</Link>
+						<LanguageToggle />
 						<ThemeToggle />
 					</div>
 				</div>
@@ -182,14 +187,17 @@ export function Header() {
 								</motion.div>
 							))}
 						</nav>
-						<ThemeToggle
-							className="absolute right-8 bottom-8 size-10"
-							iconClassName="!size-[1.2rem]"
-							onToggle={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-							}}
-						/>
+						<div className="absolute right-8 bottom-8 flex items-center gap-3">
+							<LanguageToggle />
+							<ThemeToggle
+								className="size-10"
+								iconClassName="!size-[1.2rem]"
+								onToggle={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>

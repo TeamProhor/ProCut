@@ -2,12 +2,12 @@ import { ThemeProvider } from "next-themes";
 import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "../components/ui/sonner";
-import { ChangelogNotification } from "@/changelog/components/changelog-notification";
 import { TooltipProvider } from "../components/ui/tooltip";
 import { baseMetaData } from "./metadata";
 import { BotIdClient } from "botid/client";
 import { webEnv } from "@/env/web";
 import { Hind_Siliguri } from "next/font/google";
+import { LanguageProvider } from "@/components/providers/language-provider";
 
 const siteFont = Hind_Siliguri({
 	subsets: ["latin", "bengali"],
@@ -51,22 +51,24 @@ export default function RootLayout({
 					defaultTheme="system"
 					disableTransitionOnChange={true}
 				>
-					<TooltipProvider>
-						<Toaster />
-						<Script
-							src="https://cdn.databuddy.cc/databuddy.js"
-							strategy="afterInteractive"
-							async
-							data-client-id="UP-Wcoy5arxFeK7oyjMMZ"
-							data-disabled={webEnv.NODE_ENV === "development"}
-							data-track-attributes={false}
-							data-track-errors={true}
-							data-track-outgoing-links={false}
-							data-track-web-vitals={false}
-							data-track-sessions={false}
-						/>
-						{children}
-					</TooltipProvider>
+					<LanguageProvider>
+						<TooltipProvider>
+							<Toaster />
+							<Script
+								src="https://cdn.databuddy.cc/databuddy.js"
+								strategy="afterInteractive"
+								async
+								data-client-id="UP-Wcoy5arxFeK7oyjMMZ"
+								data-disabled={webEnv.NODE_ENV === "development"}
+								data-track-attributes={false}
+								data-track-errors={true}
+								data-track-outgoing-links={false}
+								data-track-web-vitals={false}
+								data-track-sessions={false}
+							/>
+							{children}
+						</TooltipProvider>
+					</LanguageProvider>
 				</ThemeProvider>
 			</body>
 		</html>
