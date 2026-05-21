@@ -369,7 +369,7 @@ function ProjectActions() {
 		.map((project) => project.name);
 
 	const handleDuplicate = async () => {
-		await duplicateProjects({ editor, ids: selectedProjectIds });
+		await editor.project.duplicateProjects({ ids: selectedProjectIds });
 		clearSelectedProjects();
 	};
 
@@ -378,7 +378,7 @@ function ProjectActions() {
 	};
 
 	const handleDeleteConfirm = async () => {
-		await deleteProjects({ editor, ids: selectedProjectIds });
+		await editor.project.deleteProjects({ ids: selectedProjectIds });
 		clearSelectedProjects();
 		setIsDeleteDialogOpen(false);
 	};
@@ -540,12 +540,12 @@ function ProjectItem({
 
 	const handleRename = () => setIsRenameDialogOpen(true);
 	const handleDuplicate = async () => {
-		await duplicateProjects({ editor, ids: [project.id] });
+		await editor.project.duplicateProjects({ ids: [project.id] });
 	};
 	const handleDeleteClick = () => setIsDeleteDialogOpen(true);
 	const handleInfoClick = () => setIsInfoDialogOpen(true);
 	const handleDeleteConfirm = async () => {
-		await deleteProjects({ editor, ids: [project.id] });
+		await editor.project.deleteProjects({ ids: [project.id] });
 		setIsDeleteDialogOpen(false);
 	};
 
@@ -725,10 +725,9 @@ function ProjectItem({
 				onOpenChange={setIsRenameDialogOpen}
 				projectName={project.name}
 				onConfirm={async (newName) => {
-					await renameProject({ editor, id: project.id, name: newName });
+					await editor.project.renameProject({ id: project.id, name: newName });
 					setIsRenameDialogOpen(false);
-				}}
-			/>
+				}}			/>
 
 			<DeleteProjectDialog
 				isOpen={isDeleteDialogOpen}

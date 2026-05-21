@@ -11,6 +11,7 @@ import {
 } from "../utils";
 import { ArrowRightIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function ReleaseArticle({
 	variant,
