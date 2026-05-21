@@ -13,8 +13,10 @@ import { SoundsView } from "@/sounds/components/assets-view";
 import { StickersView } from "@/stickers/components/assets-view";
 import { TextView } from "@/text/components/assets-view";
 import { EffectsView } from "@/effects/components/assets-view";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function AssetsPanel() {
+	const { t } = useTranslation();
 	const { activeTab } = useAssetsPanelStore();
 
 	const viewMap: Record<Tab, React.ReactNode> = {
@@ -25,13 +27,19 @@ export function AssetsPanel() {
 		effects: <EffectsView />,
 		transitions: (
 			<div className="text-muted-foreground p-4">
-				Transitions view coming soon...
+				{t.editor.assets.comingSoon.replace(
+					"{view}",
+					t.editor.assets.tabs.transitions,
+				)}
 			</div>
 		),
 		captions: <Captions />,
 		adjustment: (
 			<div className="text-muted-foreground p-4">
-				Adjustment view coming soon...
+				{t.editor.assets.comingSoon.replace(
+					"{view}",
+					t.editor.assets.tabs.adjustment,
+				)}
 			</div>
 		),
 		settings: <SettingsView />,

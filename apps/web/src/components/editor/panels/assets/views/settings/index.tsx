@@ -31,6 +31,7 @@ import { dimensionToAspectRatio } from "@/utils/geometry";
 import { formatNumberForDisplay } from "@/utils/math";
 import { OcSquarePlusIcon } from "@/components/icons";
 import type { TCanvasSize } from "@/project/types";
+import { useTranslation } from "@/hooks/use-translation";
 
 type SettingsView = "project-info" | "background";
 
@@ -97,6 +98,7 @@ function useCanvasDimensionDraft({
 }
 
 export function SettingsView() {
+	const { t } = useTranslation();
 	const [view, setView] = useState<SettingsView>("project-info");
 	const editor = useEditor();
 	const activeProject = useEditor((e) => e.project.getActive());
@@ -223,8 +225,8 @@ export function SettingsView() {
 					}}
 				>
 					<TabsList>
-						<TabsTrigger value="project-info">Project info</TabsTrigger>
-						<TabsTrigger value="background">Background</TabsTrigger>
+						<TabsTrigger value="project-info">{t.editor.settings.tabs.projectInfo}</TabsTrigger>
+						<TabsTrigger value="background">{t.editor.settings.tabs.background}</TabsTrigger>
 					</TabsList>
 				</Tabs>
 			}
@@ -233,7 +235,7 @@ export function SettingsView() {
 				<div className="flex flex-col">
 					<Section showTopBorder={false}>
 						<SectionHeader>
-							<SectionTitle className="flex-1">Name</SectionTitle>
+							<SectionTitle className="flex-1">{t.editor.settings.info.name}</SectionTitle>
 							<span className="text-sm truncate">
 								{activeProject.metadata.name}
 							</span>
@@ -241,7 +243,7 @@ export function SettingsView() {
 					</Section>
 					<Section showTopBorder={false}>
 						<SectionHeader className="justify-between">
-							<SectionTitle className="flex-1">Frame rate</SectionTitle>
+							<SectionTitle className="flex-1">{t.editor.settings.info.frameRate}</SectionTitle>
 							<Select
 								value={String(
 									Math.round(frameRateToFloat(activeProject.settings.fps)),
@@ -252,7 +254,7 @@ export function SettingsView() {
 								}}
 							>
 								<SelectTrigger className="bg-transparent border-none p-1 h-auto">
-									<SelectValue placeholder="Select a frame rate" />
+									<SelectValue placeholder={t.editor.settings.info.selectFrameRate} />
 								</SelectTrigger>
 								<SelectContent>
 									{FPS_PRESETS.map((preset) => (
@@ -270,7 +272,7 @@ export function SettingsView() {
 						sectionKey="settings:aspect-ratio"
 					>
 						<SectionHeader>
-							<SectionTitle className="flex-1">Aspect ratio</SectionTitle>
+							<SectionTitle className="flex-1">{t.editor.settings.info.aspectRatio}</SectionTitle>
 						</SectionHeader>
 						<SectionContent className="px-2 flex flex-col gap-1 pb-2">
 							{presetItems.map((preset) => (
@@ -289,7 +291,7 @@ export function SettingsView() {
 							<div className="pb-2">
 								<AspectRatioItem
 									key="custom"
-									label="Custom"
+									label={t.editor.settings.info.custom}
 									previewIcon={<OcSquarePlusIcon />}
 									isSelected={isCustomSelected}
 									onClick={selectCustomCanvasSize}
@@ -298,7 +300,7 @@ export function SettingsView() {
 											<NumberField
 												value={widthDraft.displayValue}
 												className="w-full"
-												aria-label="Canvas width"
+												aria-label={t.editor.settings.info.canvasWidth}
 												onFocus={widthDraft.onFocus}
 												onChange={widthDraft.onChange}
 												onBlur={widthDraft.onBlur}
@@ -306,7 +308,7 @@ export function SettingsView() {
 											<NumberField
 												value={heightDraft.displayValue}
 												className="w-full"
-												aria-label="Canvas height"
+												aria-label={t.editor.settings.info.canvasHeight}
 												onFocus={heightDraft.onFocus}
 												onChange={heightDraft.onChange}
 												onBlur={heightDraft.onBlur}

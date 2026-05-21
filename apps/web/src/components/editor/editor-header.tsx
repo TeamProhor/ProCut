@@ -27,6 +27,8 @@ import { ShortcutsDialog } from "@/actions/components/shortcuts-dialog";
 import Image from "next/image";
 import { cn } from "@/utils/ui";
 
+import { useTranslation } from "@/hooks/use-translation";
+
 export function EditorHeader() {
 	return (
 		<header className="bg-background flex h-[3.4rem] items-center justify-between px-3 pt-0.5">
@@ -44,6 +46,7 @@ export function EditorHeader() {
 }
 
 function ProjectDropdown() {
+	const { t } = useTranslation();
 	const [openDialog, setOpenDialog] = useState<
 		"delete" | "rename" | "shortcuts" | null
 	>(null);
@@ -79,9 +82,9 @@ function ProjectDropdown() {
 					name: newName.trim(),
 				});
 			} catch (error) {
-				toast.error("Failed to rename project", {
+				toast.error(t.editor.header.renameError, {
 					description:
-						error instanceof Error ? error.message : "Please try again",
+						error instanceof Error ? error.message : t.editor.header.tryAgain,
 				});
 			} finally {
 				setOpenDialog(null);
@@ -97,9 +100,9 @@ function ProjectDropdown() {
 				});
 				router.push("/projects");
 			} catch (error) {
-				toast.error("Failed to delete project", {
+				toast.error(t.editor.header.deleteError, {
 					description:
-						error instanceof Error ? error.message : "Please try again",
+						error instanceof Error ? error.message : t.editor.header.tryAgain,
 				});
 			} finally {
 				setOpenDialog(null);
@@ -127,14 +130,14 @@ function ProjectDropdown() {
 						disabled={isExiting}
 						icon={<HugeiconsIcon icon={Logout05Icon} />}
 					>
-						Exit project
+						{t.editor.header.exitProject}
 					</DropdownMenuItem>
 
 					<DropdownMenuItem
 						onClick={() => setOpenDialog("shortcuts")}
 						icon={<HugeiconsIcon icon={CommandIcon} />}
 					>
-						Shortcuts
+						{t.editor.header.shortcuts}
 					</DropdownMenuItem>
 
 					<DropdownMenuSeparator />
@@ -145,7 +148,7 @@ function ProjectDropdown() {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Discord
+							{t.editor.header.discord}
 						</Link>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
@@ -171,6 +174,7 @@ function ProjectDropdown() {
 }
 
 function EditableProjectName() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const activeProject = useEditor((e) => e.project.getActive());
 	const [isEditing, setIsEditing] = useState(false);
@@ -206,9 +210,9 @@ function EditableProjectName() {
 					name: newName,
 				});
 			} catch (error) {
-				toast.error("Failed to rename project", {
+				toast.error(t.editor.header.renameError, {
 					description:
-						error instanceof Error ? error.message : "Please try again",
+						error instanceof Error ? error.message : t.editor.header.tryAgain,
 				});
 			}
 		}

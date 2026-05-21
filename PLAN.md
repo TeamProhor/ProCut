@@ -28,14 +28,22 @@ This document outlines the steps to implement a multi-language system (EN/BN) ac
 - [x] Integrate `useTranslation` into `ProjectsPage` components.
 - [x] Translate project dialogs (Delete, Rename, Info).
 
-### Editor Page
-- [ ] Create `apps/web/src/utils/translations/editor.ts`
-- [ ] Map strings for:
-    - Toolbar icons/labels
-    - Timeline controls
-    - Export settings
+### Editor Page (Completed)
+- [x] Create `apps/web/src/utils/translations/editor.ts`
+- [x] Map strings for:
+    - Toolbar icons/labels (Split, Duplicate, Delete, etc.)
+    - Timeline controls (Zoom, Snapping, Ripple)
+    - Export settings (Format, Quality, Audio)
     - Panel titles (Media, Layers, Effects, etc.)
-- [ ] Integrate `useTranslation` into Editor components.
+    - Stickers and effects.
+    - Project settings and onboarding.
+- [x] Integrate `useTranslation` into:
+    - `EditorHeader`
+    - `AssetsPanel` (Media, Text, Sounds, Stickers, Effects, Settings views)
+    - `TimelineToolbar`
+    - `ExportButton`
+    - `PropertiesPanel` empty view
+    - `Onboarding`
 
 ### Other Pages
 - [ ] Roadmap

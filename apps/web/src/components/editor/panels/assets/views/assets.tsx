@@ -59,7 +59,10 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
 
+import { useTranslation } from "@/hooks/use-translation";
+
 export function MediaView() {
+	const { t } = useTranslation();
 	const editor = useEditor();
 	const mediaFiles = useEditor((e) => e.media.getAssets());
 	const activeProject = useEditor((e) => e.project.getActive());
@@ -80,7 +83,7 @@ export function MediaView() {
 	const processFiles = async ({ files }: { files: File[] }) => {
 		if (!files || files.length === 0) return;
 		if (!activeProject) {
-			toast.error("No active project");
+			toast.error(t.editor.assets.media.noActiveProject);
 			return;
 		}
 
@@ -192,7 +195,7 @@ export function MediaView() {
 			<input {...fileInputProps} />
 
 			<PanelView
-				title="Assets"
+				title={t.editor.assets.media.title}
 				actions={
 					<MediaActions
 						mediaViewMode={mediaViewMode}
@@ -217,7 +220,7 @@ export function MediaView() {
 					/>
 				) : (
 					<SelectableSurface
-						ariaLabel="Assets"
+						ariaLabel={t.editor.assets.media.title}
 						orderedIds={orderedMediaIds}
 						revealId={highlightMediaId}
 						onRevealComplete={clearHighlight}
@@ -315,16 +318,22 @@ function MediaItemWithContextMenu({
 		ids: string[];
 	}) => void;
 }) {
+	const { t } = useTranslation();
 	const { isSelected, selectedIds } = useSelection();
 	const idsToDelete = isSelected(item.id) ? selectedIds : [item.id];
 	const deleteLabel =
-		idsToDelete.length > 1 ? `Delete ${idsToDelete.length} items` : "Delete";
+		idsToDelete.length > 1
+			? t.editor.assets.media.deleteMultiple.replace(
+					"{count}",
+					idsToDelete.length.toString(),
+				)
+			: t.editor.assets.media.delete;
 
 	return (
 		<ContextMenu>
 			<ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
 			<ContextMenuContent>
-				<ContextMenuItem>Export clips</ContextMenuItem>
+				<ContextMenuItem>{t.editor.assets.media.exportClips}</ContextMenuItem>
 				<ContextMenuItem
 					variant="destructive"
 					onClick={(event: React.MouseEvent<HTMLDivElement>) =>
@@ -441,6 +450,7 @@ function MediaPreview({
 	item: MediaAsset;
 	variant?: "grid" | "compact";
 }) {
+	const { t } = useTranslation();
 	const shouldShowDurationBadge = variant === "grid";
 
 	if (item.type === "image") {
@@ -482,7 +492,7 @@ function MediaPreview({
 		return (
 			<MediaTypePlaceholder
 				icon={Video01Icon}
-				label="Video"
+				label={t.editor.assets.media.types.video}
 				duration={item.duration}
 				variant="muted"
 			/>
@@ -493,7 +503,7 @@ function MediaPreview({
 		return (
 			<MediaTypePlaceholder
 				icon={MusicNote03Icon}
-				label="Audio"
+				label={t.editor.assets.media.types.audio}
 				duration={item.duration}
 				variant="bordered"
 			/>
@@ -501,7 +511,11 @@ function MediaPreview({
 	}
 
 	return (
-		<MediaTypePlaceholder icon={Image02Icon} label="Unknown" variant="muted" />
+		<MediaTypePlaceholder
+			icon={Image02Icon}
+			label={t.editor.assets.media.types.unknown}
+			variant="muted"
+		/>
 	);
 }
 
@@ -522,6 +536,8 @@ function MediaActions({
 	onSort: ({ key }: { key: MediaSortKey }) => void;
 	onImport: () => void;
 }) {
+	const { t } = useTranslation();
+
 	return (
 		<div className="flex gap-1.5">
 			<TooltipProvider>
@@ -546,8 +562,8 @@ function MediaActions({
 					<TooltipContent>
 						<p>
 							{mediaViewMode === "grid"
-								? "Switch to list view"
-								: "Switch to grid view"}
+								? t.editor.assets.media.switchToList
+								: t.editor.assets.media.switchToGrid}
 						</p>
 					</TooltipContent>
 				</Tooltip>
@@ -567,28 +583,28 @@ function MediaActions({
 						</TooltipTrigger>
 						<DropdownMenuContent align="end">
 							<SortMenuItem
-								label="Name"
+								label={t.editor.assets.media.sortOptions.name}
 								sortKey="name"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="Type"
+								label={t.editor.assets.media.sortOptions.type}
 								sortKey="type"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="Duration"
+								label={t.editor.assets.media.sortOptions.duration}
 								sortKey="duration"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
 								onSort={onSort}
 							/>
 							<SortMenuItem
-								label="File size"
+								label={t.editor.assets.media.sortOptions.size}
 								sortKey="size"
 								currentSortBy={sortBy}
 								currentSortOrder={sortOrder}
@@ -598,8 +614,12 @@ function MediaActions({
 					</DropdownMenu>
 					<TooltipContent>
 						<p>
-							Sort by {sortBy} (
-							{sortOrder === "asc" ? "ascending" : "descending"})
+							{t.editor.assets.media.sortBy
+								.replace(
+									"{key}",
+									t.editor.assets.media.sortOptions[sortBy].toLowerCase(),
+								)
+								.replace("{order}", t.editor.assets.media.order[sortOrder])}
 						</p>
 					</TooltipContent>
 				</Tooltip>
@@ -612,7 +632,7 @@ function MediaActions({
 				className="items-center justify-center gap-1.5"
 			>
 				<HugeiconsIcon icon={CloudUploadIcon} />
-				Import
+				{t.editor.assets.media.import}
 			</Button>
 		</div>
 	);
