@@ -109,6 +109,7 @@ export const editorTranslations = {
 			addToTimeline: "Add to timeline",
 			saveSound: "Save sound",
 			removeSaved: "Remove from saved",
+			cancel: "Cancel",
 		},
 		stickers: {
 			title: "Stickers",
@@ -304,6 +305,7 @@ export const editorTranslations = {
 			addToTimeline: "টাইমলাইনে যোগ করুন",
 			saveSound: "শব্দ সংরক্ষণ করুন",
 			removeSaved: "সংরক্ষিত তালিকা থেকে মুছে ফেলুন",
+			cancel: "বাতিল",
 		},
 		stickers: {
 			title: "স্টিকার",
