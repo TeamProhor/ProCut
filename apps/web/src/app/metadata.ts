@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { SITE_INFO, SITE_URL } from "@/site/brand";
+import { translations } from "@/utils/translations";
+
+const SITE_INFO = translations.en.site.brand;
+const SITE_URL = SITE_INFO.url;
 
 export const baseMetaData: Metadata = {
 	metadataBase: new URL(SITE_URL),
@@ -17,7 +20,7 @@ export const baseMetaData: Metadata = {
 				url: SITE_INFO.openGraphImage,
 				width: 1200,
 				height: 630,
-				alt: "OpenCut Wordmark",
+				alt: "ProCut Wordmark",
 			},
 		],
 	},
@@ -25,7 +28,7 @@ export const baseMetaData: Metadata = {
 		card: "summary_large_image",
 		title: SITE_INFO.title,
 		description: SITE_INFO.description,
-		creator: "@opencutapp",
+		creator: "@procutapp",
 		images: [SITE_INFO.twitterImage],
 	},
 	pinterest: {

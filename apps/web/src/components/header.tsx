@@ -17,8 +17,6 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@/utils/ui";
-import { DEFAULT_LOGO_URL } from "@/site/brand";
-import { SOCIAL_LINKS } from "@/site/social";
 import {
 	ContextMenu,
 	ContextMenuContent,
@@ -59,8 +57,8 @@ export function Header() {
 						<ContextMenuTrigger asChild>
 							<Link href="/" className="flex items-center gap-3">
 								<Image
-									src={DEFAULT_LOGO_URL}
-									alt="OpenCut Logo"
+									src={t.site.brand.logoUrl}
+									alt="ProCut Logo"
 									className="invert dark:invert-0"
 									width={32}
 									height={32}
@@ -70,7 +68,7 @@ export function Header() {
 						<ContextMenuContent>
 							<ContextMenuItem
 								onClick={async () => {
-									const res = await fetch(DEFAULT_LOGO_URL);
+									const res = await fetch(t.site.brand.logoUrl);
 									const svg = await res.text();
 									await navigator.clipboard.writeText(svg);
 								}}
@@ -81,8 +79,8 @@ export function Header() {
 							<ContextMenuItem
 								onClick={() => {
 									const a = document.createElement("a");
-									a.href = DEFAULT_LOGO_URL;
-									a.download = "opencut-logo.svg";
+									a.href = t.site.brand.logoUrl;
+									a.download = "procut-logo.svg";
 									a.click();
 								}}
 							>
@@ -122,7 +120,7 @@ export function Header() {
 						</Button>
 					</div>
 					<div className="hidden items-center gap-3 md:flex">
-						<Link href={SOCIAL_LINKS.github}>
+						<Link href={t.site.social.github}>
 							<Button className="bg-background text-sm" variant="outline">
 								<HugeiconsIcon icon={GithubIcon} className="size-4" />
 								40k+

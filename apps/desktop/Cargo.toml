@@ -3,7 +3,7 @@ name = "opencut-desktop"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]]
+[lib]
 name = "opencut"
 path = "src/main.rs"
 

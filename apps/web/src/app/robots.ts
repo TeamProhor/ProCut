@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/site/brand";
+import { translations } from "@/utils/translations";
 
 export default function robots(): MetadataRoute.Robots {
 	return {
@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
 			allow: "/",
 			disallow: ["/_next/", "/projects/", "/editor/"],
 		},
-		sitemap: `${SITE_URL}/sitemap.xml`,
+		sitemap: `${translations.en.site.brand.url}/sitemap.xml`,
 	};
 }

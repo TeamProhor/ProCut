@@ -3,6 +3,7 @@ import { projectsTranslations } from "./projects";
 import { editorTranslations } from "./editor";
 import { staticTranslations } from "./static";
 import { legalTranslations } from "./legal";
+import { siteTranslations } from "./site";
 
 export const translations = {
 	en: {
@@ -11,6 +12,7 @@ export const translations = {
 		editor: editorTranslations.en,
 		static: staticTranslations.en,
 		legal: legalTranslations.en,
+		site: siteTranslations.en,
 	},
 	bn: {
 		home: homeTranslations.bn,
@@ -18,6 +20,7 @@ export const translations = {
 		editor: editorTranslations.bn,
 		static: staticTranslations.bn,
 		legal: legalTranslations.bn,
+		site: siteTranslations.bn,
 	},
 } as const;
 

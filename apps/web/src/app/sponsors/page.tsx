@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BasePage } from "@/app/base-page";
 import { Card, CardContent } from "@/components/ui/card";
-import { SPONSORS, type Sponsor } from "@/site/sponsors";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LinkSquare02Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/utils/ui";
@@ -24,23 +23,23 @@ export default function SponsorsPage() {
 					{sponsors.description}
 				</p>
 			</div>
-			<SponsorsGrid />
+			<SponsorsGrid sponsors={t.site.sponsors} />
 		</BasePage>
 	);
 }
 
 
-function SponsorsGrid() {
+function SponsorsGrid({ sponsors }: { sponsors: any[] }) {
 	return (
 		<div className="grid gap-6 sm:grid-cols-2">
-			{SPONSORS.map((sponsor) => (
+			{sponsors.map((sponsor) => (
 				<SponsorCard key={sponsor.name} sponsor={sponsor} />
 			))}
 		</div>
 	);
 }
 
-function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
+function SponsorCard({ sponsor }: { sponsor: any }) {
 	return (
 		<Link
 			href={sponsor.url}

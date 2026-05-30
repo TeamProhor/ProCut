@@ -1,6 +1,6 @@
 # opencut-wasm
 
-Shared video editor logic compiled to WebAssembly. Used by the [OpenCut](https://github.com/opencut/opencut) web app.
+Shared video editor logic compiled to WebAssembly. Used by the [ProCut](https://github.com/procut/procut) web app.
 
 ## Install
 
@@ -17,7 +17,7 @@ const ticks = mediaTimeFromSeconds(1.5);
 const label = formatTimecode({ ticks });
 ```
 
-All exports are documented in the [TypeScript definitions](./opencut_wasm.d.ts).
+All exports are documented in the [TypeScript definitions](./procut_wasm.d.ts).
 
 ## Source
 

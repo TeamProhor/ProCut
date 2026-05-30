@@ -1,8 +1,10 @@
+"use client";
+
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { SOCIAL_LINKS } from "@/site/social";
 import { GithubIcon, Link04Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function GitHubContributeSection({
 	title,
@@ -11,6 +13,9 @@ export function GitHubContributeSection({
 	title: string;
 	description: string;
 }) {
+	const { t } = useTranslation();
+	const social = t.site.social;
+
 	return (
 		<div className="flex flex-col gap-6">
 			<div className="flex flex-col gap-4 text-center">
@@ -19,7 +24,7 @@ export function GitHubContributeSection({
 			</div>
 			<div className="flex flex-col justify-center gap-4 sm:flex-row">
 				<Link
-					href={`${SOCIAL_LINKS.github}/blob/main/.github/CONTRIBUTING.md`}
+					href={`${social.github}/blob/main/.github/CONTRIBUTING.md`}
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -29,7 +34,7 @@ export function GitHubContributeSection({
 					</Button>
 				</Link>
 				<Link
-					href={`${SOCIAL_LINKS.github}/issues`}
+					href={`${social.github}/issues`}
 					target="_blank"
 					rel="noopener noreferrer"
 				>

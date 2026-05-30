@@ -3,7 +3,6 @@
 import { ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { SOCIAL_LINKS } from "@/site/social";
 import { useLocalStorage } from "@/services/storage/use-local-storage";
 import { Button } from "../ui/button";
 import { Dialog, DialogBody, DialogContent, DialogTitle } from "../ui/dialog";
@@ -70,7 +69,7 @@ export function Onboarding() {
 						<div className="space-y-3">
 							<Title title={getStepTitle()} />
 							<Description
-								description={t.editor.onboarding.steps.testing.description.replace("{discord}", SOCIAL_LINKS.discord)}
+								description={t.editor.onboarding.steps.testing.description.replace("{discord}", t.site.social.discord)}
 							/>
 						</div>
 						<NextButton onClick={handleClose}>{t.editor.onboarding.finish}</NextButton>

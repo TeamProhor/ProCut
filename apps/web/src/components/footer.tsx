@@ -4,8 +4,6 @@ import Link from "next/link";
 import { RiDiscordFill, RiTwitterXLine } from "react-icons/ri";
 import { FaGithub } from "react-icons/fa6";
 import Image from "next/image";
-import { DEFAULT_LOGO_URL } from "@/site/brand";
-import { SOCIAL_LINKS } from "@/site/social";
 import { useTranslation } from "@/hooks/use-translation";
 
 type Category = "resources" | "company";
@@ -30,7 +28,7 @@ export function Footer() {
 			{ label: t.home.footer.contributors, href: "/contributors" },
 			{ label: t.home.footer.sponsors, href: "/sponsors" },
 			{ label: t.home.footer.brand, href: "/brand" },
-			{ label: t.home.footer.about, href: `${SOCIAL_LINKS.github}/blob/main/README.md` },
+			{ label: t.home.footer.about, href: `${t.site.social.github}/blob/main/README.md` },
 		],
 	};
 
@@ -42,20 +40,20 @@ export function Footer() {
 					<div className="max-w-sm md:col-span-1">
 						<div className="mb-4 flex items-center justify-start gap-2">
 							<Image
-								src={DEFAULT_LOGO_URL}
-								alt="OpenCut"
+								src={t.site.brand.logoUrl}
+								alt={t.site.brand.title}
 								width={24}
 								height={24}
 								className="invert dark:invert-0"
 							/>
-							<span className="text-lg font-bold">OpenCut</span>
+							<span className="text-lg font-bold">{t.site.brand.title}</span>
 						</div>
 						<p className="text-muted-foreground mb-5 text-sm md:text-left">
 							{t.home.footer.description}
 						</p>
 						<div className="flex justify-start gap-3">
 							<Link
-								href={SOCIAL_LINKS.github}
+								href={t.site.social.github}
 								className="text-muted-foreground hover:text-foreground transition-colors"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -63,7 +61,7 @@ export function Footer() {
 								<FaGithub className="size-5" />
 							</Link>
 							<Link
-								href={SOCIAL_LINKS.x}
+								href={t.site.social.x}
 								className="text-muted-foreground hover:text-foreground transition-colors"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -71,7 +69,7 @@ export function Footer() {
 								<RiTwitterXLine className="size-5" />
 							</Link>
 							<Link
-								href={SOCIAL_LINKS.discord}
+								href={t.site.social.discord}
 								className="text-muted-foreground hover:text-foreground transition-colors"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -118,7 +116,7 @@ export function Footer() {
 				<div className="flex flex-col items-start justify-between gap-4 pt-2 md:flex-row">
 					<div className="text-muted-foreground flex items-center gap-4 text-sm">
 						<span>
-							© {new Date().getFullYear()} OpenCut, {t.home.footer.allRightsReserved}
+							© {new Date().getFullYear()} {t.site.brand.title}, {t.home.footer.allRightsReserved}
 						</span>
 					</div>
 				</div>

@@ -54,14 +54,14 @@ export default function BrandPage() {
 			cols: "2",
 			assets: [
 				{
-					src: "/logos/opencut/symbol.svg",
+					src: "/logos/procut/symbol.svg",
 					theme: "dark",
 					label: "Symbol",
 					width: 400,
 					height: 400,
 				},
 				{
-					src: "/logos/opencut/symbol-light.svg",
+					src: "/logos/procut/symbol-light.svg",
 					theme: "light",
 					label: "Symbol",
 					width: 400,
@@ -75,28 +75,28 @@ export default function BrandPage() {
 			cols: "2",
 			assets: [
 				{
-					src: "/logos/opencut/logo.svg",
+					src: "/logos/procut/logo.svg",
 					theme: "dark",
 					label: "Logo",
 					width: 1809,
 					height: 400,
 				},
 				{
-					src: "/logos/opencut/logo-light.svg",
+					src: "/logos/procut/logo-light.svg",
 					theme: "light",
 					label: "Logo",
 					width: 1809,
 					height: 400,
 				},
 				{
-					src: "/logos/opencut/text.svg",
+					src: "/logos/procut/text.svg",
 					theme: "dark",
 					label: "Text",
 					width: 1760,
 					height: 400,
 				},
 				{
-					src: "/logos/opencut/text-light.svg",
+					src: "/logos/procut/text-light.svg",
 					theme: "light",
 					label: "Text",
 					width: 1760,
@@ -176,10 +176,10 @@ export default function BrandPage() {
 					<p className="text-muted-foreground text-base leading-relaxed">
 						{brand.usage.description.split("{email}")[0]}
 						<Link
-							href="mailto:brand@opencut.app"
+							href="mailto:brand@procut.app"
 							className="underline underline-offset-4"
 						>
-							brand@opencut.app
+							brand@procut.app
 						</Link>
 						{brand.usage.description.split("{email}")[1]}
 					</p>

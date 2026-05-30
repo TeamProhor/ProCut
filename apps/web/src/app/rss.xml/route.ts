@@ -1,10 +1,12 @@
 import { Feed } from "feed";
 import { getPosts } from "@/blog/query";
-import { SITE_INFO, SITE_URL } from "@/site/brand";
+import { translations } from "@/utils/translations";
 
 export async function GET() {
 	try {
 		const { posts } = await getPosts();
+		const SITE_INFO = translations.en.site.brand;
+		const SITE_URL = SITE_INFO.url;
 
 		const feed = new Feed({
 			title: `${SITE_INFO.title} Blog`,

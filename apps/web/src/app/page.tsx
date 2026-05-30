@@ -2,11 +2,11 @@ import { Hero } from "@/components/landing/hero";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/site/brand";
+import { translations } from "@/utils/translations";
 
 export const metadata: Metadata = {
 	alternates: {
-		canonical: SITE_URL,
+		canonical: translations.en.site.brand.url,
 	},
 };
 

@@ -1,7 +1,7 @@
 export const editorTranslations = {
 	en: {
 		banner: {
-			degraded: "For the best experience, open OpenCut in Chrome.",
+			degraded: "For the best experience, open ProCut in Chrome.",
 			dismiss: "Dismiss",
 		},
 		header: {
@@ -137,20 +137,20 @@ export const editorTranslations = {
 		onboarding: {
 			steps: {
 				welcome: {
-					title: "Welcome to OpenCut Beta! 🎉",
-					description: "You're among the first to try OpenCut - the fully open source CapCut alternative.",
+					title: "Welcome to ProCut Beta! 🎉",
+					description: "You're among the first to try ProCut - the fully open source CapCut alternative.",
 				},
 				earlyBeta: {
 					title: "⚠️ This is a super early beta!",
 					description1: "There's still a ton of things to do to make this editor amazing.",
 					description2: "A lot of features are still missing. We're working hard to build them out!",
-					description3: "If you're curious, check out our roadmap [here](https://opencut.app/roadmap)",
+					description3: "If you're curious, check out our roadmap [here](https://procut.app/roadmap)",
 				},
 				testing: {
 					title: "🦋 Have fun testing!",
-					description: "Join our [Discord]({discord}), chat with cool people and share feedback to help make OpenCut the best editor ever.",
+					description: "Join our [Discord]({discord}), chat with cool people and share feedback to help make ProCut the best editor ever.",
 				},
-				fallback: "OpenCut Onboarding",
+				fallback: "ProCut Onboarding",
 			},
 			next: "Next",
 			finish: "Finish",
@@ -197,7 +197,7 @@ export const editorTranslations = {
 	},
 	bn: {
 		banner: {
-			degraded: "সেরা অভিজ্ঞতার জন্য, ক্রোম (Chrome) ব্রাউজারে OpenCut খুলুন।",
+			degraded: "সেরা অভিজ্ঞতার জন্য, ক্রোম (Chrome) ব্রাউজারে ProCut খুলুন।",
 			dismiss: "বন্ধ করুন",
 		},
 		header: {
@@ -333,20 +333,20 @@ export const editorTranslations = {
 		onboarding: {
 			steps: {
 				welcome: {
-					title: "OpenCut বেটাতে স্বাগতম! 🎉",
-					description: "আপনি প্রথম কয়েকজনের মধ্যে একজন যারা OpenCut ব্যবহার করছেন - একটি সম্পূর্ণ ওপেন সোর্স CapCut বিকল্প।",
+					title: "ProCut বেটাতে স্বাগতম! 🎉",
+					description: "আপনি প্রথম কয়েকজনের মধ্যে একজন যারা ProCut ব্যবহার করছেন - একটি সম্পূর্ণ ওপেন সোর্স CapCut বিকল্প।",
 				},
 				earlyBeta: {
 					title: "⚠️ এটি একটি খুব প্রাথমিক বেটা সংস্করণ!",
 					description1: "এই এডিটরটিকে দুর্দান্ত করার জন্য এখনও অনেক কাজ বাকি আছে।",
 					description2: "অনেক ফিচার এখনও অনুপস্থিত। আমরা সেগুলো তৈরির জন্য কঠোর পরিশ্রম করছি!",
-					description3: "আপনি যদি আগ্রহী হন তবে আমাদের রোডম্যাপ [এখানে](https://opencut.app/roadmap) দেখুন।",
+					description3: "আপনি যদি আগ্রহী হন তবে আমাদের রোডম্যাপ [এখানে](https://procut.app/roadmap) দেখুন।",
 				},
 				testing: {
 					title: "🦋 টেস্টিং উপভোগ করুন!",
-					description: "আমাদের [ডিসকর্ড]({discord})-এ যোগ দিন, চমৎকার মানুষের সাথে আড্ডা দিন এবং OpenCut-কে সেরা এডিটর করতে আপনার মতামত দিন।",
+					description: "আমাদের [ডিসকর্ড]({discord})-এ যোগ দিন, চমৎকার মানুষের সাথে আড্ডা দিন এবং ProCut-কে সেরা এডিটর করতে আপনার মতামত দিন।",
 				},
-				fallback: "OpenCut অনবোর্ডিং",
+				fallback: "ProCut অনবোর্ডিং",
 			},
 			next: "পরবর্তী",
 			finish: "সম্পন্ন",

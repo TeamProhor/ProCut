@@ -8,12 +8,12 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { SOCIAL_LINKS } from "@/site/social";
 import { useTranslation } from "@/hooks/use-translation";
 
 export default function PrivacyPage() {
 	const { t } = useTranslation();
 	const privacy = t.legal.privacy;
+	const social = t.site.social;
 
 	return (
 		<BasePage title={privacy.title} description={privacy.description}>
@@ -37,10 +37,10 @@ export default function PrivacyPage() {
 						<p className="mt-4">
 							{privacy.summary.questions.split("{email}")[0]}
 							<a
-								href="mailto:oss@opencut.app"
+								href="mailto:oss@procut.app"
 								className="text-primary hover:underline"
 							>
-								oss@opencut.app
+								oss@procut.app
 							</a>
 							{privacy.summary.questions.split("{email}")[1]}
 						</p>
@@ -114,7 +114,7 @@ export default function PrivacyPage() {
 				<p>
 					{privacy.sections.transparency.p2.split("{link}")[0]}
 					<a
-						href={SOCIAL_LINKS.github}
+						href={social.github}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
 					{privacy.sections.contact.p2
 						.split("{github}")[0]}
 					<a
-						href={`${SOCIAL_LINKS.github}/issues`}
+						href={`${social.github}/issues`}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -143,16 +143,16 @@ export default function PrivacyPage() {
 						.split("{github}")[1]
 						.split("{email}")[0]}
 					<a
-						href="mailto:oss@opencut.app"
+						href="mailto:oss@procut.app"
 						className="text-primary hover:underline"
 					>
-						oss@opencut.app
+						oss@procut.app
 					</a>
 					{privacy.sections.contact.p2
 						.split("{email}")[1]
 						.split("{x}")[0]}
 					<a
-						href={SOCIAL_LINKS.x}
+						href={social.x}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -171,4 +171,3 @@ export default function PrivacyPage() {
 		</BasePage>
 	);
 }
-

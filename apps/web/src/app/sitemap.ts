@@ -1,8 +1,9 @@
-import { SITE_URL } from "@/site/brand";
+import { translations } from "@/utils/translations";
 import { getPosts } from "@/blog/query";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+	const SITE_URL = translations.en.site.brand.url;
 	const data = await getPosts();
 
 	const postPages: MetadataRoute.Sitemap =

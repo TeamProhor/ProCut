@@ -11,7 +11,7 @@ export const legalTranslations = {
 				items: [
 					"Basic editing happens locally in your browser - we never see your files",
 					"AI features like auto captions run locally in your browser too - nothing is uploaded",
-					"OpenCut does not currently require an account or login",
+					"ProCut does not currently require an account or login",
 					"Project data stays on your device, not our servers",
 					"We use anonymized analytics to improve the app, but no personal video content is tracked",
 					"You can clear local data from your browser at any time",
@@ -26,7 +26,7 @@ export const legalTranslations = {
 				},
 				accounts: {
 					title: "Accounts & Authentication",
-					p1: "OpenCut does not currently offer user accounts, login, or Google sign-in.",
+					p1: "ProCut does not currently offer user accounts, login, or Google sign-in.",
 					p2: "Because there is no account system today, we do not collect account emails, profile information, or OAuth identity data.",
 					p3: "Your projects are never stored on our servers. All project data, including names, thumbnails, and creation dates, is stored locally in your browser using IndexedDB.",
 				},
@@ -47,7 +47,7 @@ export const legalTranslations = {
 				},
 				thirdParty: {
 					title: "Third-Party Services",
-					p1: "OpenCut integrates with these services:",
+					p1: "ProCut integrates with these services:",
 					items: [
 						"Vercel: For hosting and content delivery",
 						"Databuddy: For anonymized analytics",
@@ -57,14 +57,14 @@ export const legalTranslations = {
 					title: "Your Rights",
 					p1: "You have complete control over your data:",
 					items: [
-						"No account is required to use OpenCut today",
+						"No account is required to use ProCut today",
 						"Clear local storage to remove all saved projects",
 						"Contact us with any privacy concerns",
 					],
 				},
 				transparency: {
 					title: "Open Source Transparency",
-					p1: "OpenCut is completely open source. You can review our code, see exactly how we handle data, and even self-host the application if you prefer.",
+					p1: "ProCut is completely open source. You can review our code, see exactly how we handle data, and even self-host the application if you prefer.",
 					p2: "View our source code on {link}.",
 				},
 				contact: {
@@ -96,39 +96,39 @@ export const legalTranslations = {
 			sections: {
 				ownership: {
 					title: "Your Content, Your Rights",
-					p1: "You own everything you create. All editing and processing happens locally on your device. We never see, store, or have access to your files. We make no claims to ownership, licensing, or rights over your videos, projects, or any content you create using OpenCut.",
+					p1: "You own everything you create. All editing and processing happens locally on your device. We never see, store, or have access to your files. We make no claims to ownership, licensing, or rights over your videos, projects, or any content you create using ProCut.",
 					items: [
 						"Your content never leaves your device",
 						"You retain all intellectual property rights to your content",
 						"You can export and use your content however you choose",
-						"No watermarks, no licensing restrictions from OpenCut",
+						"No watermarks, no licensing restrictions from ProCut",
 					],
 				},
 				usage: {
-					title: "How You Can Use OpenCut",
-					p1: "OpenCut is free for personal and commercial use. You can:",
+					title: "How You Can Use ProCut",
+					p1: "ProCut is free for personal and commercial use. You can:",
 					items: [
 						"Create videos for personal, educational, or commercial purposes",
-						"Use OpenCut for client work and paid projects",
-						"Share and distribute videos created with OpenCut",
-						"Modify and distribute the OpenCut software (under MIT license)",
+						"Use ProCut for client work and paid projects",
+						"Share and distribute videos created with ProCut",
+						"Modify and distribute the ProCut software (under MIT license)",
 					],
-					p2: "You're responsible for how you use OpenCut and the content you create. Don't use it for anything illegal in your jurisdiction.",
+					p2: "You're responsible for how you use ProCut and the content you create. Don't use it for anything illegal in your jurisdiction.",
 				},
 				ai: {
 					title: "AI Features",
-					p1: "AI features like auto captions run entirely in your browser using on-device models. No content is uploaded to any server. These features are optional - you can use OpenCut without them.",
+					p1: "AI features like auto captions run entirely in your browser using on-device models. No content is uploaded to any server. These features are optional - you can use ProCut without them.",
 				},
 				service: {
 					title: "Service",
-					p1: "OpenCut does not currently require an account. The service is provided \"as is\" without warranties. While we strive for reliability, we can't guarantee uninterrupted service.",
+					p1: "ProCut does not currently require an account. The service is provided \"as is\" without warranties. While we strive for reliability, we can't guarantee uninterrupted service.",
 				},
 				benefits: {
 					title: "Open Source Benefits",
-					p1: "Because OpenCut is open source, you have additional rights:",
+					p1: "Because ProCut is open source, you have additional rights:",
 					items: [
 						"Review our code to see exactly how we handle your data",
-						"Self-host OpenCut on your own servers",
+						"Self-host ProCut on your own servers",
 						"Modify the software to suit your needs",
 						"Contribute improvements back to the community",
 					],
@@ -136,7 +136,7 @@ export const legalTranslations = {
 				},
 				liability: {
 					title: "Limitations and Liability",
-					p1: "OpenCut is provided free of charge. To the extent permitted by law:",
+					p1: "ProCut is provided free of charge. To the extent permitted by law:",
 					items: [
 						"We're not liable for any loss of data or content",
 						"Projects are stored in your browser and may be lost if you clear browser data",
@@ -147,7 +147,7 @@ export const legalTranslations = {
 				},
 				changes: {
 					title: "Service Changes",
-					p1: "We may update OpenCut and these terms:",
+					p1: "We may update ProCut and these terms:",
 					items: [
 						"We'll notify you of significant changes to these terms",
 						"Continued use means you accept any updates",
@@ -157,7 +157,7 @@ export const legalTranslations = {
 				},
 				stopping: {
 					title: "Stopping Use",
-					p1: "You can stop using OpenCut at any time:",
+					p1: "You can stop using ProCut at any time:",
 					items: ["Clear your browser data to remove local projects"],
 				},
 				contact: {
@@ -181,7 +181,7 @@ export const legalTranslations = {
 				items: [
 					"মৌলিক এডিটিং আপনার ব্রাউজারে লোকাললি ঘটে - আমরা কখনো আপনার ফাইল দেখি না",
 					"অটো ক্যাপশনের মতো এআই ফিচারগুলোও আপনার ব্রাউজারে লোকাললি চলে - কিছুই আপলোড করা হয় না",
-					"OpenCut-এ বর্তমানে কোনো অ্যাকাউন্ট বা লগইনের প্রয়োজন নেই",
+					"ProCut-এ বর্তমানে কোনো অ্যাকাউন্ট বা লগইনের প্রয়োজন নেই",
 					"প্রজেক্ট ডেটা আপনার ডিভাইসেই থাকে, আমাদের সার্ভারে নয়",
 					"অ্যাপটিকে আরও উন্নত করতে আমরা অ্যানোনিমাইজড অ্যানালিটিক্স ব্যবহার করি, কিন্তু কোনো ব্যক্তিগত ভিডিও কন্টেন্ট ট্র্যাক করা হয় না",
 					"আপনি যেকোনো সময় আপনার ব্রাউজার থেকে লোকাল ডেটা মুছে ফেলতে পারেন",
@@ -196,7 +196,7 @@ export const legalTranslations = {
 				},
 				accounts: {
 					title: "অ্যাকাউন্ট এবং অথেন্টিকেশন",
-					p1: "OpenCut বর্তমানে ইউজার অ্যাকাউন্ট, লগইন বা গুগল সাইন-ইন অফার করে না।",
+					p1: "ProCut বর্তমানে ইউজার অ্যাকাউন্ট, লগইন বা গুগল সাইন-ইন অফার করে না।",
 					p2: "যেহেতু বর্তমানে কোনো অ্যাকাউন্ট সিস্টেম নেই, তাই আমরা অ্যাকাউন্টের ইমেল, প্রোফাইল ইনফরমেশন বা OAuth আইডেন্টিটি ডেটা সংগ্রহ করি না।",
 					p3: "আপনার প্রজেক্টগুলো কখনো আমাদের সার্ভারে জমা রাখা হয় না। নাম, থাম্বনেইল এবং তৈরির তারিখসহ সব প্রজেক্ট ডেটা IndexedDB ব্যবহার করে আপনার ব্রাউজারে লোকাললি জমা থাকে।",
 				},
@@ -217,7 +217,7 @@ export const legalTranslations = {
 				},
 				thirdParty: {
 					title: "থার্ড-পার্টি সার্ভিস",
-					p1: "OpenCut এই সার্ভিসগুলোর সাথে যুক্ত:",
+					p1: "ProCut এই সার্ভিসগুলোর সাথে যুক্ত:",
 					items: [
 						"Vercel: হোস্টিং এবং কন্টেন্ট ডেলিভারির জন্য",
 						"Databuddy: অ্যানোনিমাইজড অ্যানালিটিক্স-এর জন্য",
@@ -227,14 +227,14 @@ export const legalTranslations = {
 					title: "আপনার অধিকার",
 					p1: "আপনার ডেটার ওপর আপনার সম্পূর্ণ নিয়ন্ত্রণ রয়েছে:",
 					items: [
-						"OpenCut ব্যবহারের জন্য বর্তমানে কোনো অ্যাকাউন্টের প্রয়োজন নেই",
+						"ProCut ব্যবহারের জন্য বর্তমানে কোনো অ্যাকাউন্টের প্রয়োজন নেই",
 						"সব সেভ করা প্রজেক্ট মুছে ফেলতে লোকাল স্টোরেজ ক্লিয়ার করুন",
 						"প্রাইভেসী সংক্রান্ত যেকোনো উদ্বেগের জন্য আমাদের সাথে যোগাযোগ করুন",
 					],
 				},
 				transparency: {
 					title: "ওপেন সোর্স স্বচ্ছতা",
-					p1: "OpenCut সম্পূর্ণ ওপেন সোর্স। আপনি আমাদের কোড রিভিউ করতে পারেন, আমরা ঠিক কীভাবে ডেটা পরিচালনা করি তা দেখতে পারেন এবং চাইলে নিজেই অ্যাপ্লিকেশনটি হোস্ট করতে পারেন।",
+					p1: "ProCut সম্পূর্ণ ওপেন সোর্স। আপনি আমাদের কোড রিভিউ করতে পারেন, আমরা ঠিক কীভাবে ডেটা পরিচালনা করি তা দেখতে পারেন এবং চাইলে নিজেই অ্যাপ্লিকেশনটি হোস্ট করতে পারেন।",
 					p2: "আমাদের সোর্স কোড দেখুন {link}-এ।",
 				},
 				contact: {
@@ -266,39 +266,39 @@ export const legalTranslations = {
 			sections: {
 				ownership: {
 					title: "আপনার কন্টেন্ট, আপনার অধিকার",
-					p1: "আপনার তৈরি করা সবকিছুর মালিক আপনি। সব এডিটিং এবং প্রসেসিং আপনার ডিভাইসে লোকাললি ঘটে। আমরা কখনো আপনার ফাইল দেখি না, স্টোর করি না বা অ্যাক্সেস করি না। আপনার ভিডিও, প্রজেক্ট বা OpenCut ব্যবহার করে তৈরি করা কোনো কন্টেন্টের ওপর আমরা মালিকানা, লাইসেন্সিং বা অধিকার দাবি করি না।",
+					p1: "আপনার তৈরি করা সবকিছুর মালিক আপনি। সব এডিটিং এবং প্রসেসিং আপনার ডিভাইসে লোকাললি ঘটে। আমরা কখনো আপনার ফাইল দেখি না, স্টোর করি না বা অ্যাক্সেস করি না। আপনার ভিডিও, প্রজেক্ট বা ProCut ব্যবহার করে তৈরি করা কোনো কন্টেন্টের ওপর আমরা মালিকানা, লাইসেন্সিং বা অধিকার দাবি করি না।",
 					items: [
 						"আপনার কন্টেন্ট কখনো আপনার ডিভাইস থেকে বের হয় না",
 						"আপনি আপনার কন্টেন্টের সব ইন্টেলেকচুয়াল প্রপার্টি রাইটস বজায় রাখেন",
 						"আপনি আপনার কন্টেন্ট যেভাবে চান সেভাবে এক্সপোর্ট এবং ব্যবহার করতে পারেন",
-						"OpenCut থেকে কোনো জলছাপ বা লাইসেন্সিং সীমাবদ্ধতা নেই",
+						"ProCut থেকে কোনো জলছাপ বা লাইসেন্সিং সীমাবদ্ধতা নেই",
 					],
 				},
 				usage: {
-					title: "আপনি কীভাবে OpenCut ব্যবহার করতে পারেন",
-					p1: "OpenCut ব্যক্তিগত এবং বাণিজ্যিক ব্যবহারের জন্য ফ্রি। আপনি পারেন:",
+					title: "আপনি কীভাবে ProCut ব্যবহার করতে পারেন",
+					p1: "ProCut ব্যক্তিগত এবং বাণিজ্যিক ব্যবহারের জন্য ফ্রি। আপনি পারেন:",
 					items: [
 						"ব্যক্তিগত, শিক্ষামূলক বা বাণিজ্যিক উদ্দেশ্যে ভিডিও তৈরি করতে",
-						"ক্লায়েন্ট ওয়ার্ক এবং পেইড প্রজেক্টের জন্য OpenCut ব্যবহার করতে",
-						"OpenCut দিয়ে তৈরি ভিডিও শেয়ার এবং ডিস্ট্রিবিউট করতে",
-						"OpenCut সফটওয়্যার পরিবর্তন এবং ডিস্ট্রিবিউট করতে (MIT লাইসেন্সের অধীনে)",
+						"ক্লায়েন্ট ওয়ার্ক এবং পেইড প্রজেক্টের জন্য ProCut ব্যবহার করতে",
+						"ProCut দিয়ে তৈরি ভিডিও শেয়ার এবং ডিস্ট্রিবিউট করতে",
+						"ProCut সফটওয়্যার পরিবর্তন এবং ডিস্ট্রিবিউট করতে (MIT লাইসেন্সের অধীনে)",
 					],
-					p2: "আপনি কীভাবে OpenCut ব্যবহার করছেন এবং আপনার তৈরি করা কন্টেন্টের জন্য আপনিই দায়ী। আপনার এলাকায় অবৈধ এমন কিছুর জন্য এটি ব্যবহার করবেন না।",
+					p2: "আপনি কীভাবে ProCut ব্যবহার করছেন এবং আপনার তৈরি করা কন্টেন্টের জন্য আপনিই দায়ী। আপনার এলাকায় অবৈধ এমন কিছুর জন্য এটি ব্যবহার করবেন না।",
 				},
 				ai: {
 					title: "এআই ফিচার",
-					p1: "অটো ক্যাপশনের মতো এআই ফিচারগুলো অন-ডিভাইস মডেল ব্যবহার করে সম্পূর্ণভাবে আপনার ব্রাউজারে চলে। কোনো কন্টেন্ট কোনো সার্ভারে আপলোড করা হয় না। এই ফিচারগুলো ঐচ্ছিক - আপনি এগুলি ছাড়াই OpenCut ব্যবহার করতে পারেন।",
+					p1: "অটো ক্যাপশনের মতো এআই ফিচারগুলো অন-ডিভাইস মডেল ব্যবহার করে সম্পূর্ণভাবে আপনার ব্রাউজারে চলে। কোনো কন্টেন্ট কোনো সার্ভারে আপলোড করা হয় না। এই ফিচারগুলো ঐচ্ছিক - আপনি এগুলি ছাড়াই ProCut ব্যবহার করতে পারেন।",
 				},
 				service: {
 					title: "সার্ভিস",
-					p1: "OpenCut-এ বর্তমানে কোনো অ্যাকাউন্টের প্রয়োজন নেই। সার্ভিসটি ওয়ারেন্টি ছাড়াই \"যেমন আছে\" সেভাবে প্রদান করা হয়। আমরা নির্ভরযোগ্যতার চেষ্টা করলেও নিরবচ্ছিন্ন সার্ভিসের গ্যারান্টি দিতে পারি না।",
+					p1: "ProCut-এ বর্তমানে কোনো অ্যাকাউন্টের প্রয়োজন নেই। সার্ভিসটি ওয়ারেন্টি ছাড়াই \"যেমন আছে\" সেভাবে প্রদান করা হয়। আমরা নির্ভরযোগ্যতার চেষ্টা করলেও নিরবচ্ছিন্ন সার্ভিসের গ্যারান্টি দিতে পারি না।",
 				},
 				benefits: {
 					title: "ওপেন সোর্স সুবিধা",
-					p1: "যেহেতু OpenCut ওপেন সোর্স, আপনার অতিরিক্ত কিছু অধিকার রয়েছে:",
+					p1: "যেহেতু ProCut ওপেন সোর্স, আপনার অতিরিক্ত কিছু অধিকার রয়েছে:",
 					items: [
 						"আমরা ঠিক কীভাবে আপনার ডেটা পরিচালনা করি তা দেখতে আমাদের কোড রিভিউ করুন",
-						"আপনার নিজের সার্ভারে OpenCut হোস্ট করুন",
+						"আপনার নিজের সার্ভারে ProCut হোস্ট করুন",
 						"আপনার প্রয়োজন অনুযায়ী সফটওয়্যার পরিবর্তন করুন",
 						"কমিউনিটিতে উন্নতির জন্য অবদান রাখুন",
 					],
@@ -306,7 +306,7 @@ export const legalTranslations = {
 				},
 				liability: {
 					title: "সীমাবদ্ধতা এবং দায়বদ্ধতা",
-					p1: "OpenCut বিনামূল্যে প্রদান করা হয়। আইন অনুযায়ী অনুমোদিত সীমা পর্যন্ত:",
+					p1: "ProCut বিনামূল্যে প্রদান করা হয়। আইন অনুযায়ী অনুমোদিত সীমা পর্যন্ত:",
 					items: [
 						"ডেটা বা কন্টেন্ট হারানোর জন্য আমরা দায়ী নই",
 						"প্রজেক্টগুলো আপনার ব্রাউজারে জমা থাকে এবং ব্রাউজার ডেটা মুছে ফেললে সেগুলো হারিয়ে যেতে পারে",
@@ -317,7 +317,7 @@ export const legalTranslations = {
 				},
 				changes: {
 					title: "সার্ভিস পরিবর্তন",
-					p1: "আমরা OpenCut এবং এই শর্তাবলী আপডেট করতে পারি:",
+					p1: "আমরা ProCut এবং এই শর্তাবলী আপডেট করতে পারি:",
 					items: [
 						"এই শর্তাবলীতে উল্লেখযোগ্য পরিবর্তন হলে আমরা আপনাকে জানাব",
 						"ব্যবহার চালিয়ে যাওয়ার অর্থ হলো আপনি যেকোনো আপডেট গ্রহণ করেছেন",
@@ -327,7 +327,7 @@ export const legalTranslations = {
 				},
 				stopping: {
 					title: "ব্যবহার বন্ধ করা",
-					p1: "আপনি যেকোনো সময় OpenCut ব্যবহার বন্ধ করতে পারেন:",
+					p1: "আপনি যেকোনো সময় ProCut ব্যবহার বন্ধ করতে পারেন:",
 					items: ["লোকাল প্রজেক্টগুলো মুছে ফেলতে আপনার ব্রাউজার ডেটা ক্লিয়ার করুন"],
 				},
 				contact: {

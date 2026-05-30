@@ -8,12 +8,12 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import { SOCIAL_LINKS } from "@/site/social";
 import { useTranslation } from "@/hooks/use-translation";
 
 export default function TermsPage() {
 	const { t } = useTranslation();
 	const terms = t.legal.terms;
+	const social = t.site.social;
 
 	return (
 		<BasePage title={terms.title} description={terms.description}>
@@ -37,10 +37,10 @@ export default function TermsPage() {
 						<p className="mt-4">
 							{terms.summary.questions.split("{email}")[0]}
 							<a
-								href="mailto:oss@opencut.app"
+								href="mailto:oss@procut.app"
 								className="text-primary hover:underline"
 							>
-								oss@opencut.app
+								oss@procut.app
 							</a>
 							{terms.summary.questions.split("{email}")[1]}
 						</p>
@@ -90,7 +90,7 @@ export default function TermsPage() {
 				<p>
 					{terms.sections.benefits.p2.split("{link}")[0]}
 					<a
-						href={SOCIAL_LINKS.github}
+						href={social.github}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -138,7 +138,7 @@ export default function TermsPage() {
 				<p>
 					{terms.sections.contact.p2.split("{github}")[0]}
 					<a
-						href={`${SOCIAL_LINKS.github}/issues`}
+						href={`${social.github}/issues`}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -147,14 +147,14 @@ export default function TermsPage() {
 					</a>
 					{terms.sections.contact.p2.split("{github}")[1].split("{email}")[0]}
 					<a
-						href="mailto:oss@opencut.app"
+						href="mailto:oss@procut.app"
 						className="text-primary hover:underline"
 					>
-						oss@opencut.app
+						oss@procut.app
 					</a>
 					{terms.sections.contact.p2.split("{email}")[1].split("{x}")[0]}
 					<a
-						href={SOCIAL_LINKS.x}
+						href={social.x}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-primary hover:underline"
@@ -172,4 +172,3 @@ export default function TermsPage() {
 		</BasePage>
 	);
 }
-

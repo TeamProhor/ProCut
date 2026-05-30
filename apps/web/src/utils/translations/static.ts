@@ -2,10 +2,10 @@ export const staticTranslations = {
 	en: {
 		roadmap: {
 			title: "Roadmap",
-			description: "What's coming next for OpenCut (last updated: {date})",
+			description: "What's coming next for ProCut (last updated: {date})",
 			wantToHelpTitle: "Want to help?",
 			wantToHelpDescription:
-				"OpenCut is open source and built by the community. Every contribution, no matter how small, helps us build the best free video editor possible.",
+				"ProCut is open source and built by the community. Every contribution, no matter how small, helps us build the best free video editor possible.",
 			status: {
 				completed: "Completed",
 				inProgress: "In progress",
@@ -30,14 +30,14 @@ export const staticTranslations = {
 				native: {
 					title: "Native app (mobile/desktop)",
 					description:
-						"Native OpenCut apps for Mac, Windows, Linux, and iOS/Android.",
+						"Native ProCut apps for Mac, Windows, Linux, and iOS/Android.",
 				},
 			},
 		},
 		contributors: {
 			title: "Contributors",
 			description:
-				"Meet the amazing people who contribute to OpenCut, the free and open-source video editor.",
+				"Meet the amazing people who contribute to ProCut, the free and open-source video editor.",
 			stats: {
 				contributors: "contributors",
 				contributions: "contributions",
@@ -49,34 +49,34 @@ export const staticTranslations = {
 				},
 				all: {
 					title: "All contributors",
-					description: "Everyone who makes OpenCut better",
+					description: "Everyone who makes ProCut better",
 				},
 				external: {
 					title: "External tools",
-					description: "Tools we use to build OpenCut",
+					description: "Tools we use to build ProCut",
 				},
 			},
 			joinCommunity: {
 				title: "Join the community",
 				description:
-					"OpenCut is built by developers like you. Every contribution, no matter how small, helps make video editing more accessible for everyone.",
+					"ProCut is built by developers like you. Every contribution, no matter how small, helps make video editing more accessible for everyone.",
 			},
 		},
 		sponsors: {
 			title: "Sponsors",
 			description:
-				"Support OpenCut and help us build the future of privacy-first video editing.",
+				"Support ProCut and help us build the future of privacy-first video editing.",
 		},
 		brand: {
 			title: "Brand",
-			description: "Download OpenCut brand assets for use in your projects.",
+			description: "Download ProCut brand assets for use in your projects.",
 			readGuidelines: "Read the brand guidelines.",
 			downloadAll: "Download all",
 			sections: {
 				symbol: {
 					title: "Symbol",
 					description:
-						"Use the symbol on its own when the OpenCut name is already present nearby or space is limited.",
+						"Use the symbol on its own when the ProCut name is already present nearby or space is limited.",
 				},
 				lockup: {
 					title: "Lockup",
@@ -87,13 +87,13 @@ export const staticTranslations = {
 			usage: {
 				title: "Usage",
 				description:
-					"OpenCut is open source — the code is free to use under its license. That license does not cover the name or logo. You can say you use OpenCut, that your project integrates with OpenCut, or that it was built on top of OpenCut. You cannot name your product OpenCut, imply we made or endorse your product, or use the marks commercially without asking first. For anything unclear, reach out at {email}.",
+					"ProCut is open source — the code is free to use under its license. That license does not cover the name or logo. You can say you use ProCut, that your project integrates with ProCut, or that it was built on top of ProCut. You cannot name your product ProCut, imply we made or endorse your product, or use the marks commercially without asking first. For anything unclear, reach out at {email}.",
 			},
 			notAllowed: {
 				title: "What's not allowed",
 				items: [
-					"Using OpenCut in the name of your product, service, or domain.",
-					"Implying that OpenCut made, sponsors, or endorses your work.",
+					"Using ProCut in the name of your product, service, or domain.",
+					"Implying that ProCut made, sponsors, or endorses your work.",
 					"Using the logo or name on merchandise or commercial marketing.",
 					"Modifying the marks.",
 				],
@@ -101,12 +101,12 @@ export const staticTranslations = {
 		},
 		blog: {
 			title: "Blog",
-			description: "Read the latest news and updates about OpenCut, the free and open-source video editor.",
+			description: "Read the latest news and updates about ProCut, the free and open-source video editor.",
 			noPosts: "No posts yet",
 		},
 		changelog: {
 			title: "Changelog",
-			description: "See what's new in OpenCut",
+			description: "See what's new in ProCut",
 			allReleases: "All releases",
 			older: "Older",
 			newer: "Newer",
@@ -122,10 +122,10 @@ export const staticTranslations = {
 	bn: {
 		roadmap: {
 			title: "রোডম্যাপ",
-			description: "OpenCut-এর পরবর্তী পরিকল্পনা (সর্বশেষ আপডেট: {date})",
+			description: "ProCut-এর পরবর্তী পরিকল্পনা (সর্বশেষ আপডেট: {date})",
 			wantToHelpTitle: "সাহায্য করতে চান?",
 			wantToHelpDescription:
-				"OpenCut ওপেন সোর্স এবং এটি একটি কমিউনিটি দ্বারা তৈরি। প্রতিটি অবদান, তা যতই ছোট হোক না কেন, আমাদের সেরা বিনামূল্যের ভিডিও এডিটর তৈরি করতে সাহায্য করে।",
+				"ProCut ওপেন সোর্স এবং এটি একটি কমিউনিটি দ্বারা তৈরি। প্রতিটি অবদান, তা যতই ছোট হোক না কেন, আমাদের সেরা বিনামূল্যের ভিডিও এডিটর তৈরি করতে সাহায্য করে।",
 			status: {
 				completed: "সম্পন্ন",
 				inProgress: "চলমান",
@@ -149,14 +149,14 @@ export const staticTranslations = {
 				},
 				native: {
 					title: "নেটিভ অ্যাপ (মোবাইল/ডেস্কটপ)",
-					description: "ম্যাক, উইন্ডোজ, লিনাক্স এবং আইওএস/অ্যান্ড্রয়েডের জন্য নেটিভ OpenCut অ্যাপ।",
+					description: "ম্যাক, উইন্ডোজ, লিনাক্স এবং আইওএস/অ্যান্ড্রয়েডের জন্য নেটিভ ProCut অ্যাপ।",
 				},
 			},
 		},
 		contributors: {
 			title: "অবদানকারী",
 			description:
-				"OpenCut-এ অবদান রাখা অসাধারণ মানুষদের সাথে পরিচিত হন, যা একটি ফ্রি এবং ওপেন সোর্স ভিডিও এডিটর।",
+				"ProCut-এ অবদান রাখা অসাধারণ মানুষদের সাথে পরিচিত হন, যা একটি ফ্রি এবং ওপেন সোর্স ভিডিও এডিটর।",
 			stats: {
 				contributors: "অবদানকারী",
 				contributions: "অবদান",
@@ -168,33 +168,33 @@ export const staticTranslations = {
 				},
 				all: {
 					title: "সব অবদানকারী",
-					description: "সবাই যারা OpenCut-কে আরও উন্নত করছেন",
+					description: "সবাই যারা ProCut-কে আরও উন্নত করছেন",
 				},
 				external: {
 					title: "এক্সটারনাল টুলস",
-					description: "OpenCut তৈরিতে আমরা যে টুলগুলো ব্যবহার করি",
+					description: "ProCut তৈরিতে আমরা যে টুলগুলো ব্যবহার করি",
 				},
 			},
 			joinCommunity: {
 				title: "কমিউনিটিতে যোগ দিন",
 				description:
-					"OpenCut আপনার মতো ডেভেলপারদের দ্বারা তৈরি। প্রতিটি অবদান, তা যতই ছোট হোক না কেন, ভিডিও এডিটিংকে সবার জন্য আরও সহজলভ্য করতে সাহায্য করে।",
+					"ProCut আপনার মতো ডেভেলপারদের দ্বারা তৈরি। প্রতিটি অবদান, তা যতই ছোট হোক না কেন, ভিডিও এডিটিংকে সবার জন্য আরও সহজলভ্য করতে সাহায্য করে।",
 			},
 		},
 		sponsors: {
 			title: "স্পন্সর",
-			description: "OpenCut-কে সমর্থন করুন এবং প্রাইভেসী-ফার্স্ট ভিডিও এডিটিংয়ের ভবিষ্যৎ গড়তে আমাদের সাহায্য করুন।",
+			description: "ProCut-কে সমর্থন করুন এবং প্রাইভেসী-ফার্স্ট ভিডিও এডিটিংয়ের ভবিষ্যৎ গড়তে আমাদের সাহায্য করুন।",
 		},
 		brand: {
 			title: "ব্র্যান্ড",
-			description: "আপনার প্রজেক্টে ব্যবহারের জন্য OpenCut ব্র্যান্ড অ্যাসেট ডাউনলোড করুন।",
+			description: "আপনার প্রজেক্টে ব্যবহারের জন্য ProCut ব্র্যান্ড অ্যাসেট ডাউনলোড করুন।",
 			readGuidelines: "ব্র্যান্ড গাইডলাইন পড়ুন।",
 			downloadAll: "সব ডাউনলোড করুন",
 			sections: {
 				symbol: {
 					title: "সিম্বল",
 					description:
-						"যখন OpenCut নাম আশেপাশে থাকে বা জায়গা কম থাকে তখন সিম্বলটি ব্যবহার করুন।",
+						"যখন ProCut নাম আশেপাশে থাকে বা জায়গা কম থাকে তখন সিম্বলটি ব্যবহার করুন।",
 				},
 				lockup: {
 					title: "লকআপ",
@@ -205,13 +205,13 @@ export const staticTranslations = {
 			usage: {
 				title: "ব্যবহার",
 				description:
-					"OpenCut ওপেন সোর্স — কোডটি এর লাইসেন্সের অধীনে ব্যবহারের জন্য ফ্রি। সেই লাইসেন্সটি নাম বা লোগো কভার করে না। আপনি বলতে পারেন আপনি OpenCut ব্যবহার করেন, আপনার প্রজেক্ট OpenCut-এর সাথে ইন্টিগ্রেটেড, অথবা এটি OpenCut-এর ওপর ভিত্তি করে তৈরি। আপনি আপনার প্রোডাক্টের নাম OpenCut দিতে পারবেন না, আমরা আপনার প্রোডাক্ট তৈরি করেছি বা সমর্থন করছি এমন ইঙ্গিত দিতে পারবেন না, অথবা অনুমতি ছাড়া ব্যবসায়িক কাজে ব্যবহার করতে পারবেন না। যেকোনো অস্পষ্টতার জন্য {email}-এ যোগাযোগ করুন।",
+					"ProCut ওপেন সোর্স — কোডটি এর লাইসেন্সের অধীনে ব্যবহারের জন্য ফ্রি। সেই লাইসেন্সটি নাম বা লোগো কভার করে না। আপনি বলতে পারেন আপনি ProCut ব্যবহার করেন, আপনার প্রজেক্ট ProCut-এর সাথে ইন্টিগ্রেটেড, অথবা এটি ProCut-এর ওপর ভিত্তি করে তৈরি। আপনি আপনার প্রোডাক্টের নাম ProCut দিতে পারবেন না, আমরা আপনার প্রোডাক্ট তৈরি করেছি বা সমর্থন করছি এমন ইঙ্গিত দিতে পারবেন না, অথবা অনুমতি ছাড়া ব্যবসায়িক কাজে ব্যবহার করতে পারবেন না। যেকোনো অস্পষ্টতার জন্য {email}-এ যোগাযোগ করুন।",
 			},
 			notAllowed: {
 				title: "যা অনুমোদিত নয়",
 				items: [
-					"আপনার প্রোডাক্ট, সার্ভিস বা ডোমেইনের নামে OpenCut ব্যবহার করা।",
-					"OpenCut আপনার কাজ তৈরি করেছে, স্পন্সর করছে বা সমর্থন করছে এমন ইঙ্গিত দেওয়া।",
+					"আপনার প্রোডাক্ট, সার্ভিস বা ডোমেইনের নামে ProCut ব্যবহার করা।",
+					"ProCut আপনার কাজ তৈরি করেছে, স্পন্সর করছে বা সমর্থন করছে এমন ইঙ্গিত দেওয়া।",
 					"মার্চেন্ডাইজ বা বাণিজ্যিক মার্কেটিংয়ে লোগো বা নাম ব্যবহার করা।",
 					"চিহ্নগুলি পরিবর্তন করা।",
 				],
@@ -219,12 +219,12 @@ export const staticTranslations = {
 		},
 		blog: {
 			title: "ব্লগ",
-			description: "OpenCut সম্পর্কে সর্বশেষ খবর এবং আপডেট পড়ুন, যা একটি ফ্রি এবং ওপেন সোর্স ভিডিও এডিটর।",
+			description: "ProCut সম্পর্কে সর্বশেষ খবর এবং আপডেট পড়ুন, যা একটি ফ্রি এবং ওপেন সোর্স ভিডিও এডিটর।",
 			noPosts: "এখনও কোনো পোস্ট নেই",
 		},
 		changelog: {
 			title: "চেঞ্জলগ",
-			description: "OpenCut-এ নতুন কী আছে তা দেখুন",
+			description: "ProCut-এ নতুন কী আছে তা দেখুন",
 			allReleases: "সব রিলিজ",
 			older: "পুরনো",
 			newer: "নতুন",

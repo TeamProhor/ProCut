@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { GitHubContributeSection } from "@/components/gitHub-contribute-section";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { EXTERNAL_TOOLS } from "@/site/external-tools";
 import { BasePage } from "../base-page";
 import { useTranslation } from "@/hooks/use-translation";
 
@@ -21,11 +20,11 @@ interface Contributor {
 async function getContributors(): Promise<Contributor[]> {
 	try {
 		const response = await fetch(
-			"https://api.github.com/repos/OpenCut-app/OpenCut/contributors?per_page=100",
+			"https://api.github.com/repos/TeamProhor/ProCut/contributors?per_page=100",
 			{
 				headers: {
 					Accept: "application/vnd.github.v3+json",
-					"User-Agent": "OpenCut-Web-App",
+					"User-Agent": "ProCut-Web-App",
 				},
 			},
 		);
@@ -99,6 +98,7 @@ export default function ContributorsPage() {
 				<ExternalToolsSection
 					title={contributorsTrans.sections.external.title}
 					description={contributorsTrans.sections.external.description}
+					tools={t.site.externalTools}
 				/>
 				<GitHubContributeSection
 					title={contributorsTrans.joinCommunity.title}
@@ -240,9 +240,11 @@ function AllContributorsSection({
 function ExternalToolsSection({
 	title,
 	description,
+	tools,
 }: {
 	title: string;
 	description: string;
+	tools: any[];
 }) {
 	return (
 		<div className="flex flex-col gap-10">
@@ -252,7 +254,7 @@ function ExternalToolsSection({
 			</div>
 
 			<div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
-				{EXTERNAL_TOOLS.map((tool, index) => (
+				{tools.map((tool, index) => (
 					<Link
 						key={tool.url}
 						href={tool.url}
@@ -277,4 +279,3 @@ function ExternalToolsSection({
 		</div>
 	);
 }
-
