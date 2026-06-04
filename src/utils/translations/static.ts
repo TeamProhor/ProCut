@@ -187,7 +187,7 @@ export const staticTranslations = {
 		},
 		brand: {
 			title: "ব্র্যান্ড",
-			description: "আপনার প্রজেক্টে ব্যবহারের জন্য ProCut ব্র্যান্ড অ্যাসেট ডাউনলোড করুন।",
+			description: "আপনার প্রজেক্টে ব্যবহারের জন্য ProCut ব্র্যান্ড অ্যাসেটস ডাউনলোড করুন।",
 			readGuidelines: "ব্র্যান্ড গাইডলাইন পড়ুন।",
 			downloadAll: "সব ডাউনলোড করুন",
 			sections: {

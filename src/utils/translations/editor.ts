@@ -201,11 +201,11 @@ export const editorTranslations = {
 			dismiss: "বন্ধ করুন",
 		},
 		header: {
-			exitProject: "প্রকল্প থেকে প্রস্থান করুন",
+			exitProject: "প্রজেক্ট থেকে প্রস্থান করুন",
 			shortcuts: "শর্টকাট",
 			discord: "ডিসকর্ড",
-			renameError: "প্রকল্পের নাম পরিবর্তন করতে ব্যর্থ হয়েছে",
-			deleteError: "প্রকল্পটি মুছে ফেলতে ব্যর্থ হয়েছে",
+			renameError: "প্রজেক্টের নাম পরিবর্তন করতে ব্যর্থ হয়েছে",
+			deleteError: "প্রজেক্টটি মুছে ফেলতে ব্যর্থ হয়েছে",
 			tryAgain: "দয়া করে আবার চেষ্টা করুন",
 		},
 		assets: {
@@ -221,11 +221,11 @@ export const editorTranslations = {
 				settings: "সেটিংস",
 			},
 			media: {
-				title: "সম্পদ (Assets)",
+				title: "অ্যাসেটস",
 				import: "ইম্পোর্ট",
-				noActiveProject: "কোনো সক্রিয় প্রকল্প নেই",
-				searchPlaceholder: "সম্পদ খুঁজুন...",
-				empty: "এখনও কোনো সম্পদ নেই",
+				noActiveProject: "কোনো সক্রিয় প্রজেক্ট নেই",
+				searchPlaceholder: "অ্যাসেটস খুঁজুন...",
+				empty: "এখনও কোনো অ্যাসেটস নেই",
 				dragDrop: "ফাইলগুলো এখানে ড্র্যাগ করুন অথবা আপলোড করতে ক্লিক করুন",
 				processing: "{count}টি ফাইল প্রসেস করা হচ্ছে...",
 				delete: "মুছে ফেলুন",
@@ -353,7 +353,7 @@ export const editorTranslations = {
 		},
 		settings: {
 			tabs: {
-				projectInfo: "প্রকল্পের তথ্য",
+				projectInfo: "প্রজেক্টের তথ্য",
 				background: "ব্যাকগ্রাউন্ড",
 			},
 			info: {
@@ -368,8 +368,8 @@ export const editorTranslations = {
 		},
 		export: {
 			button: "এক্সপোর্ট",
-			title: "প্রকল্প এক্সপোর্ট করুন",
-			exporting: "প্রকল্প এক্সপোর্ট হচ্ছে",
+			title: "প্রজেক্ট এক্সপোর্ট করুন",
+			exporting: "প্রজেক্ট এক্সপোর্ট হচ্ছে",
 			format: "ফরম্যাট",
 			formats: {
 				mp4: "MP4 (H.264) - উন্নত সামঞ্জস্যতা",
