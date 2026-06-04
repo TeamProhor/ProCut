@@ -1,6 +1,7 @@
 {
 	"name": "@opencut/web",
 	"version": "0.1.0",
+	"repository": "https://github.com/TeamProhor/ProCut",
 	"private": true,
 	"packageManager": "pnpm@10.33.2",
 	"scripts": {

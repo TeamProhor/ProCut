@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
@@ -28,6 +28,7 @@ import { useTranslation } from "@/hooks/use-translation";
 export function Header() {
 	const { t } = useTranslation();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	const closeMenu = () => setIsMenuOpen(false);
 
 	const links = [
@@ -123,7 +124,7 @@ export function Header() {
 						<Link href={t.site.social.github}>
 							<Button className="bg-background text-sm" variant="outline">
 								<HugeiconsIcon icon={GithubIcon} className="size-4" />
-								40k+
+								219
 							</Button>
 						</Link>
 						<Link href="/projects">
