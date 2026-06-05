@@ -18,6 +18,10 @@ export class CommandManager {
 
   constructor(private editor: EditorCore) {}
 
+  setRippleEnabled(enabled: boolean): void {
+    this.isRippleEnabled = enabled;
+  }
+
   execute({ command }: { command: Command }): Command {
     const beforeTracks = this.isRippleEnabled
       ? (this.editor.scenes.getActiveSceneOrNull()?.tracks ?? null)

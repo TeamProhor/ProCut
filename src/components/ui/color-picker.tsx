@@ -83,9 +83,11 @@ function ColorPickerContent({
   const isSameHueWrapped = hueDiff < 1 || Math.abs(hueDiff - 360) < 1;
   const displayHue = s === 0 || isSameHueWrapped ? internalHue : h;
 
-  useEffect(() => {
+  const [prevValueFormat, setPrevValueFormat] = useState({ value, colorFormat });
+  if (prevValueFormat.value !== value || prevValueFormat.colorFormat !== colorFormat) {
+    setPrevValueFormat({ value, colorFormat });
     setInputValue(formatColorValue({ hex: value, format: colorFormat }));
-  }, [value, colorFormat]);
+  }
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -451,10 +453,11 @@ const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
     const { alpha } = parseHexAlpha({ hex: value });
 
     const [inputValue, setInputValue] = useState(value);
-
-    useEffect(() => {
+    const [prevValue, setPrevValue] = useState(value);
+    if (prevValue !== value) {
+      setPrevValue(value);
       setInputValue(value);
-    }, [value]);
+    }
 
     const commitInputValue = (raw: string) => {
       const input = raw.replace("#", "");

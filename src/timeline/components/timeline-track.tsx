@@ -62,7 +62,7 @@ export function TimelineTrackContent({
           onTrackMouseDown?.(event);
         }}
       />
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- spatial gesture surface; the wrapping <button> handles keyboard track selection, this <div> only forwards background clicks for box-select / deselect. */}
+      { }
       <div
         className="relative h-full min-w-full"
         style={{ zIndex: TIMELINE_LAYERS.trackContent }}

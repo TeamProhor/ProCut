@@ -86,7 +86,7 @@ function migrateTextElement({ element }: { element: unknown }): unknown {
       ? element.backgroundColor
       : "transparent";
 
-  const { backgroundColor: _removed, ...rest } = element;
+  const { backgroundColor: _, ...rest } = element;
 
   return {
     ...rest,

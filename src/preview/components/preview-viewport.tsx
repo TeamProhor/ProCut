@@ -461,17 +461,43 @@ export function usePreviewViewportState({
     [],
   );
 
-  useEffect(() => {
+  const [prevViewportSize, setPrevViewportSize] = useState({
+    canvasHeight,
+    canvasWidth,
+    viewportHeight,
+    viewportScale,
+    viewportWidth,
+  });
+
+  if (
+    prevViewportSize.canvasHeight !== canvasHeight ||
+    prevViewportSize.canvasWidth !== canvasWidth
+  ) {
+    setPrevViewportSize({
+      canvasHeight,
+      canvasWidth,
+      viewportHeight,
+      viewportScale,
+      viewportWidth,
+    });
     setZoomState(1);
     setCenter({
       x: canvasWidth / 2,
       y: canvasHeight / 2,
     });
-    panSessionRef.current = null;
     setIsPanning(false);
-  }, [canvasHeight, canvasWidth]);
-
-  useEffect(() => {
+  } else if (
+    prevViewportSize.viewportHeight !== viewportHeight ||
+    prevViewportSize.viewportScale !== viewportScale ||
+    prevViewportSize.viewportWidth !== viewportWidth
+  ) {
+    setPrevViewportSize({
+      canvasHeight,
+      canvasWidth,
+      viewportHeight,
+      viewportScale,
+      viewportWidth,
+    });
     setCenter((previousCenter) =>
       clampViewportCenter({
         canvasHeight,
@@ -483,7 +509,11 @@ export function usePreviewViewportState({
         viewportWidth,
       }),
     );
-  }, [canvasHeight, canvasWidth, viewportHeight, viewportScale, viewportWidth]);
+  }
+
+  useEffect(() => {
+    panSessionRef.current = null;
+  }, [canvasHeight, canvasWidth]);
 
   const sceneWidth = canvasWidth * viewportScale;
   const sceneHeight = canvasHeight * viewportScale;

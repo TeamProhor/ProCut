@@ -94,7 +94,7 @@ function migrateSplitMask({ mask }: { mask: unknown }): unknown {
   const x = (position - 0.5) * Math.cos(angleRad);
   const y = (position - 0.5) * Math.sin(angleRad);
 
-  const { position: _removed, ...restParams } = params;
+  const { position: _, ...restParams } = params;
 
   return {
     ...mask,

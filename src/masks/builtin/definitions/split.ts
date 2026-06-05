@@ -196,8 +196,6 @@ export const splitMaskDefinition: MaskDefinition<"split"> = {
       params,
       bounds,
       displayScale,
-      scaleX: _scaleX,
-      scaleY: _scaleY,
     }) {
       return {
         handles: getLineMaskHandlePositions({

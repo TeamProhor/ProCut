@@ -17,18 +17,22 @@ export function useLocalStorage<T>({
 
   // avoid hydration mismatch by reading after mount
   useEffect(() => {
+    let nextValue = defaultValue;
     try {
       const storedValue = localStorage.getItem(key);
       if (storedValue !== null) {
-        const parsedValue = JSON.parse(storedValue) as T;
-        valueRef.current = parsedValue;
-        setValue(parsedValue);
+        nextValue = JSON.parse(storedValue) as T;
       }
     } catch {
       // localstorage might be unavailable
     }
-    setIsReady(true);
-  }, [key]);
+
+    setTimeout(() => {
+      valueRef.current = nextValue;
+      setValue(nextValue);
+      setIsReady(true);
+    }, 0);
+  }, [key, defaultValue]);
 
   // sync to localstorage after hydration
   useEffect(() => {

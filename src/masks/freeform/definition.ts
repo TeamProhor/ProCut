@@ -299,8 +299,6 @@ export const freeformMaskDefinition: MaskDefinition<"freeform"> = {
       params,
       bounds,
       displayScale,
-      scaleX: _scaleX,
-      scaleY: _scaleY,
     }) {
       return getFreeformDisplayHandles({ params, bounds, displayScale });
     },

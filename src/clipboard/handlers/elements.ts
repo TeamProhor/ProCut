@@ -17,7 +17,7 @@ export const ElementsClipboardHandler = {
       elements: selectedElements,
     });
     const items = results.map(({ track, element }) => {
-      const { id: _elementId, ...elementWithoutId } = element;
+      const { id: _, ...elementWithoutId } = element;
       return {
         trackId: track.id,
         trackType: track.type,

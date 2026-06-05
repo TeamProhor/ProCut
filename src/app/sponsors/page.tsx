@@ -28,7 +28,15 @@ export default function SponsorsPage() {
   );
 }
 
-function SponsorsGrid({ sponsors }: { sponsors: any[] }) {
+interface Sponsor {
+  name: string;
+  url: string;
+  logo: string;
+  description: string;
+  invertOnDark?: boolean;
+}
+
+function SponsorsGrid({ sponsors }: { sponsors: Sponsor[] }) {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       {sponsors.map((sponsor) => (
@@ -38,7 +46,7 @@ function SponsorsGrid({ sponsors }: { sponsors: any[] }) {
   );
 }
 
-function SponsorCard({ sponsor }: { sponsor: any }) {
+function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   return (
     <Link
       href={sponsor.url}

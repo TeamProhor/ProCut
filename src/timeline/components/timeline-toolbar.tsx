@@ -195,7 +195,7 @@ function ToolbarLeftSection() {
           icon={<HugeiconsIcon icon={SnowIcon} />}
           tooltip={t.editor.timeline.toolbar.freezeFrame}
           disabled={true}
-          onClick={({ event: _event }) => {}}
+          onClick={() => {}}
         />
 
         <ToolbarButton

@@ -243,13 +243,13 @@ export class PlaybackManager {
     return clampMediaTime({ time, min: ZERO_MEDIA_TIME, max: maxTime });
   }
 
-  private dispatchSeekEvent(time: MediaTime): void {
+  private dispatchSeekEvent(_time: MediaTime): void {
     if (typeof window === "undefined") {
       return;
     }
   }
 
-  private dispatchUpdateEvent(time: MediaTime): void {
+  private dispatchUpdateEvent(_time: MediaTime): void {
     if (typeof window === "undefined") {
       return;
     }

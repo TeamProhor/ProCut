@@ -3,7 +3,6 @@ import Link from "next/link";
 import { cn } from "@/utils/ui";
 import { ReactMarkdownWrapper } from "@/components/ui/react-markdown-wrapper";
 import {
-  getSectionTitle,
   groupAndOrderChanges,
   isSectionCollapsible,
   type Change,

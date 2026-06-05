@@ -239,6 +239,13 @@ function AllContributorsSection({
   );
 }
 
+interface Tool {
+  name: string;
+  description: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
 function ExternalToolsSection({
   title,
   description,
@@ -246,7 +253,7 @@ function ExternalToolsSection({
 }: {
   title: string;
   description: string;
-  tools: any[];
+  tools: Tool[];
 }) {
   return (
     <div className="flex flex-col gap-10">

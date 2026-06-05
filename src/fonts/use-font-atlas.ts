@@ -17,10 +17,17 @@ export function useFontAtlas({ open }: { open: boolean }) {
     getCachedFontAtlas() ? "idle" : "loading",
   );
 
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
+    if (open && !atlas && status !== "loading") {
+      setStatus("loading");
+    }
+  }
+
   useEffect(() => {
     if (!open || atlas) return;
 
-    setStatus("loading");
     loadFontAtlas().then((data) => {
       if (data) {
         setAtlas(data);

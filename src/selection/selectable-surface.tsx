@@ -209,14 +209,24 @@ export function SelectableSurface({
     [clearSelectionState],
   );
 
-  useEffect(() => {
+  const [prevOrderedIds, setPrevOrderedIds] = useState(orderedIds);
+  if (prevOrderedIds !== orderedIds) {
+    setPrevOrderedIds(orderedIds);
     setSelectionState((state) =>
       pruneSelection({
         state,
         orderedIds,
       }),
     );
-  }, [orderedIds]);
+  }
+
+  const [prevRevealId, setPrevRevealId] = useState(revealId);
+  if (prevRevealId !== revealId) {
+    setPrevRevealId(revealId);
+    if (revealId) {
+      setHighlightedId(revealId);
+    }
+  }
 
   useEffect(() => {
     onSelectionChange?.(selectionState);
@@ -227,7 +237,6 @@ export function SelectableSurface({
       return;
     }
 
-    setHighlightedId(revealId);
     getItemElement(revealId)?.scrollIntoView({ block: "center" });
 
     const timer = setTimeout(() => {

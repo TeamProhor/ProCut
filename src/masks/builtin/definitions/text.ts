@@ -217,8 +217,6 @@ export const textMaskDefinition: MaskDefinition<"text"> = {
       params,
       bounds,
       displayScale,
-      scaleX: _scaleX,
-      scaleY: _scaleY,
     }) {
       const { intrinsicWidth, intrinsicHeight } = measureTextMask({
         params,

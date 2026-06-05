@@ -60,7 +60,7 @@ export function EditorProvider({ projectId, children }: EditorProviderProps) {
               name: "Untitled Project",
             });
             router.replace(`/editor/${newProjectId}`);
-          } catch (_createErr) {
+          } catch {
             setError("Failed to create project");
             setIsLoading(false);
           }
@@ -134,7 +134,7 @@ function EditorRuntimeBindings() {
   );
 
   useEffect(() => {
-    editor.command.isRippleEnabled = rippleEditingEnabled;
+    editor.command.setRippleEnabled(rippleEditingEnabled);
   }, [editor, rippleEditingEnabled]);
 
   useEffect(() => {

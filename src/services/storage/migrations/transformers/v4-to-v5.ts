@@ -144,8 +144,8 @@ function migrateStickerElement({ element }: { element: unknown }): unknown {
   }
 
   const {
-    iconName: _legacyIconName,
-    color: _legacyColor,
+    iconName: _,
+    color: _1,
     ...remaining
   } = element;
   return normalizedStickerId

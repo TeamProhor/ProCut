@@ -510,7 +510,7 @@ export function Timeline() {
               className="flex min-h-full flex-col"
               style={{ width: `${dynamicTimelineWidth}px` }}
             >
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- spatial gesture surface (tracks container background); direct-target clicks here originate box-select or clear selection. Keyboard control is global timeline shortcuts. */}
+              { }
               <div
                 className="relative shrink-0"
                 style={{
@@ -892,7 +892,7 @@ function TimelineGutter({
   onClick: (event: React.MouseEvent) => void;
 }) {
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- spatial gesture surface (empty space below tracks); clicks here clear selection. Keyboard control is global timeline shortcuts.
+     
     <div className="flex-1" onMouseDown={onMouseDown} onClick={onClick} />
   );
 }

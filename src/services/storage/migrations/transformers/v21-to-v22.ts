@@ -57,13 +57,6 @@ interface LegacyVectorValue {
   y: number;
 }
 
-interface LegacyVectorKeyframe {
-  id: string;
-  time: number;
-  value: LegacyVectorValue;
-  interpolation: LegacyInterpolation;
-}
-
 interface MigratedAnimationChannel {
   binding: ProjectRecord;
   channels: Record<string, ProjectRecord>;
@@ -162,7 +155,7 @@ function migrateElementAnimations({ element }: { element: unknown }): unknown {
 
   const migratedAnimations = migrateLegacyAnimations({ animations });
   if (!migratedAnimations) {
-    const { animations: _unusedAnimations, ...elementWithoutAnimations } =
+    const { animations: _, ...elementWithoutAnimations } =
       element;
     return elementWithoutAnimations;
   }

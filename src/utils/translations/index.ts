@@ -26,9 +26,11 @@ export const translations = {
 
 type DeepString<T> = T extends string
   ? string
-  : T extends object
-    ? { [K in keyof T]: DeepString<T[K]> }
-    : T;
+  : T extends Function
+    ? T
+    : T extends object
+      ? { [K in keyof T]: DeepString<T[K]> }
+      : T;
 
 export type Language = keyof typeof translations;
 export type TranslationKeys = DeepString<typeof translations.en>;

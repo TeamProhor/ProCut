@@ -355,13 +355,11 @@ function StickerItem({
   const [isAdding, setIsAdding] = useState(false);
   const [hasImageError, setHasImageError] = useState(false);
 
-  useEffect(() => {
-    if (!item.id) {
-      return;
-    }
-
+  const [prevItemId, setPrevItemId] = useState(item.id);
+  if (prevItemId !== item.id) {
+    setPrevItemId(item.id);
     setHasImageError(false);
-  }, [item.id]);
+  }
 
   const displayName = item.name;
   const shapePreset =

@@ -133,32 +133,32 @@ function NumberField({
   onMouseDown,
   onReset,
   isDefault = false,
-  ref,
   ...props
-}: NumberFieldProps & { ref?: React.Ref<HTMLInputElement> }) {
+}: NumberFieldProps) {
   const iconRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const ghostRef = useRef<HTMLSpanElement>(null);
+  const suffixRef = useRef<HTMLSpanElement>(null);
   const startValueRef = useRef(0);
   const cumulativeDeltaRef = useRef(0);
   const [isInputFocused, setIsInputFocused] = useState(false);
-  const [suffixLeft, setSuffixLeft] = useState(0);
+
   const ghostValue = Array.isArray(value)
     ? value.join(", ")
     : String(value ?? "");
 
   useLayoutEffect(() => {
-    if (!suffix) {
-      setSuffixLeft(0);
+    if (!suffix || !ghostRef.current || !inputRef.current || !suffixRef.current)
       return;
-    }
-    if (!ghostRef.current || !inputRef.current) return;
+
     if (ghostRef.current.textContent !== ghostValue) {
       ghostRef.current.textContent = ghostValue;
     }
+
     const paddingLeft =
       parseFloat(getComputedStyle(inputRef.current).paddingLeft) || 0;
-    setSuffixLeft(paddingLeft + ghostRef.current.offsetWidth);
+    const width = ghostRef.current.offsetWidth;
+    suffixRef.current.style.left = `${paddingLeft + width + SUFFIX_GAP_PX}px`;
   }, [ghostValue, suffix]);
 
   const { containerRef: wrapperRef } = useFocusLock<HTMLDivElement>({
@@ -292,11 +292,11 @@ function NumberField({
               {ghostValue}
             </span>
             <span
+              ref={suffixRef}
               className={cn(
                 "absolute top-1/2 -translate-y-1/2 select-none pointer-events-none text-sm leading-none",
                 suffixClassName,
               )}
-              style={{ left: suffixLeft + SUFFIX_GAP_PX }}
             >
               {suffix}
             </span>

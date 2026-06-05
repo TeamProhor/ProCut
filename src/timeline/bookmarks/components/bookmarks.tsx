@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { EditorCore } from "@/core";
 import { useEditor } from "@/editor/use-editor";
 import type { BookmarkDragState } from "../hooks/use-bookmark-drag";
@@ -304,13 +304,15 @@ function BookmarkPopoverContent({
       .toUpperCase(),
   );
 
-  useEffect(() => {
+  const [prevBookmarkColor, setPrevBookmarkColor] = useState(bookmark.color);
+  if (prevBookmarkColor !== bookmark.color) {
+    setPrevBookmarkColor(bookmark.color);
     setDraftColorHex(
       (bookmark.color ?? DEFAULT_TIMELINE_BOOKMARK_COLOR)
         .replace("#", "")
         .toUpperCase(),
     );
-  }, [bookmark.color]);
+  }
 
   const handleRemove = () => {
     editor.scenes.removeBookmark({ time });

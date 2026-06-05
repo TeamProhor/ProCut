@@ -141,6 +141,6 @@ function migrateChannel({
 }: {
   channel: ProjectRecord;
 }): ProjectRecord {
-  const { kind: _kind, ...nextChannel } = channel;
+  const { kind: _, ...nextChannel } = channel;
   return nextChannel;
 }

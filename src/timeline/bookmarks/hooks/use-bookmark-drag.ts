@@ -1,5 +1,6 @@
 import {
   useState,
+  useMemo,
   useCallback,
   useEffect,
   useRef,
@@ -51,7 +52,7 @@ export function useBookmarkDrag({
   const isShiftHeldRef = useShiftKey();
   const tracks = editor.scenes.getActiveScene().tracks;
   const activeScene = editor.scenes.getActiveScene();
-  const bookmarks = activeScene?.bookmarks ?? [];
+  const bookmarks = useMemo(() => activeScene?.bookmarks ?? [], [activeScene?.bookmarks]);
   const playheadTime = editor.playback.getCurrentTime();
   const duration = editor.timeline.getTotalDuration();
 

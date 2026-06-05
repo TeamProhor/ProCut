@@ -810,7 +810,7 @@ function ExpandedKeyframeLanes({
   );
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- spatial gesture surface (keyframe lanes); keyboard control over keyframes is via global timeline shortcuts, not per-element focus.
+     
     <div
       ref={containerRef}
       className="relative flex flex-col"

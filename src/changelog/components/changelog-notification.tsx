@@ -11,12 +11,12 @@ import type { Release } from "../utils";
 const STORAGE_KEY = "last-seen-version";
 
 export function ChangelogNotification() {
-  const [release, setRelease] = useState<Release | null>(null);
+  const [release, setRelease] = useState<Release | null>(() => {
+    if (typeof window === "undefined") return null;
 
-  useEffect(() => {
     const releases = getSortedReleases();
     const latest = releases[0];
-    if (!latest) return;
+    if (!latest) return null;
 
     let storedVersion: string | null = null;
     try {
@@ -31,19 +31,20 @@ export function ChangelogNotification() {
         numeric: true,
       }) < 0;
 
-    // TODO(v0.4): revert to the standard "null = first-time visitor, record silently"
-    // path. The null case intentionally shows the card for this release so existing
-    // users who never had the key get the 0.3.0 announcement.
-    if (!isOutdated) return;
+    if (!isOutdated) return null;
+
+    return latest;
+  });
+
+  useEffect(() => {
+    if (!release) return;
 
     try {
-      localStorage.setItem(STORAGE_KEY, latest.version);
+      localStorage.setItem(STORAGE_KEY, release.version);
     } catch {
       // ignore
     }
-
-    setRelease(latest);
-  }, []);
+  }, [release]);
 
   if (!release) return null;
 

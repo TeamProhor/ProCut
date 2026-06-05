@@ -4,7 +4,6 @@ import {
   useState,
   useMemo,
   useRef,
-  useEffect,
   useCallback,
   type CSSProperties,
 } from "react";
@@ -87,12 +86,14 @@ export function FontPicker({
     [onValueChange],
   );
 
-  useEffect(() => {
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
     if (!open) {
       setSearch("");
       setActiveTab("all");
     }
-  }, [open]);
+  }
 
   const activeTabLabel =
     FONT_TABS.find((t) => t.key === activeTab)?.label.toLowerCase() ?? "";

@@ -124,7 +124,7 @@ class StorageService {
       audio: tracks.audio.map((track) => ({
         ...track,
         elements: track.elements.map((element) => {
-          const { buffer: _buffer, ...rest } = element;
+          const { buffer: _, ...rest } = element;
           return rest;
         }),
       })),

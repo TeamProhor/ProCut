@@ -73,7 +73,7 @@ export function StorageProvider({ children }: StorageProviderProps) {
     };
 
     initializeStorage();
-  }, [editor.project.loadAllProjects]);
+  }, [editor]);
 
   return (
     <StorageContext.Provider value={status}>{children}</StorageContext.Provider>
