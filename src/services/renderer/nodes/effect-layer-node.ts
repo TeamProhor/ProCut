@@ -3,17 +3,17 @@ import type { ParamValues } from "@/params";
 import { BaseNode } from "./base-node";
 
 export type EffectLayerNodeParams = {
-	effectType: string;
-	effectParams: ParamValues;
-	timeOffset: number;
-	duration: number;
+  effectType: string;
+  effectParams: ParamValues;
+  timeOffset: number;
+  duration: number;
 };
 
 export type ResolvedEffectLayerNodeState = {
-	passes: EffectPass[];
+  passes: EffectPass[];
 };
 
 export class EffectLayerNode extends BaseNode<
-	EffectLayerNodeParams,
-	ResolvedEffectLayerNodeState
+  EffectLayerNodeParams,
+  ResolvedEffectLayerNodeState
 > {}

@@ -2,214 +2,214 @@ import type { MouseEvent as ReactMouseEvent } from "react";
 import type { FrameRate } from "opencut-wasm";
 import { BASE_TIMELINE_PIXELS_PER_SECOND } from "@/timeline/scale";
 import {
-	mediaTime,
-	snapSeekMediaTime,
-	TICKS_PER_SECOND,
-	type MediaTime,
+  mediaTime,
+  snapSeekMediaTime,
+  TICKS_PER_SECOND,
+  type MediaTime,
 } from "@/wasm";
 
 type SeekSource = "ruler" | "tracks";
 
 interface PendingSeekSession {
-	kind: "pending";
-	source: SeekSource;
-	downX: number;
-	downY: number;
-	downTime: number;
+  kind: "pending";
+  source: SeekSource;
+  downX: number;
+  downY: number;
+  downTime: number;
 }
 
 type Session = { kind: "idle" } | PendingSeekSession;
 
 export interface SeekConfig {
-	zoomLevel: number;
-	duration: MediaTime;
-	isSelecting: boolean;
-	getPlayheadEl: () => HTMLDivElement | null;
-	getTrackLabelsEl: () => HTMLDivElement | null;
-	getRulerScrollEl: () => HTMLDivElement | null;
-	getTracksScrollEl: () => HTMLDivElement | null;
-	getActiveProjectFps: () => FrameRate | null;
-	clearSelectedElements: () => void;
-	seek: (time: MediaTime) => void;
-	setTimelineViewState: (viewState: {
-		zoomLevel: number;
-		scrollLeft: number;
-		playheadTime: MediaTime;
-	}) => void;
+  zoomLevel: number;
+  duration: MediaTime;
+  isSelecting: boolean;
+  getPlayheadEl: () => HTMLDivElement | null;
+  getTrackLabelsEl: () => HTMLDivElement | null;
+  getRulerScrollEl: () => HTMLDivElement | null;
+  getTracksScrollEl: () => HTMLDivElement | null;
+  getActiveProjectFps: () => FrameRate | null;
+  clearSelectedElements: () => void;
+  seek: (time: MediaTime) => void;
+  setTimelineViewState: (viewState: {
+    zoomLevel: number;
+    scrollLeft: number;
+    playheadTime: MediaTime;
+  }) => void;
 }
 
 export interface SeekConfigRef {
-	readonly current: SeekConfig;
+  readonly current: SeekConfig;
 }
 
 function pixelToTime({
-	clientX,
-	scrollContainer,
-	zoomLevel,
-	duration,
+  clientX,
+  scrollContainer,
+  zoomLevel,
+  duration,
 }: {
-	clientX: number;
-	scrollContainer: HTMLDivElement;
-	zoomLevel: number;
-	duration: MediaTime;
+  clientX: number;
+  scrollContainer: HTMLDivElement;
+  zoomLevel: number;
+  duration: MediaTime;
 }): MediaTime {
-	const rect = scrollContainer.getBoundingClientRect();
-	const mouseX = clientX - rect.left;
-	const scrollLeft = scrollContainer.scrollLeft;
+  const rect = scrollContainer.getBoundingClientRect();
+  const mouseX = clientX - rect.left;
+  const scrollLeft = scrollContainer.scrollLeft;
 
-	const rawTimeSeconds = Math.max(
-		0,
-		Math.min(
-			duration / TICKS_PER_SECOND,
-			(mouseX + scrollLeft) / (BASE_TIMELINE_PIXELS_PER_SECOND * zoomLevel),
-		),
-	);
+  const rawTimeSeconds = Math.max(
+    0,
+    Math.min(
+      duration / TICKS_PER_SECOND,
+      (mouseX + scrollLeft) / (BASE_TIMELINE_PIXELS_PER_SECOND * zoomLevel),
+    ),
+  );
 
-	return mediaTime({ ticks: Math.round(rawTimeSeconds * TICKS_PER_SECOND) });
+  return mediaTime({ ticks: Math.round(rawTimeSeconds * TICKS_PER_SECOND) });
 }
 
 function isClickGesture({
-	event,
-	session,
+  event,
+  session,
 }: {
-	event: ReactMouseEvent;
-	session: PendingSeekSession;
+  event: ReactMouseEvent;
+  session: PendingSeekSession;
 }): boolean {
-	const deltaX = Math.abs(event.clientX - session.downX);
-	const deltaY = Math.abs(event.clientY - session.downY);
-	const deltaTime = event.timeStamp - session.downTime;
+  const deltaX = Math.abs(event.clientX - session.downX);
+  const deltaY = Math.abs(event.clientY - session.downY);
+  const deltaTime = event.timeStamp - session.downTime;
 
-	return deltaX <= 5 && deltaY <= 5 && deltaTime <= 500;
+  return deltaX <= 5 && deltaY <= 5 && deltaTime <= 500;
 }
 
 export class SeekController {
-	private session: Session = { kind: "idle" };
-	private readonly configRef: SeekConfigRef;
+  private session: Session = { kind: "idle" };
+  private readonly configRef: SeekConfigRef;
 
-	constructor(deps: { configRef: SeekConfigRef }) {
-		this.configRef = deps.configRef;
-		this.onTracksMouseDown = this.onTracksMouseDown.bind(this);
-		this.onRulerMouseDown = this.onRulerMouseDown.bind(this);
-		this.onTracksClick = this.onTracksClick.bind(this);
-		this.onRulerClick = this.onRulerClick.bind(this);
-	}
+  constructor(deps: { configRef: SeekConfigRef }) {
+    this.configRef = deps.configRef;
+    this.onTracksMouseDown = this.onTracksMouseDown.bind(this);
+    this.onRulerMouseDown = this.onRulerMouseDown.bind(this);
+    this.onTracksClick = this.onTracksClick.bind(this);
+    this.onRulerClick = this.onRulerClick.bind(this);
+  }
 
-	private get config(): SeekConfig {
-		return this.configRef.current;
-	}
+  private get config(): SeekConfig {
+    return this.configRef.current;
+  }
 
-	destroy(): void {
-		this.session = { kind: "idle" };
-	}
+  destroy(): void {
+    this.session = { kind: "idle" };
+  }
 
-	onTracksMouseDown(event: ReactMouseEvent): void {
-		this.beginPendingSeek({ event, source: "tracks" });
-	}
+  onTracksMouseDown(event: ReactMouseEvent): void {
+    this.beginPendingSeek({ event, source: "tracks" });
+  }
 
-	onRulerMouseDown(event: ReactMouseEvent): void {
-		this.beginPendingSeek({ event, source: "ruler" });
-	}
+  onRulerMouseDown(event: ReactMouseEvent): void {
+    this.beginPendingSeek({ event, source: "ruler" });
+  }
 
-	onTracksClick(event: ReactMouseEvent): void {
-		this.handleClick({ event, source: "tracks" });
-	}
+  onTracksClick(event: ReactMouseEvent): void {
+    this.handleClick({ event, source: "tracks" });
+  }
 
-	onRulerClick(event: ReactMouseEvent): void {
-		this.handleClick({ event, source: "ruler" });
-	}
+  onRulerClick(event: ReactMouseEvent): void {
+    this.handleClick({ event, source: "ruler" });
+  }
 
-	private beginPendingSeek({
-		event,
-		source,
-	}: {
-		event: ReactMouseEvent;
-		source: SeekSource;
-	}): void {
-		if (event.button !== 0) return;
+  private beginPendingSeek({
+    event,
+    source,
+  }: {
+    event: ReactMouseEvent;
+    source: SeekSource;
+  }): void {
+    if (event.button !== 0) return;
 
-		this.session = {
-			kind: "pending",
-			source,
-			downX: event.clientX,
-			downY: event.clientY,
-			downTime: event.timeStamp,
-		};
-	}
+    this.session = {
+      kind: "pending",
+      source,
+      downX: event.clientX,
+      downY: event.clientY,
+      downTime: event.timeStamp,
+    };
+  }
 
-	private handleClick({
-		event,
-		source,
-	}: {
-		event: ReactMouseEvent;
-		source: SeekSource;
-	}): void {
-		const shouldProcess = this.shouldProcessClick({ event, source });
-		this.session = { kind: "idle" };
+  private handleClick({
+    event,
+    source,
+  }: {
+    event: ReactMouseEvent;
+    source: SeekSource;
+  }): void {
+    const shouldProcess = this.shouldProcessClick({ event, source });
+    this.session = { kind: "idle" };
 
-		if (!shouldProcess) return;
+    if (!shouldProcess) return;
 
-		this.config.clearSelectedElements();
-		this.seekFromEvent({ event, source });
-	}
+    this.config.clearSelectedElements();
+    this.seekFromEvent({ event, source });
+  }
 
-	private shouldProcessClick({
-		event,
-		source,
-	}: {
-		event: ReactMouseEvent;
-		source: SeekSource;
-	}): boolean {
-		if (this.session.kind !== "pending") return false;
-		if (this.session.source !== source) return false;
-		if (!isClickGesture({ event, session: this.session })) return false;
-		if (this.config.isSelecting) return false;
+  private shouldProcessClick({
+    event,
+    source,
+  }: {
+    event: ReactMouseEvent;
+    source: SeekSource;
+  }): boolean {
+    if (this.session.kind !== "pending") return false;
+    if (this.session.source !== source) return false;
+    if (!isClickGesture({ event, session: this.session })) return false;
+    if (this.config.isSelecting) return false;
 
-		const target = event.target as HTMLElement;
-		if (this.config.getPlayheadEl()?.contains(target)) return false;
+    const target = event.target as HTMLElement;
+    if (this.config.getPlayheadEl()?.contains(target)) return false;
 
-		if (this.config.getTrackLabelsEl()?.contains(target)) {
-			this.config.clearSelectedElements();
-			return false;
-		}
+    if (this.config.getTrackLabelsEl()?.contains(target)) {
+      this.config.clearSelectedElements();
+      return false;
+    }
 
-		return true;
-	}
+    return true;
+  }
 
-	private seekFromEvent({
-		event,
-		source,
-	}: {
-		event: ReactMouseEvent;
-		source: SeekSource;
-	}): void {
-		const scrollContainer =
-			source === "ruler"
-				? this.config.getRulerScrollEl()
-				: this.config.getTracksScrollEl();
-		if (!scrollContainer) return;
+  private seekFromEvent({
+    event,
+    source,
+  }: {
+    event: ReactMouseEvent;
+    source: SeekSource;
+  }): void {
+    const scrollContainer =
+      source === "ruler"
+        ? this.config.getRulerScrollEl()
+        : this.config.getTracksScrollEl();
+    if (!scrollContainer) return;
 
-		const rawTime = pixelToTime({
-			clientX: event.clientX,
-			scrollContainer,
-			zoomLevel: this.config.zoomLevel,
-			duration: this.config.duration,
-		});
+    const rawTime = pixelToTime({
+      clientX: event.clientX,
+      scrollContainer,
+      zoomLevel: this.config.zoomLevel,
+      duration: this.config.duration,
+    });
 
-		const fps = this.config.getActiveProjectFps();
-		const time =
-			fps != null
-				? snapSeekMediaTime({
-						time: rawTime,
-						duration: this.config.duration,
-						fps,
-					})
-				: rawTime;
+    const fps = this.config.getActiveProjectFps();
+    const time =
+      fps != null
+        ? snapSeekMediaTime({
+            time: rawTime,
+            duration: this.config.duration,
+            fps,
+          })
+        : rawTime;
 
-		this.config.seek(time);
-		this.config.setTimelineViewState({
-			zoomLevel: this.config.zoomLevel,
-			scrollLeft: scrollContainer.scrollLeft,
-			playheadTime: time,
-		});
-	}
+    this.config.seek(time);
+    this.config.setTimelineViewState({
+      zoomLevel: this.config.zoomLevel,
+      scrollLeft: scrollContainer.scrollLeft,
+      playheadTime: time,
+    });
+  }
 }

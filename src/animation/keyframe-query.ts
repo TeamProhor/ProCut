@@ -1,300 +1,300 @@
 import type {
-	AnimationChannel,
-	AnimationPath,
-	ChannelData,
-	ElementAnimations,
-	ElementKeyframe,
+  AnimationChannel,
+  AnimationPath,
+  ChannelData,
+  ElementAnimations,
+  ElementKeyframe,
 } from "@/animation/types";
 import { formatLinearRgba } from "@/params";
 import {
-	getChannelEntriesFromData,
-	isAnimationStorageKey,
+  getChannelEntriesFromData,
+  isAnimationStorageKey,
 } from "./channel-data";
 import {
-	getChannelValueAtTime,
-	getScalarSegmentInterpolation,
-	isScalarChannel,
+  getChannelValueAtTime,
+  getScalarSegmentInterpolation,
+  isScalarChannel,
 } from "./interpolation";
 import { isAnimationPath } from "./path";
 
 function getChannelFallbackValue({ channel }: { channel: AnimationChannel }) {
-	if (channel.keys.length === 0) {
-		return isScalarChannel(channel) ? 0 : false;
-	}
+  if (channel.keys.length === 0) {
+    return isScalarChannel(channel) ? 0 : false;
+  }
 
-	return channel.keys[0].value;
+  return channel.keys[0].value;
 }
 
 interface ChannelKeyframeMatch {
-	componentKey: string;
-	componentIndex: number;
-	channel: AnimationChannel;
-	keyframe: AnimationChannel["keys"][number];
+  componentKey: string;
+  componentIndex: number;
+  channel: AnimationChannel;
+  keyframe: AnimationChannel["keys"][number];
 }
 
 function getChannelKeyframeMatches({
-	data,
+  data,
 }: {
-	data: ChannelData | undefined;
+  data: ChannelData | undefined;
 }): ChannelKeyframeMatch[] {
-	return getChannelEntriesFromData({ data }).flatMap(
-		([componentKey, channel], componentIndex) => {
-			if (channel.keys.length === 0) {
-				return [];
-			}
+  return getChannelEntriesFromData({ data }).flatMap(
+    ([componentKey, channel], componentIndex) => {
+      if (channel.keys.length === 0) {
+        return [];
+      }
 
-			return channel.keys.map((keyframe) => ({
-				componentKey,
-				componentIndex,
-				channel,
-				keyframe,
-			}));
-		},
-	);
+      return channel.keys.map((keyframe) => ({
+        componentKey,
+        componentIndex,
+        channel,
+        keyframe,
+      }));
+    },
+  );
 }
 
 function getUniqueChannelKeyframeMatches({
-	data,
+  data,
 }: {
-	data: ChannelData | undefined;
+  data: ChannelData | undefined;
 }): ChannelKeyframeMatch[] {
-	const sortedMatches = getChannelKeyframeMatches({
-		data,
-	}).sort(
-		(leftMatch, rightMatch) =>
-			leftMatch.keyframe.time - rightMatch.keyframe.time ||
-			leftMatch.componentIndex - rightMatch.componentIndex,
-	);
-	const uniqueMatches: ChannelKeyframeMatch[] = [];
+  const sortedMatches = getChannelKeyframeMatches({
+    data,
+  }).sort(
+    (leftMatch, rightMatch) =>
+      leftMatch.keyframe.time - rightMatch.keyframe.time ||
+      leftMatch.componentIndex - rightMatch.componentIndex,
+  );
+  const uniqueMatches: ChannelKeyframeMatch[] = [];
 
-	for (const match of sortedMatches) {
-		const previousMatch = uniqueMatches[uniqueMatches.length - 1];
-		if (!previousMatch || previousMatch.keyframe.time !== match.keyframe.time) {
-			uniqueMatches.push(match);
-			continue;
-		}
+  for (const match of sortedMatches) {
+    const previousMatch = uniqueMatches[uniqueMatches.length - 1];
+    if (!previousMatch || previousMatch.keyframe.time !== match.keyframe.time) {
+      uniqueMatches.push(match);
+      continue;
+    }
 
-		if (previousMatch.componentIndex !== 0 && match.componentIndex === 0) {
-			uniqueMatches[uniqueMatches.length - 1] = match;
-		}
-	}
+    if (previousMatch.componentIndex !== 0 && match.componentIndex === 0) {
+      uniqueMatches[uniqueMatches.length - 1] = match;
+    }
+  }
 
-	return uniqueMatches;
+  return uniqueMatches;
 }
 
 function getPreferredChannelKeyframeMatch({
-	matches,
+  matches,
 }: {
-	matches: ChannelKeyframeMatch[];
+  matches: ChannelKeyframeMatch[];
 }): ChannelKeyframeMatch | null {
-	return (
-		matches.find((match) => match.componentIndex === 0) ?? matches[0] ?? null
-	);
+  return (
+    matches.find((match) => match.componentIndex === 0) ?? matches[0] ?? null
+  );
 }
 
 function getChannelValue({
-	channel,
-	time,
+  channel,
+  time,
 }: {
-	channel: AnimationChannel;
-	time: number;
+  channel: AnimationChannel;
+  time: number;
 }) {
-	const fallbackValue = getChannelFallbackValue({ channel });
-	if (typeof fallbackValue === "number") {
-		return getChannelValueAtTime({
-			channel: isScalarChannel(channel) ? channel : undefined,
-			time,
-			fallbackValue,
-		});
-	}
-	return getChannelValueAtTime({
-		channel: !isScalarChannel(channel) ? channel : undefined,
-		time,
-		fallbackValue,
-	});
+  const fallbackValue = getChannelFallbackValue({ channel });
+  if (typeof fallbackValue === "number") {
+    return getChannelValueAtTime({
+      channel: isScalarChannel(channel) ? channel : undefined,
+      time,
+      fallbackValue,
+    });
+  }
+  return getChannelValueAtTime({
+    channel: !isScalarChannel(channel) ? channel : undefined,
+    time,
+    fallbackValue,
+  });
 }
 
 function getComposedChannelDataValueAtTime({
-	data,
-	time,
+  data,
+  time,
 }: {
-	data: ChannelData | undefined;
-	time: number;
+  data: ChannelData | undefined;
+  time: number;
 }) {
-	const entries = getChannelEntriesFromData({ data });
-	if (entries.length === 0) {
-		return null;
-	}
-	if (entries.length === 1 && entries[0]?.[0] === "value") {
-		return getChannelValue({ channel: entries[0][1], time });
-	}
+  const entries = getChannelEntriesFromData({ data });
+  if (entries.length === 0) {
+    return null;
+  }
+  if (entries.length === 1 && entries[0]?.[0] === "value") {
+    return getChannelValue({ channel: entries[0][1], time });
+  }
 
-	const componentValues = Object.fromEntries(
-		entries.map(([componentKey, channel]) => [
-			componentKey,
-			getChannelValue({ channel, time }),
-		]),
-	);
-	if (
-		typeof componentValues.r === "number" &&
-		typeof componentValues.g === "number" &&
-		typeof componentValues.b === "number" &&
-		typeof componentValues.a === "number"
-	) {
-		return formatLinearRgba({
-			color: {
-				r: componentValues.r,
-				g: componentValues.g,
-				b: componentValues.b,
-				a: componentValues.a,
-			},
-		});
-	}
-	return null;
+  const componentValues = Object.fromEntries(
+    entries.map(([componentKey, channel]) => [
+      componentKey,
+      getChannelValue({ channel, time }),
+    ]),
+  );
+  if (
+    typeof componentValues.r === "number" &&
+    typeof componentValues.g === "number" &&
+    typeof componentValues.b === "number" &&
+    typeof componentValues.a === "number"
+  ) {
+    return formatLinearRgba({
+      color: {
+        r: componentValues.r,
+        g: componentValues.g,
+        b: componentValues.b,
+        a: componentValues.a,
+      },
+    });
+  }
+  return null;
 }
 
 function getKeyframeInterpolation({
-	channel,
-	keyframe,
+  channel,
+  keyframe,
 }: {
-	channel: AnimationChannel;
-	keyframe: AnimationChannel["keys"][number];
+  channel: AnimationChannel;
+  keyframe: AnimationChannel["keys"][number];
 }) {
-	return isScalarChannel(channel) && "segmentToNext" in keyframe
-		? getScalarSegmentInterpolation({ segment: keyframe.segmentToNext })
-		: "hold";
+  return isScalarChannel(channel) && "segmentToNext" in keyframe
+    ? getScalarSegmentInterpolation({ segment: keyframe.segmentToNext })
+    : "hold";
 }
 
 function toElementKeyframe({
-	data,
-	propertyPath,
-	keyframeMatch,
+  data,
+  propertyPath,
+  keyframeMatch,
 }: {
-	data: ChannelData | undefined;
-	propertyPath: AnimationPath;
-	keyframeMatch: ChannelKeyframeMatch;
+  data: ChannelData | undefined;
+  propertyPath: AnimationPath;
+  keyframeMatch: ChannelKeyframeMatch;
 }): ElementKeyframe | null {
-	const value = getComposedChannelDataValueAtTime({
-		data,
-		time: keyframeMatch.keyframe.time,
-	});
-	if (value === null) {
-		return null;
-	}
+  const value = getComposedChannelDataValueAtTime({
+    data,
+    time: keyframeMatch.keyframe.time,
+  });
+  if (value === null) {
+    return null;
+  }
 
-	return {
-		propertyPath,
-		id: keyframeMatch.keyframe.id,
-		time: keyframeMatch.keyframe.time,
-		value,
-		interpolation: getKeyframeInterpolation({
-			channel: keyframeMatch.channel,
-			keyframe: keyframeMatch.keyframe,
-		}),
-	};
+  return {
+    propertyPath,
+    id: keyframeMatch.keyframe.id,
+    time: keyframeMatch.keyframe.time,
+    value,
+    interpolation: getKeyframeInterpolation({
+      channel: keyframeMatch.channel,
+      keyframe: keyframeMatch.keyframe,
+    }),
+  };
 }
 
 export function getElementKeyframes({
-	animations,
+  animations,
 }: {
-	animations: ElementAnimations | undefined;
+  animations: ElementAnimations | undefined;
 }): ElementKeyframe[] {
-	if (!animations) {
-		return [];
-	}
+  if (!animations) {
+    return [];
+  }
 
-	return Object.entries(animations)
-		.filter(([key]) => isAnimationStorageKey({ key }))
-		.flatMap(([propertyPath, data]) => {
-			if (!data || !isAnimationPath(propertyPath)) {
-				return [];
-			}
+  return Object.entries(animations)
+    .filter(([key]) => isAnimationStorageKey({ key }))
+    .flatMap(([propertyPath, data]) => {
+      if (!data || !isAnimationPath(propertyPath)) {
+        return [];
+      }
 
-			return getUniqueChannelKeyframeMatches({
-				data,
-			}).flatMap((keyframeMatch) => {
-				const keyframe = toElementKeyframe({
-					data,
-					propertyPath,
-					keyframeMatch,
-				});
-				if (!keyframe) {
-					return [];
-				}
+      return getUniqueChannelKeyframeMatches({
+        data,
+      }).flatMap((keyframeMatch) => {
+        const keyframe = toElementKeyframe({
+          data,
+          propertyPath,
+          keyframeMatch,
+        });
+        if (!keyframe) {
+          return [];
+        }
 
-				return [keyframe];
-			});
-		});
+        return [keyframe];
+      });
+    });
 }
 
 export function hasKeyframesForPath({
-	animations,
-	propertyPath,
+  animations,
+  propertyPath,
 }: {
-	animations: ElementAnimations | undefined;
-	propertyPath: AnimationPath;
+  animations: ElementAnimations | undefined;
+  propertyPath: AnimationPath;
 }): boolean {
-	return getChannelEntriesFromData({ data: animations?.[propertyPath] }).some(
-		([, channel]) => channel.keys.length > 0,
-	);
+  return getChannelEntriesFromData({ data: animations?.[propertyPath] }).some(
+    ([, channel]) => channel.keys.length > 0,
+  );
 }
 
 export function getKeyframeAtTime({
-	animations,
-	propertyPath,
-	time,
+  animations,
+  propertyPath,
+  time,
 }: {
-	animations: ElementAnimations | undefined;
-	propertyPath: AnimationPath;
-	time: number;
+  animations: ElementAnimations | undefined;
+  propertyPath: AnimationPath;
+  time: number;
 }): ElementKeyframe | null {
-	const data = animations?.[propertyPath];
-	if (!data) {
-		return null;
-	}
+  const data = animations?.[propertyPath];
+  if (!data) {
+    return null;
+  }
 
-	const keyframeMatch = getPreferredChannelKeyframeMatch({
-		matches: getChannelKeyframeMatches({ data }).filter(
-			({ keyframe }) => keyframe.time === time,
-		),
-	});
-	if (!keyframeMatch) {
-		return null;
-	}
+  const keyframeMatch = getPreferredChannelKeyframeMatch({
+    matches: getChannelKeyframeMatches({ data }).filter(
+      ({ keyframe }) => keyframe.time === time,
+    ),
+  });
+  if (!keyframeMatch) {
+    return null;
+  }
 
-	return toElementKeyframe({
-		data,
-		propertyPath,
-		keyframeMatch,
-	});
+  return toElementKeyframe({
+    data,
+    propertyPath,
+    keyframeMatch,
+  });
 }
 
 export function getKeyframeById({
-	animations,
-	propertyPath,
-	keyframeId,
+  animations,
+  propertyPath,
+  keyframeId,
 }: {
-	animations: ElementAnimations | undefined;
-	propertyPath: AnimationPath;
-	keyframeId: string;
+  animations: ElementAnimations | undefined;
+  propertyPath: AnimationPath;
+  keyframeId: string;
 }): ElementKeyframe | null {
-	const data = animations?.[propertyPath];
-	if (!data) {
-		return null;
-	}
+  const data = animations?.[propertyPath];
+  if (!data) {
+    return null;
+  }
 
-	const keyframeMatch = getPreferredChannelKeyframeMatch({
-		matches: getChannelKeyframeMatches({ data }).filter(
-			({ keyframe }) => keyframe.id === keyframeId,
-		),
-	});
-	if (!keyframeMatch) {
-		return null;
-	}
+  const keyframeMatch = getPreferredChannelKeyframeMatch({
+    matches: getChannelKeyframeMatches({ data }).filter(
+      ({ keyframe }) => keyframe.id === keyframeId,
+    ),
+  });
+  if (!keyframeMatch) {
+    return null;
+  }
 
-	return toElementKeyframe({
-		data,
-		propertyPath,
-		keyframeMatch,
-	});
+  return toElementKeyframe({
+    data,
+    propertyPath,
+    keyframeMatch,
+  });
 }

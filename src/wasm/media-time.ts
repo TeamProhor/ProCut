@@ -1,13 +1,13 @@
 import {
-	lastFrameTime as _lastFrameTime,
-	parseTimecode as _parseTimecode,
-	roundToFrame as _roundToFrame,
-	snappedSeekTime as _snappedSeekTime,
-	TICKS_PER_SECOND as _TICKS_PER_SECOND,
-	mediaTimeFromSeconds as _mediaTimeFromSeconds,
-	mediaTimeToSeconds as _mediaTimeToSeconds,
-	type FrameRate,
-	type TimeCodeFormat,
+  lastFrameTime as _lastFrameTime,
+  parseTimecode as _parseTimecode,
+  roundToFrame as _roundToFrame,
+  snappedSeekTime as _snappedSeekTime,
+  TICKS_PER_SECOND as _TICKS_PER_SECOND,
+  mediaTimeFromSeconds as _mediaTimeFromSeconds,
+  mediaTimeToSeconds as _mediaTimeToSeconds,
+  type FrameRate,
+  type TimeCodeFormat,
 } from "opencut-wasm";
 
 /**
@@ -27,25 +27,25 @@ export type MediaTime = number & { readonly __mediaTime: unique symbol };
 export const TICKS_PER_SECOND = _TICKS_PER_SECOND();
 
 function isMediaTime(value: number): value is MediaTime {
-	return Number.isInteger(value);
+  return Number.isInteger(value);
 }
 
 function requireMediaTime({
-	value,
-	context,
+  value,
+  context,
 }: {
-	value: number;
-	context: string;
+  value: number;
+  context: string;
 }): MediaTime {
-	if (!isMediaTime(value)) {
-		throw new Error(`${context}: expected an integer tick count, got ${value}`);
-	}
-	return value;
+  if (!isMediaTime(value)) {
+    throw new Error(`${context}: expected an integer tick count, got ${value}`);
+  }
+  return value;
 }
 
 export const ZERO_MEDIA_TIME = requireMediaTime({
-	value: 0,
-	context: "ZERO_MEDIA_TIME",
+  value: 0,
+  context: "ZERO_MEDIA_TIME",
 });
 
 /**
@@ -53,10 +53,10 @@ export const ZERO_MEDIA_TIME = requireMediaTime({
  * when the input may be fractional.
  */
 export function mediaTime({ ticks }: { ticks: number }): MediaTime {
-	return requireMediaTime({
-		value: ticks,
-		context: "mediaTime()",
-	});
+  return requireMediaTime({
+    value: ticks,
+    context: "mediaTime()",
+  });
 }
 
 /**
@@ -67,166 +67,166 @@ export function mediaTime({ ticks }: { ticks: number }): MediaTime {
  * `Math.round(-0.5) === -0` quirk that propagates `-0` into stored data.
  */
 export function roundMediaTime({ time }: { time: number }): MediaTime {
-	const roundedMagnitude = Math.round(Math.abs(time));
-	if (roundedMagnitude === 0) {
-		return ZERO_MEDIA_TIME;
-	}
-	return requireMediaTime({
-		value: time < 0 ? -roundedMagnitude : roundedMagnitude,
-		context: "roundMediaTime()",
-	});
+  const roundedMagnitude = Math.round(Math.abs(time));
+  if (roundedMagnitude === 0) {
+    return ZERO_MEDIA_TIME;
+  }
+  return requireMediaTime({
+    value: time < 0 ? -roundedMagnitude : roundedMagnitude,
+    context: "roundMediaTime()",
+  });
 }
 
 export function mediaTimeFromSeconds({
-	seconds,
+  seconds,
 }: {
-	seconds: number;
+  seconds: number;
 }): MediaTime {
-	const result = _mediaTimeFromSeconds({ seconds });
-	if (result === undefined) {
-		throw new Error(
-			`mediaTimeFromSeconds: rust returned undefined for seconds=${seconds}`,
-		);
-	}
-	return requireMediaTime({
-		value: result,
-		context: "mediaTimeFromSeconds()",
-	});
+  const result = _mediaTimeFromSeconds({ seconds });
+  if (result === undefined) {
+    throw new Error(
+      `mediaTimeFromSeconds: rust returned undefined for seconds=${seconds}`,
+    );
+  }
+  return requireMediaTime({
+    value: result,
+    context: "mediaTimeFromSeconds()",
+  });
 }
 
 export function mediaTimeToSeconds({ time }: { time: MediaTime }): number {
-	return _mediaTimeToSeconds({ time });
+  return _mediaTimeToSeconds({ time });
 }
 
 /**
  * Sum `MediaTime` values. Inputs are integer ticks, so the sum is integer too.
  */
 export function addMediaTime({
-	a,
-	b,
+  a,
+  b,
 }: {
-	a: MediaTime;
-	b: MediaTime;
+  a: MediaTime;
+  b: MediaTime;
 }): MediaTime {
-	return requireMediaTime({
-		value: a + b,
-		context: "addMediaTime()",
-	});
+  return requireMediaTime({
+    value: a + b,
+    context: "addMediaTime()",
+  });
 }
 
 export function subMediaTime({
-	a,
-	b,
+  a,
+  b,
 }: {
-	a: MediaTime;
-	b: MediaTime;
+  a: MediaTime;
+  b: MediaTime;
 }): MediaTime {
-	return requireMediaTime({
-		value: a - b,
-		context: "subMediaTime()",
-	});
+  return requireMediaTime({
+    value: a - b,
+    context: "subMediaTime()",
+  });
 }
 
 export function maxMediaTime({
-	a,
-	b,
+  a,
+  b,
 }: {
-	a: MediaTime;
-	b: MediaTime;
+  a: MediaTime;
+  b: MediaTime;
 }): MediaTime {
-	return a > b ? a : b;
+  return a > b ? a : b;
 }
 
 export function minMediaTime({
-	a,
-	b,
+  a,
+  b,
 }: {
-	a: MediaTime;
-	b: MediaTime;
+  a: MediaTime;
+  b: MediaTime;
 }): MediaTime {
-	return a < b ? a : b;
+  return a < b ? a : b;
 }
 
 export function clampMediaTime({
-	time,
-	min,
-	max,
+  time,
+  min,
+  max,
 }: {
-	time: MediaTime;
-	min: MediaTime;
-	max: MediaTime;
+  time: MediaTime;
+  min: MediaTime;
+  max: MediaTime;
 }): MediaTime {
-	if (time < min) return min;
-	if (time > max) return max;
-	return time;
+  if (time < min) return min;
+  if (time > max) return max;
+  return time;
 }
 
 export function roundFrameTime({
-	time,
-	fps,
+  time,
+  fps,
 }: {
-	time: MediaTime;
-	fps: FrameRate;
+  time: MediaTime;
+  fps: FrameRate;
 }): MediaTime {
-	return requireMediaTime({
-		value: _roundToFrame({ time, rate: fps }) ?? time,
-		context: "roundFrameTime()",
-	});
+  return requireMediaTime({
+    value: _roundToFrame({ time, rate: fps }) ?? time,
+    context: "roundFrameTime()",
+  });
 }
 
 export function roundFrameTicks({
-	ticks,
-	fps,
+  ticks,
+  fps,
 }: {
-	ticks: number;
-	fps: FrameRate;
+  ticks: number;
+  fps: FrameRate;
 }): number {
-	return _roundToFrame({ time: ticks, rate: fps }) ?? ticks;
+  return _roundToFrame({ time: ticks, rate: fps }) ?? ticks;
 }
 
 export function snapSeekMediaTime({
-	time,
-	duration,
-	fps,
+  time,
+  duration,
+  fps,
 }: {
-	time: MediaTime;
-	duration: MediaTime;
-	fps: FrameRate;
+  time: MediaTime;
+  duration: MediaTime;
+  fps: FrameRate;
 }): MediaTime {
-	return requireMediaTime({
-		value: _snappedSeekTime({ time, duration, rate: fps }) ?? time,
-		context: "snapSeekMediaTime()",
-	});
+  return requireMediaTime({
+    value: _snappedSeekTime({ time, duration, rate: fps }) ?? time,
+    context: "snapSeekMediaTime()",
+  });
 }
 
 export function lastFrameMediaTime({
-	duration,
-	fps,
+  duration,
+  fps,
 }: {
-	duration: MediaTime;
-	fps: FrameRate;
+  duration: MediaTime;
+  fps: FrameRate;
 }): MediaTime {
-	return requireMediaTime({
-		value: _lastFrameTime({ duration, rate: fps }) ?? duration,
-		context: "lastFrameMediaTime()",
-	});
+  return requireMediaTime({
+    value: _lastFrameTime({ duration, rate: fps }) ?? duration,
+    context: "lastFrameMediaTime()",
+  });
 }
 
 export function parseMediaTimecode({
-	timeCode,
-	format,
-	fps,
+  timeCode,
+  format,
+  fps,
 }: {
-	timeCode: string;
-	format: TimeCodeFormat;
-	fps: FrameRate;
+  timeCode: string;
+  format: TimeCodeFormat;
+  fps: FrameRate;
 }): MediaTime | null {
-	const parsedTime = _parseTimecode({ timeCode, format, rate: fps });
-	if (parsedTime == null) {
-		return null;
-	}
-	return requireMediaTime({
-		value: parsedTime,
-		context: "parseMediaTimecode()",
-	});
+  const parsedTime = _parseTimecode({ timeCode, format, rate: fps });
+  if (parsedTime == null) {
+    return null;
+  }
+  return requireMediaTime({
+    value: parsedTime,
+    context: "parseMediaTimecode()",
+  });
 }

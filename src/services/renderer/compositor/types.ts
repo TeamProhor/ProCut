@@ -2,47 +2,47 @@ import type { BlendMode } from "@/rendering";
 import type { EffectPass } from "@/effects/types";
 
 export type FrameDescriptor = {
-	width: number;
-	height: number;
-	clear: {
-		color: [number, number, number, number];
-	};
-	items: FrameItemDescriptor[];
+  width: number;
+  height: number;
+  clear: {
+    color: [number, number, number, number];
+  };
+  items: FrameItemDescriptor[];
 };
 
 export type FrameItemDescriptor =
-	| {
-			type: "layer";
-			textureId: string;
-			transform: QuadTransformDescriptor;
-			opacity: number;
-			blendMode: BlendMode;
-			effectPassGroups: EffectPass[][];
-			mask: LayerMaskDescriptor | null;
-	  }
-	| {
-			type: "sceneEffect";
-			effectPassGroups: EffectPass[][];
-	  };
+  | {
+      type: "layer";
+      textureId: string;
+      transform: QuadTransformDescriptor;
+      opacity: number;
+      blendMode: BlendMode;
+      effectPassGroups: EffectPass[][];
+      mask: LayerMaskDescriptor | null;
+    }
+  | {
+      type: "sceneEffect";
+      effectPassGroups: EffectPass[][];
+    };
 
 export type QuadTransformDescriptor = {
-	centerX: number;
-	centerY: number;
-	width: number;
-	height: number;
-	rotationDegrees: number;
-	flipX: boolean;
-	flipY: boolean;
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+  rotationDegrees: number;
+  flipX: boolean;
+  flipY: boolean;
 };
 
 export type LayerMaskDescriptor = {
-	textureId: string;
-	feather: number;
-	inverted: boolean;
+  textureId: string;
+  feather: number;
+  inverted: boolean;
 };
 
 export type TextureCanvasDrawFn = (
-	ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
 ) => void;
 
 /**
@@ -51,11 +51,11 @@ export type TextureCanvasDrawFn = (
  * identity of the source object.
  */
 export type ExternalTextureDescriptor = {
-	kind: "external";
-	id: string;
-	source: CanvasImageSource;
-	width: number;
-	height: number;
+  kind: "external";
+  id: string;
+  source: CanvasImageSource;
+  width: number;
+  height: number;
 };
 
 /**
@@ -65,14 +65,14 @@ export type ExternalTextureDescriptor = {
  * entirely and the persistent canvas is not even cleared.
  */
 export type RenderedTextureDescriptor = {
-	kind: "rendered";
-	id: string;
-	contentHash: string;
-	width: number;
-	height: number;
-	draw: TextureCanvasDrawFn;
+  kind: "rendered";
+  id: string;
+  contentHash: string;
+  width: number;
+  height: number;
+  draw: TextureCanvasDrawFn;
 };
 
 export type TextureUploadDescriptor =
-	| ExternalTextureDescriptor
-	| RenderedTextureDescriptor;
+  | ExternalTextureDescriptor
+  | RenderedTextureDescriptor;

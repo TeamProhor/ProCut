@@ -6,77 +6,77 @@ type FocusLockCursor = "text" | "default" | "pointer" | "crosshair";
 const DATA_ATTR = "data-focus-locked";
 
 function buildFocusLockCSS({
-	cursor,
-	allowSelector,
+  cursor,
+  allowSelector,
 }: {
-	cursor: FocusLockCursor;
-	allowSelector?: string;
+  cursor: FocusLockCursor;
+  allowSelector?: string;
 }) {
-	const rules = [
-		`*, *::before, *::after { pointer-events: none !important; cursor: ${cursor} !important; }`,
-		`[${DATA_ATTR}], [${DATA_ATTR}] * { pointer-events: auto !important; cursor: auto !important; }`,
-	];
+  const rules = [
+    `*, *::before, *::after { pointer-events: none !important; cursor: ${cursor} !important; }`,
+    `[${DATA_ATTR}], [${DATA_ATTR}] * { pointer-events: auto !important; cursor: auto !important; }`,
+  ];
 
-	if (allowSelector) {
-		rules.push(
-			`${allowSelector} { pointer-events: auto !important; cursor: auto !important; }`,
-		);
-	}
+  if (allowSelector) {
+    rules.push(
+      `${allowSelector} { pointer-events: auto !important; cursor: auto !important; }`,
+    );
+  }
 
-	return rules.join("\n");
+  return rules.join("\n");
 }
 
 export function useFocusLock<T extends HTMLElement = HTMLElement>({
-	isActive,
-	onDismiss,
-	cursor = "default",
-	allowSelector,
+  isActive,
+  onDismiss,
+  cursor = "default",
+  allowSelector,
 }: {
-	isActive: boolean;
-	onDismiss: () => void;
-	cursor?: FocusLockCursor;
-	allowSelector?: string;
+  isActive: boolean;
+  onDismiss: () => void;
+  cursor?: FocusLockCursor;
+  allowSelector?: string;
 }) {
-	const containerRef = useRef<T>(null);
-	const onDismissRef = useCommittedRef(onDismiss);
+  const containerRef = useRef<T>(null);
+  const onDismissRef = useCommittedRef(onDismiss);
 
-	useEffect(() => {
-		if (!isActive) return;
-		const container = containerRef.current;
-		if (!container) return;
+  useEffect(() => {
+    if (!isActive) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-		container.setAttribute(DATA_ATTR, "");
+    container.setAttribute(DATA_ATTR, "");
 
-		const focusLockStyle = document.createElement("style");
-		focusLockStyle.textContent = buildFocusLockCSS({ cursor, allowSelector });
-		document.head.appendChild(focusLockStyle);
+    const focusLockStyle = document.createElement("style");
+    focusLockStyle.textContent = buildFocusLockCSS({ cursor, allowSelector });
+    document.head.appendChild(focusLockStyle);
 
-		const handleOutsidePointerDown = (event: PointerEvent) => {
-			if (event.button !== 0) return;
-			const target = event.target;
-			if (target instanceof Node && container.contains(target)) return;
+    const handleOutsidePointerDown = (event: PointerEvent) => {
+      if (event.button !== 0) return;
+      const target = event.target;
+      if (target instanceof Node && container.contains(target)) return;
 
-			const isAllowedTarget =
-				allowSelector &&
-				target instanceof Element &&
-				target.closest(allowSelector);
-			if (isAllowedTarget) return;
+      const isAllowedTarget =
+        allowSelector &&
+        target instanceof Element &&
+        target.closest(allowSelector);
+      if (isAllowedTarget) return;
 
-			onDismissRef.current();
-		};
+      onDismissRef.current();
+    };
 
-		document.addEventListener("pointerdown", handleOutsidePointerDown, true);
+    document.addEventListener("pointerdown", handleOutsidePointerDown, true);
 
-		return () => {
-			document.removeEventListener(
-				"pointerdown",
-				handleOutsidePointerDown,
-				true,
-			);
-			container.removeAttribute(DATA_ATTR);
-			focusLockStyle.remove();
-		};
-	}, [isActive, cursor, allowSelector, onDismissRef]);
+    return () => {
+      document.removeEventListener(
+        "pointerdown",
+        handleOutsidePointerDown,
+        true,
+      );
+      container.removeAttribute(DATA_ATTR);
+      focusLockStyle.remove();
+    };
+  }, [isActive, cursor, allowSelector, onDismissRef]);
 
-	return { containerRef };
+  return { containerRef };
 }

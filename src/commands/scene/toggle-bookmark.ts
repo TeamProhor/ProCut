@@ -3,54 +3,54 @@ import { EditorCore } from "@/core";
 import type { TScene } from "@/timeline";
 import { updateSceneInArray } from "@/timeline/scenes";
 import {
-	getFrameTime,
-	toggleBookmarkInArray,
+  getFrameTime,
+  toggleBookmarkInArray,
 } from "@/timeline/bookmarks/index";
 import { type MediaTime, ZERO_MEDIA_TIME } from "@/wasm";
 
 export class ToggleBookmarkCommand extends Command {
-	private savedScenes: TScene[] | null = null;
-	private frameTime: MediaTime = ZERO_MEDIA_TIME;
+  private savedScenes: TScene[] | null = null;
+  private frameTime: MediaTime = ZERO_MEDIA_TIME;
 
-	constructor(private time: MediaTime) {
-		super();
-	}
+  constructor(private time: MediaTime) {
+    super();
+  }
 
-	execute(): CommandResult | undefined {
-		const editor = EditorCore.getInstance();
-		const activeScene = editor.scenes.getActiveScene();
-		const activeProject = editor.project.getActive();
+  execute(): CommandResult | undefined {
+    const editor = EditorCore.getInstance();
+    const activeScene = editor.scenes.getActiveScene();
+    const activeProject = editor.project.getActive();
 
-		if (!activeScene || !activeProject) {
-			return;
-		}
+    if (!activeScene || !activeProject) {
+      return;
+    }
 
-		const scenes = editor.scenes.getScenes();
-		this.savedScenes = [...scenes];
+    const scenes = editor.scenes.getScenes();
+    this.savedScenes = [...scenes];
 
-		this.frameTime = getFrameTime({
-			time: this.time,
-			fps: activeProject.settings.fps,
-		});
+    this.frameTime = getFrameTime({
+      time: this.time,
+      fps: activeProject.settings.fps,
+    });
 
-		const updatedBookmarks = toggleBookmarkInArray({
-			bookmarks: activeScene.bookmarks,
-			frameTime: this.frameTime,
-		});
+    const updatedBookmarks = toggleBookmarkInArray({
+      bookmarks: activeScene.bookmarks,
+      frameTime: this.frameTime,
+    });
 
-		const updatedScenes = updateSceneInArray({
-			scenes,
-			sceneId: activeScene.id,
-			updates: { bookmarks: updatedBookmarks },
-		});
+    const updatedScenes = updateSceneInArray({
+      scenes,
+      sceneId: activeScene.id,
+      updates: { bookmarks: updatedBookmarks },
+    });
 
-		editor.scenes.setScenes({ scenes: updatedScenes });
-	}
+    editor.scenes.setScenes({ scenes: updatedScenes });
+  }
 
-	undo(): void {
-		if (this.savedScenes) {
-			const editor = EditorCore.getInstance();
-			editor.scenes.setScenes({ scenes: this.savedScenes });
-		}
-	}
+  undo(): void {
+    if (this.savedScenes) {
+      const editor = EditorCore.getInstance();
+      editor.scenes.setScenes({ scenes: this.savedScenes });
+    }
+  }
 }

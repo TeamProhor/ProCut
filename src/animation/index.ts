@@ -1,67 +1,67 @@
 export {
-	getChannelValueAtTime,
-	getDiscreteChannelValueAtTime,
-	getScalarChannelValueAtTime,
-	getScalarSegmentInterpolation,
-	normalizeChannel,
+  getChannelValueAtTime,
+  getDiscreteChannelValueAtTime,
+  getScalarChannelValueAtTime,
+  getScalarSegmentInterpolation,
+  normalizeChannel,
 } from "./interpolation";
 
 export {
-	clampAnimationsToDuration,
-	cloneAnimations,
-	getChannel,
-	removeElementKeyframe,
-	retimeElementKeyframe,
-	setBindingComponentChannel,
-	setChannel,
-	splitAnimationsAtTime,
-	updateScalarKeyframeCurve,
-	upsertPathKeyframe,
+  clampAnimationsToDuration,
+  cloneAnimations,
+  getChannel,
+  removeElementKeyframe,
+  retimeElementKeyframe,
+  setBindingComponentChannel,
+  setChannel,
+  splitAnimationsAtTime,
+  updateScalarKeyframeCurve,
+  upsertPathKeyframe,
 } from "./keyframes";
 
 export {
-	getElementLocalTime,
-	resolveAnimationPathValueAtTime,
+  getElementLocalTime,
+  resolveAnimationPathValueAtTime,
 } from "./resolve";
 
 export {
-	getElementKeyframes,
-	getKeyframeById,
-	getKeyframeAtTime,
-	hasKeyframesForPath,
+  getElementKeyframes,
+  getKeyframeById,
+  getKeyframeAtTime,
+  hasKeyframesForPath,
 } from "./keyframe-query";
 
 export {
-	type EditableScalarChannels,
-	getEditableScalarChannel,
-	getEditableScalarChannels,
-	getScalarKeyframeContext,
+  type EditableScalarChannels,
+  getEditableScalarChannel,
+  getEditableScalarChannels,
+  getScalarKeyframeContext,
 } from "./graph-channels";
 
 export {
-	getCurveHandlesForNormalizedCubicBezier,
-	getNormalizedCubicBezierForScalarSegment,
+  getCurveHandlesForNormalizedCubicBezier,
+  getNormalizedCubicBezierForScalarSegment,
 } from "./curve-bridge";
 
 export {
-	buildGraphicParamPath,
-	isGraphicParamPath,
-	parseGraphicParamPath,
-	resolveGraphicParamsAtTime,
+  buildGraphicParamPath,
+  isGraphicParamPath,
+  parseGraphicParamPath,
+  resolveGraphicParamsAtTime,
 } from "./graphic-param-channel";
 
 export {
-	buildEffectParamPath,
-	isEffectParamPath,
-	parseEffectParamPath,
-	removeEffectParamKeyframe,
-	resolveEffectParamsAtTime,
+  buildEffectParamPath,
+  isEffectParamPath,
+  parseEffectParamPath,
+  removeEffectParamKeyframe,
+  resolveEffectParamsAtTime,
 } from "./effect-param-channel";
 
 export {
-	getGroupKeyframesAtTime,
-	hasGroupKeyframeAtTime,
-	type GroupKeyframeRef,
+  getGroupKeyframesAtTime,
+  hasGroupKeyframeAtTime,
+  type GroupKeyframeRef,
 } from "./property-groups";
 
 export { isAnimationPath, isAnimationPropertyPath } from "./path";

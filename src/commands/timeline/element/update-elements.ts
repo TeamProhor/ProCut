@@ -5,68 +5,68 @@ import { findTrackInSceneTracks, updateElementInSceneTracks } from "@/timeline";
 import { applyElementUpdate } from "@/timeline/update-pipeline";
 
 export class UpdateElementsCommand extends Command {
-	private savedState: SceneTracks | null = null;
-	private readonly updates: Array<{
-		trackId: string;
-		elementId: string;
-		patch: Partial<TimelineElement>;
-	}>;
+  private savedState: SceneTracks | null = null;
+  private readonly updates: Array<{
+    trackId: string;
+    elementId: string;
+    patch: Partial<TimelineElement>;
+  }>;
 
-	constructor({
-		updates,
-	}: {
-		updates: Array<{
-			trackId: string;
-			elementId: string;
-			patch: Partial<TimelineElement>;
-		}>;
-	}) {
-		super();
-		this.updates = updates;
-	}
+  constructor({
+    updates,
+  }: {
+    updates: Array<{
+      trackId: string;
+      elementId: string;
+      patch: Partial<TimelineElement>;
+    }>;
+  }) {
+    super();
+    this.updates = updates;
+  }
 
-	execute(): CommandResult | undefined {
-		const editor = EditorCore.getInstance();
-		this.savedState = editor.scenes.getActiveScene().tracks;
-		let updatedTracks = this.savedState;
+  execute(): CommandResult | undefined {
+    const editor = EditorCore.getInstance();
+    this.savedState = editor.scenes.getActiveScene().tracks;
+    let updatedTracks = this.savedState;
 
-		for (const updateEntry of this.updates) {
-			const currentTrack = findTrackInSceneTracks({
-				tracks: updatedTracks,
-				trackId: updateEntry.trackId,
-			});
-			const currentElement = currentTrack?.elements.find(
-				(element) => element.id === updateEntry.elementId,
-			);
-			if (!currentTrack || !currentElement) {
-				continue;
-			}
+    for (const updateEntry of this.updates) {
+      const currentTrack = findTrackInSceneTracks({
+        tracks: updatedTracks,
+        trackId: updateEntry.trackId,
+      });
+      const currentElement = currentTrack?.elements.find(
+        (element) => element.id === updateEntry.elementId,
+      );
+      if (!currentTrack || !currentElement) {
+        continue;
+      }
 
-			const nextElement = applyElementUpdate({
-				element: currentElement,
-				patch: updateEntry.patch,
-				context: {
-					tracks: updatedTracks,
-					trackId: updateEntry.trackId,
-				},
-			});
+      const nextElement = applyElementUpdate({
+        element: currentElement,
+        patch: updateEntry.patch,
+        context: {
+          tracks: updatedTracks,
+          trackId: updateEntry.trackId,
+        },
+      });
 
-			updatedTracks = updateElementInSceneTracks({
-				tracks: updatedTracks,
-				trackId: updateEntry.trackId,
-				elementId: updateEntry.elementId,
-				update: () => nextElement,
-			});
-		}
+      updatedTracks = updateElementInSceneTracks({
+        tracks: updatedTracks,
+        trackId: updateEntry.trackId,
+        elementId: updateEntry.elementId,
+        update: () => nextElement,
+      });
+    }
 
-		editor.timeline.updateTracks(updatedTracks);
-		return undefined;
-	}
+    editor.timeline.updateTracks(updatedTracks);
+    return undefined;
+  }
 
-	undo(): void {
-		if (this.savedState) {
-			const editor = EditorCore.getInstance();
-			editor.timeline.updateTracks(this.savedState);
-		}
-	}
+  undo(): void {
+    if (this.savedState) {
+      const editor = EditorCore.getInstance();
+      editor.timeline.updateTracks(this.savedState);
+    }
+  }
 }

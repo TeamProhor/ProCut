@@ -2,43 +2,43 @@ import type { TimelineElement } from "@/timeline";
 import type { PlacementTimeSpan } from "./types";
 
 interface TrackWithElements {
-	elements: TimelineElement[];
+  elements: TimelineElement[];
 }
 
 function wouldElementOverlap({
-	elements,
-	startTime,
-	endTime,
-	excludeElementId,
+  elements,
+  startTime,
+  endTime,
+  excludeElementId,
 }: {
-	elements: TimelineElement[];
-	startTime: number;
-	endTime: number;
-	excludeElementId?: string;
+  elements: TimelineElement[];
+  startTime: number;
+  endTime: number;
+  excludeElementId?: string;
 }): boolean {
-	return elements.some((element) => {
-		if (excludeElementId && element.id === excludeElementId) {
-			return false;
-		}
+  return elements.some((element) => {
+    if (excludeElementId && element.id === excludeElementId) {
+      return false;
+    }
 
-		const elementEnd = element.startTime + element.duration;
-		return startTime < elementEnd && endTime > element.startTime;
-	});
+    const elementEnd = element.startTime + element.duration;
+    return startTime < elementEnd && endTime > element.startTime;
+  });
 }
 
 export function canPlaceTimeSpansOnTrack({
-	track,
-	timeSpans,
+  track,
+  timeSpans,
 }: {
-	track: TrackWithElements;
-	timeSpans: PlacementTimeSpan[];
+  track: TrackWithElements;
+  timeSpans: PlacementTimeSpan[];
 }): boolean {
-	return timeSpans.every(({ startTime, duration, excludeElementId }) => {
-		return !wouldElementOverlap({
-			elements: track.elements,
-			startTime,
-			endTime: startTime + duration,
-			excludeElementId,
-		});
-	});
+  return timeSpans.every(({ startTime, duration, excludeElementId }) => {
+    return !wouldElementOverlap({
+      elements: track.elements,
+      startTime,
+      endTime: startTime + duration,
+      excludeElementId,
+    });
+  });
 }

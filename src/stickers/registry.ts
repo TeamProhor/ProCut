@@ -2,12 +2,12 @@ import type { StickerProvider } from "@/stickers/types";
 import { DefinitionRegistry } from "@/params/registry";
 
 export class StickersRegistry extends DefinitionRegistry<
-	string,
-	StickerProvider
+  string,
+  StickerProvider
 > {
-	constructor() {
-		super("sticker provider");
-	}
+  constructor() {
+    super("sticker provider");
+  }
 }
 
 export const stickersRegistry = new StickersRegistry();

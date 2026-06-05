@@ -3,131 +3,131 @@ import type { ElementAnimations } from "@/animation/types";
 import type { MediaAsset } from "@/media/types";
 import { DEFAULTS } from "@/timeline/defaults";
 import type {
-	CreateUploadAudioElement,
-	TimelineElement,
-	AudioElement,
-	VideoElement,
+  CreateUploadAudioElement,
+  TimelineElement,
+  AudioElement,
+  VideoElement,
 } from "../types";
 
 type MediaAudioState = Pick<MediaAsset, "hasAudio">;
 
 export function isSourceAudioEnabled({
-	element,
+  element,
 }: {
-	element: VideoElement;
+  element: VideoElement;
 }): boolean {
-	return element.isSourceAudioEnabled !== false;
+  return element.isSourceAudioEnabled !== false;
 }
 
 export function isSourceAudioSeparated({
-	element,
+  element,
 }: {
-	element: VideoElement;
+  element: VideoElement;
 }): boolean {
-	return !isSourceAudioEnabled({ element });
+  return !isSourceAudioEnabled({ element });
 }
 
 export function canExtractSourceAudio(
-	element: TimelineElement,
-	mediaAsset: MediaAudioState | null | undefined,
+  element: TimelineElement,
+  mediaAsset: MediaAudioState | null | undefined,
 ): element is VideoElement {
-	return (
-		element.type === "video" &&
-		isSourceAudioEnabled({ element }) &&
-		!!mediaAsset &&
-		mediaAsset.hasAudio !== false
-	);
+  return (
+    element.type === "video" &&
+    isSourceAudioEnabled({ element }) &&
+    !!mediaAsset &&
+    mediaAsset.hasAudio !== false
+  );
 }
 
 export function canRecoverSourceAudio(
-	element: TimelineElement,
+  element: TimelineElement,
 ): element is VideoElement {
-	return element.type === "video" && isSourceAudioSeparated({ element });
+  return element.type === "video" && isSourceAudioSeparated({ element });
 }
 
 export function canToggleSourceAudio(
-	element: TimelineElement,
-	mediaAsset: MediaAudioState | null | undefined,
+  element: TimelineElement,
+  mediaAsset: MediaAudioState | null | undefined,
 ): element is VideoElement {
-	return (
-		canRecoverSourceAudio(element) || canExtractSourceAudio(element, mediaAsset)
-	);
+  return (
+    canRecoverSourceAudio(element) || canExtractSourceAudio(element, mediaAsset)
+  );
 }
 
 export function doesElementHaveEnabledAudio({
-	element,
-	mediaAsset,
+  element,
+  mediaAsset,
 }: {
-	element: AudioElement | VideoElement;
-	mediaAsset?: MediaAudioState | null;
+  element: AudioElement | VideoElement;
+  mediaAsset?: MediaAudioState | null;
 }): boolean {
-	if (element.type === "audio") {
-		return true;
-	}
+  if (element.type === "audio") {
+    return true;
+  }
 
-	return (
-		!!mediaAsset &&
-		mediaAsset.hasAudio !== false &&
-		isSourceAudioEnabled({ element })
-	);
+  return (
+    !!mediaAsset &&
+    mediaAsset.hasAudio !== false &&
+    isSourceAudioEnabled({ element })
+  );
 }
 
 export function buildSeparatedAudioElement({
-	sourceElement,
+  sourceElement,
 }: {
-	sourceElement: VideoElement;
+  sourceElement: VideoElement;
 }): CreateUploadAudioElement {
-	return {
-		type: "audio",
-		sourceType: "upload",
-		mediaId: sourceElement.mediaId,
-		name: sourceElement.name,
-		duration: sourceElement.duration,
-		startTime: sourceElement.startTime,
-		trimStart: sourceElement.trimStart,
-		trimEnd: sourceElement.trimEnd,
-		sourceDuration: sourceElement.sourceDuration,
-		params: {
-			volume:
-				typeof sourceElement.params.volume === "number"
-					? sourceElement.params.volume
-					: DEFAULTS.element.volume,
-			muted: sourceElement.params.muted === true,
-		},
-		retime: sourceElement.retime
-			? {
-					rate: sourceElement.retime.rate,
-					maintainPitch: sourceElement.retime.maintainPitch,
-				}
-			: undefined,
-		animations: cloneVolumeAnimations({
-			animations: sourceElement.animations,
-		}),
-	};
+  return {
+    type: "audio",
+    sourceType: "upload",
+    mediaId: sourceElement.mediaId,
+    name: sourceElement.name,
+    duration: sourceElement.duration,
+    startTime: sourceElement.startTime,
+    trimStart: sourceElement.trimStart,
+    trimEnd: sourceElement.trimEnd,
+    sourceDuration: sourceElement.sourceDuration,
+    params: {
+      volume:
+        typeof sourceElement.params.volume === "number"
+          ? sourceElement.params.volume
+          : DEFAULTS.element.volume,
+      muted: sourceElement.params.muted === true,
+    },
+    retime: sourceElement.retime
+      ? {
+          rate: sourceElement.retime.rate,
+          maintainPitch: sourceElement.retime.maintainPitch,
+        }
+      : undefined,
+    animations: cloneVolumeAnimations({
+      animations: sourceElement.animations,
+    }),
+  };
 }
 
 export function getSourceAudioActionLabel({
-	element,
+  element,
 }: {
-	element: VideoElement;
+  element: VideoElement;
 }): "Extract audio" | "Recover audio" {
-	return isSourceAudioSeparated({ element })
-		? "Recover audio"
-		: "Extract audio";
+  return isSourceAudioSeparated({ element })
+    ? "Recover audio"
+    : "Extract audio";
 }
 
 function cloneVolumeAnimations({
-	animations,
+  animations,
 }: {
-	animations: ElementAnimations | undefined;
+  animations: ElementAnimations | undefined;
 }): ElementAnimations | undefined {
-	const volumeData = animations?.volume;
-	if (!volumeData) {
-		return undefined;
-	}
+  const volumeData = animations?.volume;
+  if (!volumeData) {
+    return undefined;
+  }
 
-	return cloneAnimations({
-		animations: { volume: volumeData },
-		shouldRegenerateKeyframeIds: true,
-	});
+  return cloneAnimations({
+    animations: { volume: volumeData },
+    shouldRegenerateKeyframeIds: true,
+  });
 }

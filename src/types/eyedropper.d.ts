@@ -1,13 +1,13 @@
 interface EyeDropperResult {
-	sRGBHex: string;
+  sRGBHex: string;
 }
 
 interface EyeDropper {
-	open(options?: { signal?: AbortSignal }): Promise<EyeDropperResult>;
+  open(options?: { signal?: AbortSignal }): Promise<EyeDropperResult>;
 }
 
 declare const EyeDropper:
-	| {
-			new (): EyeDropper;
-	  }
-	| undefined;
+  | {
+      new (): EyeDropper;
+    }
+  | undefined;

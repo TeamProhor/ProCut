@@ -9,32 +9,32 @@ import { findTrackInSceneTracks, type TimelineElement } from "@/timeline";
  * (e.g. a slider being dragged) rather than the last committed value.
  */
 export function useElementPreview<T extends TimelineElement>({
-	trackId,
-	elementId,
-	fallback,
+  trackId,
+  elementId,
+  fallback,
 }: {
-	trackId: string;
-	elementId: string;
-	fallback: T;
+  trackId: string;
+  elementId: string;
+  fallback: T;
 }) {
-	const editor = useEditor();
-	useEditor((e) => e.timeline.getPreviewTracks());
+  const editor = useEditor();
+  useEditor((e) => e.timeline.getPreviewTracks());
 
-	const previewTracks = editor.timeline.getPreviewTracks();
-	const renderElement =
-		(findTrackInSceneTracks({
-			tracks: previewTracks ?? editor.scenes.getActiveScene().tracks,
-			trackId,
-		})?.elements.find((element) => element.id === elementId) as
-			| T
-			| undefined) ?? fallback;
+  const previewTracks = editor.timeline.getPreviewTracks();
+  const renderElement =
+    (findTrackInSceneTracks({
+      tracks: previewTracks ?? editor.scenes.getActiveScene().tracks,
+      trackId,
+    })?.elements.find((element) => element.id === elementId) as
+      | T
+      | undefined) ?? fallback;
 
-	const previewUpdates = (updates: Partial<TimelineElement>) =>
-		editor.timeline.previewElements({
-			updates: [{ trackId, elementId, updates }],
-		});
+  const previewUpdates = (updates: Partial<TimelineElement>) =>
+    editor.timeline.previewElements({
+      updates: [{ trackId, elementId, updates }],
+    });
 
-	const commit = () => editor.timeline.commitPreview();
+  const commit = () => editor.timeline.commitPreview();
 
-	return { renderElement, previewUpdates, commit };
+  return { renderElement, previewUpdates, commit };
 }

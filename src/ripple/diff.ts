@@ -1,291 +1,291 @@
 import type {
-	SceneTracks,
-	TimelineElement,
-	TimelineTrack,
+  SceneTracks,
+  TimelineElement,
+  TimelineTrack,
 } from "@/timeline/types";
 import type { RippleAdjustment } from "./apply";
 
 interface Interval {
-	startTime: number;
-	endTime: number;
+  startTime: number;
+  endTime: number;
 }
 
 interface ElementSpan extends Interval {
-	id: string;
+  id: string;
 }
 
 export function computeRippleAdjustments({
-	beforeTracks,
-	afterTracks,
+  beforeTracks,
+  afterTracks,
 }: {
-	beforeTracks: SceneTracks;
-	afterTracks: SceneTracks;
+  beforeTracks: SceneTracks;
+  afterTracks: SceneTracks;
 }): RippleAdjustment[] {
-	const beforeTrackList = [
-		...beforeTracks.overlay,
-		beforeTracks.main,
-		...beforeTracks.audio,
-	];
-	const afterTrackList = [
-		...afterTracks.overlay,
-		afterTracks.main,
-		...afterTracks.audio,
-	];
-	const afterTracksById = new Map(
-		afterTrackList.map((track) => [track.id, track]),
-	);
-	const allAfterElementIds = new Set(
-		afterTrackList.flatMap((track) =>
-			track.elements.map((element) => element.id),
-		),
-	);
+  const beforeTrackList = [
+    ...beforeTracks.overlay,
+    beforeTracks.main,
+    ...beforeTracks.audio,
+  ];
+  const afterTrackList = [
+    ...afterTracks.overlay,
+    afterTracks.main,
+    ...afterTracks.audio,
+  ];
+  const afterTracksById = new Map(
+    afterTrackList.map((track) => [track.id, track]),
+  );
+  const allAfterElementIds = new Set(
+    afterTrackList.flatMap((track) =>
+      track.elements.map((element) => element.id),
+    ),
+  );
 
-	return beforeTrackList.flatMap((beforeTrack): RippleAdjustment[] =>
-		computeTrackRippleAdjustments({
-			trackId: beforeTrack.id,
-			beforeElements: beforeTrack.elements,
-			afterElements: afterTracksById.get(beforeTrack.id)?.elements ?? [],
-			allAfterElementIds,
-		}),
-	);
+  return beforeTrackList.flatMap((beforeTrack): RippleAdjustment[] =>
+    computeTrackRippleAdjustments({
+      trackId: beforeTrack.id,
+      beforeElements: beforeTrack.elements,
+      afterElements: afterTracksById.get(beforeTrack.id)?.elements ?? [],
+      allAfterElementIds,
+    }),
+  );
 }
 
 function computeTrackRippleAdjustments({
-	trackId,
-	beforeElements,
-	afterElements,
-	allAfterElementIds,
+  trackId,
+  beforeElements,
+  afterElements,
+  allAfterElementIds,
 }: {
-	trackId: string;
-	beforeElements: TimelineElement[];
-	afterElements: TimelineElement[];
-	allAfterElementIds: Set<string>;
+  trackId: string;
+  beforeElements: TimelineElement[];
+  afterElements: TimelineElement[];
+  allAfterElementIds: Set<string>;
 }): RippleAdjustment[] {
-	const beforeElementsById = buildElementSpanMap({ elements: beforeElements });
-	const afterElementsById = buildElementSpanMap({ elements: afterElements });
-	const { vacatedIntervals, joinedIntervals } = collectTrackIntervals({
-		beforeElementsById,
-		afterElementsById,
-		allAfterElementIds,
-	});
-	const freedIntervals = subtractIntervalSets({
-		sourceIntervals: vacatedIntervals,
-		overlappingIntervals: joinedIntervals,
-	});
+  const beforeElementsById = buildElementSpanMap({ elements: beforeElements });
+  const afterElementsById = buildElementSpanMap({ elements: afterElements });
+  const { vacatedIntervals, joinedIntervals } = collectTrackIntervals({
+    beforeElementsById,
+    afterElementsById,
+    allAfterElementIds,
+  });
+  const freedIntervals = subtractIntervalSets({
+    sourceIntervals: vacatedIntervals,
+    overlappingIntervals: joinedIntervals,
+  });
 
-	return buildAdjustments({ trackId, intervals: freedIntervals });
+  return buildAdjustments({ trackId, intervals: freedIntervals });
 }
 
 function buildElementSpanMap({
-	elements,
+  elements,
 }: {
-	elements: TimelineElement[];
+  elements: TimelineElement[];
 }): Map<string, ElementSpan> {
-	return new Map(
-		elements.map((element) => [
-			element.id,
-			{
-				id: element.id,
-				startTime: element.startTime,
-				endTime: element.startTime + element.duration,
-			},
-		]),
-	);
+  return new Map(
+    elements.map((element) => [
+      element.id,
+      {
+        id: element.id,
+        startTime: element.startTime,
+        endTime: element.startTime + element.duration,
+      },
+    ]),
+  );
 }
 
 function collectTrackIntervals({
-	beforeElementsById,
-	afterElementsById,
-	allAfterElementIds,
+  beforeElementsById,
+  afterElementsById,
+  allAfterElementIds,
 }: {
-	beforeElementsById: Map<string, ElementSpan>;
-	afterElementsById: Map<string, ElementSpan>;
-	allAfterElementIds: Set<string>;
+  beforeElementsById: Map<string, ElementSpan>;
+  afterElementsById: Map<string, ElementSpan>;
+  allAfterElementIds: Set<string>;
 }): {
-	vacatedIntervals: Interval[];
-	joinedIntervals: Interval[];
+  vacatedIntervals: Interval[];
+  joinedIntervals: Interval[];
 } {
-	const vacatedIntervals: Interval[] = [];
-	const joinedIntervals: Interval[] = [];
+  const vacatedIntervals: Interval[] = [];
+  const joinedIntervals: Interval[] = [];
 
-	for (const beforeElement of beforeElementsById.values()) {
-		const afterElement = afterElementsById.get(beforeElement.id);
-		if (!afterElement) {
-			const wasMovedToAnotherTrack = allAfterElementIds.has(beforeElement.id);
-			if (!wasMovedToAnotherTrack) {
-				pushInterval({
-					intervals: vacatedIntervals,
-					startTime: beforeElement.startTime,
-					endTime: beforeElement.endTime,
-				});
-			}
-			continue;
-		}
+  for (const beforeElement of beforeElementsById.values()) {
+    const afterElement = afterElementsById.get(beforeElement.id);
+    if (!afterElement) {
+      const wasMovedToAnotherTrack = allAfterElementIds.has(beforeElement.id);
+      if (!wasMovedToAnotherTrack) {
+        pushInterval({
+          intervals: vacatedIntervals,
+          startTime: beforeElement.startTime,
+          endTime: beforeElement.endTime,
+        });
+      }
+      continue;
+    }
 
-		if (beforeElement.endTime > afterElement.endTime) {
-			pushInterval({
-				intervals: vacatedIntervals,
-				startTime: afterElement.endTime,
-				endTime: beforeElement.endTime,
-			});
-		}
-	}
+    if (beforeElement.endTime > afterElement.endTime) {
+      pushInterval({
+        intervals: vacatedIntervals,
+        startTime: afterElement.endTime,
+        endTime: beforeElement.endTime,
+      });
+    }
+  }
 
-	for (const afterElement of afterElementsById.values()) {
-		if (beforeElementsById.has(afterElement.id)) {
-			continue;
-		}
+  for (const afterElement of afterElementsById.values()) {
+    if (beforeElementsById.has(afterElement.id)) {
+      continue;
+    }
 
-		pushInterval({
-			intervals: joinedIntervals,
-			startTime: afterElement.startTime,
-			endTime: afterElement.endTime,
-		});
-	}
+    pushInterval({
+      intervals: joinedIntervals,
+      startTime: afterElement.startTime,
+      endTime: afterElement.endTime,
+    });
+  }
 
-	return {
-		vacatedIntervals: normalizeIntervals({ intervals: vacatedIntervals }),
-		joinedIntervals: normalizeIntervals({ intervals: joinedIntervals }),
-	};
+  return {
+    vacatedIntervals: normalizeIntervals({ intervals: vacatedIntervals }),
+    joinedIntervals: normalizeIntervals({ intervals: joinedIntervals }),
+  };
 }
 
 function buildAdjustments({
-	trackId,
-	intervals,
+  trackId,
+  intervals,
 }: {
-	trackId: string;
-	intervals: Interval[];
+  trackId: string;
+  intervals: Interval[];
 }): RippleAdjustment[] {
-	return intervals.flatMap((interval): RippleAdjustment[] => {
-		const shiftAmount = interval.endTime - interval.startTime;
-		if (shiftAmount <= 0) {
-			return [];
-		}
+  return intervals.flatMap((interval): RippleAdjustment[] => {
+    const shiftAmount = interval.endTime - interval.startTime;
+    if (shiftAmount <= 0) {
+      return [];
+    }
 
-		return [
-			{
-				trackId,
-				afterTime: interval.endTime,
-				shiftAmount,
-			},
-		];
-	});
+    return [
+      {
+        trackId,
+        afterTime: interval.endTime,
+        shiftAmount,
+      },
+    ];
+  });
 }
 
 function subtractIntervalSets({
-	sourceIntervals,
-	overlappingIntervals,
+  sourceIntervals,
+  overlappingIntervals,
 }: {
-	sourceIntervals: Interval[];
-	overlappingIntervals: Interval[];
+  sourceIntervals: Interval[];
+  overlappingIntervals: Interval[];
 }): Interval[] {
-	const normalizedSourceIntervals = normalizeIntervals({
-		intervals: sourceIntervals,
-	});
-	const normalizedOverlappingIntervals = normalizeIntervals({
-		intervals: overlappingIntervals,
-	});
+  const normalizedSourceIntervals = normalizeIntervals({
+    intervals: sourceIntervals,
+  });
+  const normalizedOverlappingIntervals = normalizeIntervals({
+    intervals: overlappingIntervals,
+  });
 
-	return normalizedSourceIntervals.flatMap((sourceInterval) =>
-		subtractSingleInterval({
-			sourceInterval,
-			overlappingIntervals: normalizedOverlappingIntervals,
-		}),
-	);
+  return normalizedSourceIntervals.flatMap((sourceInterval) =>
+    subtractSingleInterval({
+      sourceInterval,
+      overlappingIntervals: normalizedOverlappingIntervals,
+    }),
+  );
 }
 
 function normalizeIntervals({
-	intervals,
+  intervals,
 }: {
-	intervals: Interval[];
+  intervals: Interval[];
 }): Interval[] {
-	const validIntervals: Interval[] = [];
-	for (const interval of intervals) {
-		pushInterval({
-			intervals: validIntervals,
-			startTime: interval.startTime,
-			endTime: interval.endTime,
-		});
-	}
+  const validIntervals: Interval[] = [];
+  for (const interval of intervals) {
+    pushInterval({
+      intervals: validIntervals,
+      startTime: interval.startTime,
+      endTime: interval.endTime,
+    });
+  }
 
-	const sortedIntervals = validIntervals.sort(
-		(leftInterval, rightInterval) =>
-			leftInterval.startTime - rightInterval.startTime,
-	);
+  const sortedIntervals = validIntervals.sort(
+    (leftInterval, rightInterval) =>
+      leftInterval.startTime - rightInterval.startTime,
+  );
 
-	if (sortedIntervals.length === 0) {
-		return [];
-	}
+  if (sortedIntervals.length === 0) {
+    return [];
+  }
 
-	const mergedIntervals: Interval[] = [{ ...sortedIntervals[0] }];
-	for (const interval of sortedIntervals.slice(1)) {
-		const previousInterval = mergedIntervals[mergedIntervals.length - 1];
-		if (interval.startTime <= previousInterval.endTime) {
-			previousInterval.endTime = Math.max(
-				previousInterval.endTime,
-				interval.endTime,
-			);
-			continue;
-		}
+  const mergedIntervals: Interval[] = [{ ...sortedIntervals[0] }];
+  for (const interval of sortedIntervals.slice(1)) {
+    const previousInterval = mergedIntervals[mergedIntervals.length - 1];
+    if (interval.startTime <= previousInterval.endTime) {
+      previousInterval.endTime = Math.max(
+        previousInterval.endTime,
+        interval.endTime,
+      );
+      continue;
+    }
 
-		mergedIntervals.push({ ...interval });
-	}
+    mergedIntervals.push({ ...interval });
+  }
 
-	return mergedIntervals;
+  return mergedIntervals;
 }
 
 function subtractSingleInterval({
-	sourceInterval,
-	overlappingIntervals,
+  sourceInterval,
+  overlappingIntervals,
 }: {
-	sourceInterval: Interval;
-	overlappingIntervals: Interval[];
+  sourceInterval: Interval;
+  overlappingIntervals: Interval[];
 }): Interval[] {
-	let remainingIntervals: Interval[] = [{ ...sourceInterval }];
+  let remainingIntervals: Interval[] = [{ ...sourceInterval }];
 
-	for (const overlappingInterval of overlappingIntervals) {
-		remainingIntervals = remainingIntervals.flatMap((remainingInterval) => {
-			if (
-				overlappingInterval.endTime <= remainingInterval.startTime ||
-				overlappingInterval.startTime >= remainingInterval.endTime
-			) {
-				return [remainingInterval];
-			}
+  for (const overlappingInterval of overlappingIntervals) {
+    remainingIntervals = remainingIntervals.flatMap((remainingInterval) => {
+      if (
+        overlappingInterval.endTime <= remainingInterval.startTime ||
+        overlappingInterval.startTime >= remainingInterval.endTime
+      ) {
+        return [remainingInterval];
+      }
 
-			const nextIntervals: Interval[] = [];
-			pushInterval({
-				intervals: nextIntervals,
-				startTime: remainingInterval.startTime,
-				endTime: overlappingInterval.startTime,
-			});
-			pushInterval({
-				intervals: nextIntervals,
-				startTime: overlappingInterval.endTime,
-				endTime: remainingInterval.endTime,
-			});
-			return nextIntervals;
-		});
+      const nextIntervals: Interval[] = [];
+      pushInterval({
+        intervals: nextIntervals,
+        startTime: remainingInterval.startTime,
+        endTime: overlappingInterval.startTime,
+      });
+      pushInterval({
+        intervals: nextIntervals,
+        startTime: overlappingInterval.endTime,
+        endTime: remainingInterval.endTime,
+      });
+      return nextIntervals;
+    });
 
-		if (remainingIntervals.length === 0) {
-			return [];
-		}
-	}
+    if (remainingIntervals.length === 0) {
+      return [];
+    }
+  }
 
-	return remainingIntervals;
+  return remainingIntervals;
 }
 
 function pushInterval({
-	intervals,
-	startTime,
-	endTime,
+  intervals,
+  startTime,
+  endTime,
 }: {
-	intervals: Interval[];
-	startTime: number;
-	endTime: number;
+  intervals: Interval[];
+  startTime: number;
+  endTime: number;
 }): void {
-	if (endTime <= startTime) {
-		return;
-	}
+  if (endTime <= startTime) {
+    return;
+  }
 
-	intervals.push({ startTime, endTime });
+  intervals.push({ startTime, endTime });
 }

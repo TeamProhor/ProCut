@@ -2,12 +2,12 @@ import { DefinitionRegistry } from "@/params/registry";
 import type { EffectDefinition } from "@/effects/types";
 
 export class EffectsRegistry extends DefinitionRegistry<
-	string,
-	EffectDefinition
+  string,
+  EffectDefinition
 > {
-	constructor() {
-		super("effect");
-	}
+  constructor() {
+    super("effect");
+  }
 }
 
 export const effectsRegistry = new EffectsRegistry();

@@ -12,22 +12,22 @@ export * from "./ruler-utils";
 export * from "./pixel-utils";
 
 export function calculateTotalDuration({
-	tracks,
+  tracks,
 }: {
-	tracks: SceneTracks;
+  tracks: SceneTracks;
 }): MediaTime {
-	const orderedTracks = [...tracks.overlay, tracks.main, ...tracks.audio];
-	if (orderedTracks.length === 0) return ZERO_MEDIA_TIME;
+  const orderedTracks = [...tracks.overlay, tracks.main, ...tracks.audio];
+  if (orderedTracks.length === 0) return ZERO_MEDIA_TIME;
 
-	let maxEnd: MediaTime = ZERO_MEDIA_TIME;
-	for (const track of orderedTracks) {
-		for (const element of track.elements) {
-			const elementEnd = addMediaTime({
-				a: element.startTime,
-				b: element.duration,
-			});
-			if (elementEnd > maxEnd) maxEnd = elementEnd;
-		}
-	}
-	return maxEnd;
+  let maxEnd: MediaTime = ZERO_MEDIA_TIME;
+  for (const track of orderedTracks) {
+    for (const element of track.elements) {
+      const elementEnd = addMediaTime({
+        a: element.startTime,
+        b: element.duration,
+      });
+      if (elementEnd > maxEnd) maxEnd = elementEnd;
+    }
+  }
+  return maxEnd;
 }

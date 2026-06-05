@@ -2,12 +2,12 @@ import { DefinitionRegistry } from "@/params/registry";
 import type { GraphicDefinition } from "./types";
 
 export class GraphicsRegistry extends DefinitionRegistry<
-	string,
-	GraphicDefinition
+  string,
+  GraphicDefinition
 > {
-	constructor() {
-		super("graphic");
-	}
+  constructor() {
+    super("graphic");
+  }
 }
 
 export const graphicsRegistry = new GraphicsRegistry();

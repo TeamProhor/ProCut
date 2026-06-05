@@ -5,79 +5,79 @@ import type { TActionWithOptionalArgs } from "./types";
  * Ctrl is also regarded as macOS COMMAND (⌘) key (NOTE: this differs from HTML Keyboard spec where COMMAND is Meta key!)
  */
 export type ModifierKeys =
-	| "ctrl"
-	| "alt"
-	| "shift"
-	| "ctrl+shift"
-	| "alt+shift"
-	| "ctrl+alt"
-	| "ctrl+alt+shift";
+  | "ctrl"
+  | "alt"
+  | "shift"
+  | "ctrl+shift"
+  | "alt+shift"
+  | "ctrl+alt"
+  | "ctrl+alt+shift";
 
 const MODIFIERS = [
-	"ctrl",
-	"alt",
-	"shift",
-	"ctrl+shift",
-	"alt+shift",
-	"ctrl+alt",
-	"ctrl+alt+shift",
+  "ctrl",
+  "alt",
+  "shift",
+  "ctrl+shift",
+  "alt+shift",
+  "ctrl+alt",
+  "ctrl+alt+shift",
 ] as const;
 
 const MODIFIER_SET: ReadonlySet<string> = new Set(MODIFIERS);
 
 const KEYS = [
-	"a",
-	"b",
-	"c",
-	"d",
-	"e",
-	"f",
-	"g",
-	"h",
-	"i",
-	"j",
-	"k",
-	"l",
-	"m",
-	"n",
-	"o",
-	"p",
-	"q",
-	"r",
-	"s",
-	"t",
-	"u",
-	"v",
-	"w",
-	"x",
-	"y",
-	"z",
-	"0",
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
-	"up",
-	"down",
-	"left",
-	"right",
-	"/",
-	"?",
-	".",
-	"enter",
-	"tab",
-	"space",
-	"escape",
-	"esc",
-	"backspace",
-	"delete",
-	"home",
-	"end",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "up",
+  "down",
+  "left",
+  "right",
+  "/",
+  "?",
+  ".",
+  "enter",
+  "tab",
+  "space",
+  "escape",
+  "esc",
+  "backspace",
+  "delete",
+  "home",
+  "end",
 ] as const;
 
 export type Key = (typeof KEYS)[number];
@@ -85,7 +85,7 @@ export type Key = (typeof KEYS)[number];
 const KEY_SET: ReadonlySet<string> = new Set(KEYS);
 
 export function isKey(value: string): value is Key {
-	return KEY_SET.has(value);
+  return KEY_SET.has(value);
 }
 
 export type ModifierBasedShortcutKey = `${ModifierKeys}+${Key}`;
@@ -95,21 +95,21 @@ export type SingleCharacterShortcutKey = `${Key}`;
 export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey;
 
 export function isShortcutKey(value: string): value is ShortcutKey {
-	if (isKey(value)) {
-		return true;
-	}
+  if (isKey(value)) {
+    return true;
+  }
 
-	const lastPlusIndex = value.lastIndexOf("+");
-	if (lastPlusIndex === -1) {
-		return false;
-	}
+  const lastPlusIndex = value.lastIndexOf("+");
+  if (lastPlusIndex === -1) {
+    return false;
+  }
 
-	const modifiers = value.substring(0, lastPlusIndex);
-	const key = value.substring(lastPlusIndex + 1);
+  const modifiers = value.substring(0, lastPlusIndex);
+  const key = value.substring(lastPlusIndex + 1);
 
-	return MODIFIER_SET.has(modifiers) && isKey(key);
+  return MODIFIER_SET.has(modifiers) && isKey(key);
 }
 
 export type KeybindingConfig = {
-	[key in ShortcutKey]?: TActionWithOptionalArgs;
+  [key in ShortcutKey]?: TActionWithOptionalArgs;
 };

@@ -5,41 +5,41 @@ import { useEffect, useState } from "react";
 const DISMISSED_KEY = "procut-storage-persist-dismissed";
 
 function isFirefox(): boolean {
-	return navigator.userAgent.toLowerCase().includes("firefox");
+  return navigator.userAgent.toLowerCase().includes("firefox");
 }
 
 export function useStoragePersistence() {
-	const [showDialog, setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
-	useEffect(() => {
-		if (!navigator.storage?.persist) return;
+  useEffect(() => {
+    if (!navigator.storage?.persist) return;
 
-		const run = async () => {
-			const alreadyPersisted = await navigator.storage.persisted();
-			if (alreadyPersisted) return;
+    const run = async () => {
+      const alreadyPersisted = await navigator.storage.persisted();
+      if (alreadyPersisted) return;
 
-			const dismissed = localStorage.getItem(DISMISSED_KEY) === "true";
-			if (dismissed) return;
+      const dismissed = localStorage.getItem(DISMISSED_KEY) === "true";
+      if (dismissed) return;
 
-			if (isFirefox()) {
-				setShowDialog(true);
-			} else {
-				await navigator.storage.persist();
-			}
-		};
+      if (isFirefox()) {
+        setShowDialog(true);
+      } else {
+        await navigator.storage.persist();
+      }
+    };
 
-		run();
-	}, []);
+    run();
+  }, []);
 
-	const onConfirm = async () => {
-		setShowDialog(false);
-		await navigator.storage.persist();
-	};
+  const onConfirm = async () => {
+    setShowDialog(false);
+    await navigator.storage.persist();
+  };
 
-	const onDismiss = () => {
-		setShowDialog(false);
-		localStorage.setItem(DISMISSED_KEY, "true");
-	};
+  const onDismiss = () => {
+    setShowDialog(false);
+    localStorage.setItem(DISMISSED_KEY, "true");
+  };
 
-	return { showDialog, onConfirm, onDismiss };
+  return { showDialog, onConfirm, onDismiss };
 }

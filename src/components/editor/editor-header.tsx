@@ -3,11 +3,11 @@
 import { Button } from "../ui/button";
 import { useRef, useState } from "react";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
 import { RenameProjectDialog } from "@/project/components/rename-project-dialog";
@@ -28,223 +28,223 @@ import { cn } from "@/utils/ui";
 import { useTranslation } from "@/hooks/use-translation";
 
 export function EditorHeader() {
-	return (
-		<header className="bg-background flex h-[3.4rem] items-center justify-between px-3 pt-0.5">
-			<div className="flex items-center gap-1">
-				<ProjectDropdown />
-				<EditableProjectName />
-			</div>
-			<nav className="flex items-center gap-2">
-				<FeedbackPopover />
-				<ExportButton />
-				<ThemeToggle />
-			</nav>
-		</header>
-	);
+  return (
+    <header className="bg-background flex h-[3.4rem] items-center justify-between px-3 pt-0.5">
+      <div className="flex items-center gap-1">
+        <ProjectDropdown />
+        <EditableProjectName />
+      </div>
+      <nav className="flex items-center gap-2">
+        <FeedbackPopover />
+        <ExportButton />
+        <ThemeToggle />
+      </nav>
+    </header>
+  );
 }
 
 function ProjectDropdown() {
-	const { t } = useTranslation();
-	const [openDialog, setOpenDialog] = useState<
-		"delete" | "rename" | "shortcuts" | null
-	>(null);
-	const [isExiting, setIsExiting] = useState(false);
-	const router = useRouter();
-	const editor = useEditor();
-	const activeProject = useEditor((e) => e.project.getActive());
+  const { t } = useTranslation();
+  const [openDialog, setOpenDialog] = useState<
+    "delete" | "rename" | "shortcuts" | null
+  >(null);
+  const [isExiting, setIsExiting] = useState(false);
+  const router = useRouter();
+  const editor = useEditor();
+  const activeProject = useEditor((e) => e.project.getActive());
 
-	const handleExit = async () => {
-		if (isExiting) return;
-		setIsExiting(true);
+  const handleExit = async () => {
+    if (isExiting) return;
+    setIsExiting(true);
 
-		try {
-			await editor.project.prepareExit();
-			editor.project.closeProject();
-		} catch (error) {
-			console.error("Failed to prepare project exit:", error);
-		} finally {
-			editor.project.closeProject();
-			router.push("/projects");
-		}
-	};
+    try {
+      await editor.project.prepareExit();
+      editor.project.closeProject();
+    } catch (error) {
+      console.error("Failed to prepare project exit:", error);
+    } finally {
+      editor.project.closeProject();
+      router.push("/projects");
+    }
+  };
 
-	const handleSaveProjectName = async (newName: string) => {
-		if (
-			activeProject &&
-			newName.trim() &&
-			newName !== activeProject.metadata.name
-		) {
-			try {
-				await editor.project.renameProject({
-					id: activeProject.metadata.id,
-					name: newName.trim(),
-				});
-			} catch (error) {
-				toast.error(t.editor.header.renameError, {
-					description:
-						error instanceof Error ? error.message : t.editor.header.tryAgain,
-				});
-			} finally {
-				setOpenDialog(null);
-			}
-		}
-	};
+  const handleSaveProjectName = async (newName: string) => {
+    if (
+      activeProject &&
+      newName.trim() &&
+      newName !== activeProject.metadata.name
+    ) {
+      try {
+        await editor.project.renameProject({
+          id: activeProject.metadata.id,
+          name: newName.trim(),
+        });
+      } catch (error) {
+        toast.error(t.editor.header.renameError, {
+          description:
+            error instanceof Error ? error.message : t.editor.header.tryAgain,
+        });
+      } finally {
+        setOpenDialog(null);
+      }
+    }
+  };
 
-	const handleDeleteProject = async () => {
-		if (activeProject) {
-			try {
-				await editor.project.deleteProjects({
-					ids: [activeProject.metadata.id],
-				});
-				router.push("/projects");
-			} catch (error) {
-				toast.error(t.editor.header.deleteError, {
-					description:
-						error instanceof Error ? error.message : t.editor.header.tryAgain,
-				});
-			} finally {
-				setOpenDialog(null);
-			}
-		}
-	};
+  const handleDeleteProject = async () => {
+    if (activeProject) {
+      try {
+        await editor.project.deleteProjects({
+          ids: [activeProject.metadata.id],
+        });
+        router.push("/projects");
+      } catch (error) {
+        toast.error(t.editor.header.deleteError, {
+          description:
+            error instanceof Error ? error.message : t.editor.header.tryAgain,
+        });
+      } finally {
+        setOpenDialog(null);
+      }
+    }
+  };
 
-	return (
-		<>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant="ghost" size="icon" className="p-1 rounded-sm size-8">
-						<Image
-							src={t.site.brand.logoUrl}
-							alt="Project thumbnail"
-							width={32}
-							height={32}
-							className="invert dark:invert-0 size-5"
-						/>
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent align="start" className="z-100 w-44">
-					<DropdownMenuItem
-						onClick={handleExit}
-						disabled={isExiting}
-						icon={<HugeiconsIcon icon={Logout05Icon} />}
-					>
-						{t.editor.header.exitProject}
-					</DropdownMenuItem>
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="p-1 rounded-sm size-8">
+            <Image
+              src={t.site.brand.logoUrl}
+              alt="Project thumbnail"
+              width={32}
+              height={32}
+              className="invert dark:invert-0 size-5"
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="z-100 w-44">
+          <DropdownMenuItem
+            onClick={handleExit}
+            disabled={isExiting}
+            icon={<HugeiconsIcon icon={Logout05Icon} />}
+          >
+            {t.editor.header.exitProject}
+          </DropdownMenuItem>
 
-					<DropdownMenuItem
-						onClick={() => setOpenDialog("shortcuts")}
-						icon={<HugeiconsIcon icon={CommandIcon} />}
-					>
-						{t.editor.header.shortcuts}
-					</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setOpenDialog("shortcuts")}
+            icon={<HugeiconsIcon icon={CommandIcon} />}
+          >
+            {t.editor.header.shortcuts}
+          </DropdownMenuItem>
 
-					<DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-					<DropdownMenuItem asChild icon={<FaDiscord className="size-4!" />}>
-						<Link
-							href={t.site.social.discord}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{t.editor.header.discord}
-						</Link>
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
-			<RenameProjectDialog
-				isOpen={openDialog === "rename"}
-				onOpenChange={(isOpen) => setOpenDialog(isOpen ? "rename" : null)}
-				onConfirm={(newName) => handleSaveProjectName(newName)}
-				projectName={activeProject?.metadata.name || ""}
-			/>
-			<DeleteProjectDialog
-				isOpen={openDialog === "delete"}
-				onOpenChange={(isOpen) => setOpenDialog(isOpen ? "delete" : null)}
-				onConfirm={handleDeleteProject}
-				projectNames={[activeProject?.metadata.name || ""]}
-			/>
-			<ShortcutsDialog
-				isOpen={openDialog === "shortcuts"}
-				onOpenChange={(isOpen) => setOpenDialog(isOpen ? "shortcuts" : null)}
-			/>
-		</>
-	);
+          <DropdownMenuItem asChild icon={<FaDiscord className="size-4!" />}>
+            <Link
+              href={t.site.social.discord}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.editor.header.discord}
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <RenameProjectDialog
+        isOpen={openDialog === "rename"}
+        onOpenChange={(isOpen) => setOpenDialog(isOpen ? "rename" : null)}
+        onConfirm={(newName) => handleSaveProjectName(newName)}
+        projectName={activeProject?.metadata.name || ""}
+      />
+      <DeleteProjectDialog
+        isOpen={openDialog === "delete"}
+        onOpenChange={(isOpen) => setOpenDialog(isOpen ? "delete" : null)}
+        onConfirm={handleDeleteProject}
+        projectNames={[activeProject?.metadata.name || ""]}
+      />
+      <ShortcutsDialog
+        isOpen={openDialog === "shortcuts"}
+        onOpenChange={(isOpen) => setOpenDialog(isOpen ? "shortcuts" : null)}
+      />
+    </>
+  );
 }
 
 function EditableProjectName() {
-	const { t } = useTranslation();
-	const editor = useEditor();
-	const activeProject = useEditor((e) => e.project.getActive());
-	const [isEditing, setIsEditing] = useState(false);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const originalNameRef = useRef("");
+  const { t } = useTranslation();
+  const editor = useEditor();
+  const activeProject = useEditor((e) => e.project.getActive());
+  const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const originalNameRef = useRef("");
 
-	const projectName = activeProject?.metadata.name || "";
+  const projectName = activeProject?.metadata.name || "";
 
-	const startEditing = () => {
-		if (isEditing) return;
-		originalNameRef.current = projectName;
-		setIsEditing(true);
+  const startEditing = () => {
+    if (isEditing) return;
+    originalNameRef.current = projectName;
+    setIsEditing(true);
 
-		requestAnimationFrame(() => {
-			inputRef.current?.select();
-		});
-	};
+    requestAnimationFrame(() => {
+      inputRef.current?.select();
+    });
+  };
 
-	const saveEdit = async () => {
-		if (!inputRef.current || !activeProject) return;
-		const newName = inputRef.current.value.trim();
-		setIsEditing(false);
+  const saveEdit = async () => {
+    if (!inputRef.current || !activeProject) return;
+    const newName = inputRef.current.value.trim();
+    setIsEditing(false);
 
-		if (!newName) {
-			inputRef.current.value = originalNameRef.current;
-			return;
-		}
+    if (!newName) {
+      inputRef.current.value = originalNameRef.current;
+      return;
+    }
 
-		if (newName !== originalNameRef.current) {
-			try {
-				await editor.project.renameProject({
-					id: activeProject.metadata.id,
-					name: newName,
-				});
-			} catch (error) {
-				toast.error(t.editor.header.renameError, {
-					description:
-						error instanceof Error ? error.message : t.editor.header.tryAgain,
-				});
-			}
-		}
-	};
+    if (newName !== originalNameRef.current) {
+      try {
+        await editor.project.renameProject({
+          id: activeProject.metadata.id,
+          name: newName,
+        });
+      } catch (error) {
+        toast.error(t.editor.header.renameError, {
+          description:
+            error instanceof Error ? error.message : t.editor.header.tryAgain,
+        });
+      }
+    }
+  };
 
-	const handleKeyDown = (event: React.KeyboardEvent) => {
-		if (event.key === "Enter") {
-			event.preventDefault();
-			inputRef.current?.blur();
-		} else if (event.key === "Escape") {
-			event.preventDefault();
-			if (inputRef.current) {
-				inputRef.current.value = originalNameRef.current;
-				inputRef.current.setSelectionRange(0, 0);
-			}
-			setIsEditing(false);
-			inputRef.current?.blur();
-		}
-	};
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputRef.current?.blur();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      if (inputRef.current) {
+        inputRef.current.value = originalNameRef.current;
+        inputRef.current.setSelectionRange(0, 0);
+      }
+      setIsEditing(false);
+      inputRef.current?.blur();
+    }
+  };
 
-	return (
-		<input
-			ref={inputRef}
-			type="text"
-			defaultValue={projectName}
-			readOnly={!isEditing}
-			onClick={startEditing}
-			onBlur={saveEdit}
-			onKeyDown={handleKeyDown}
-			style={{ fieldSizing: "content" }}
-			className={cn(
-				"text-[0.9rem] h-8 px-2 py-1 rounded-sm bg-transparent outline-none cursor-pointer hover:bg-accent hover:text-accent-foreground",
-				isEditing && "ring-1 ring-ring cursor-text hover:bg-transparent",
-			)}
-		/>
-	);
+  return (
+    <input
+      ref={inputRef}
+      type="text"
+      defaultValue={projectName}
+      readOnly={!isEditing}
+      onClick={startEditing}
+      onBlur={saveEdit}
+      onKeyDown={handleKeyDown}
+      style={{ fieldSizing: "content" }}
+      className={cn(
+        "text-[0.9rem] h-8 px-2 py-1 rounded-sm bg-transparent outline-none cursor-pointer hover:bg-accent hover:text-accent-foreground",
+        isEditing && "ring-1 ring-ring cursor-text hover:bg-transparent",
+      )}
+    />
+  );
 }

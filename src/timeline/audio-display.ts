@@ -9,9 +9,9 @@ const MAX_LINEAR_GAIN = 10 ** (VOLUME_DB_MAX / 20);
 const LINEAR_GAIN_RANGE = MAX_LINEAR_GAIN - MIN_LINEAR_GAIN;
 
 function getNormalizedGainFromDb({ db }: { db: number }): number {
-	const clampedDb = clampDb(db);
-	const linearGain = 10 ** (clampedDb / 20);
-	return (linearGain - MIN_LINEAR_GAIN) / LINEAR_GAIN_RANGE;
+  const clampedDb = clampDb(db);
+  const linearGain = 10 ** (clampedDb / 20);
+  return (linearGain - MIN_LINEAR_GAIN) / LINEAR_GAIN_RANGE;
 }
 
 /**
@@ -20,12 +20,12 @@ function getNormalizedGainFromDb({ db }: { db: number }): number {
  * the bottom of the clip.
  */
 export function getLinePosFromDb({ db }: { db: number }): number {
-	const normalizedGain = Math.max(
-		0,
-		Math.min(1, getNormalizedGainFromDb({ db })),
-	);
-	const progress = normalizedGain ** (1 / SLIDER_CURVE_EXPONENT);
-	return (1 - progress) * 100;
+  const normalizedGain = Math.max(
+    0,
+    Math.min(1, getNormalizedGainFromDb({ db })),
+  );
+  const progress = normalizedGain ** (1 / SLIDER_CURVE_EXPONENT);
+  return (1 - progress) * 100;
 }
 
 /**
@@ -33,11 +33,11 @@ export function getLinePosFromDb({ db }: { db: number }): number {
  * volume setting without depending on the underlying audio content.
  */
 export function getDbFromLinePos({ percent }: { percent: number }): number {
-	const clampedPercent = Math.max(0, Math.min(100, percent));
-	const progress = 1 - clampedPercent / 100;
-	const normalizedGain = progress ** SLIDER_CURVE_EXPONENT;
-	const linearGain = MIN_LINEAR_GAIN + normalizedGain * LINEAR_GAIN_RANGE;
-	return clampDb(20 * Math.log10(linearGain));
+  const clampedPercent = Math.max(0, Math.min(100, percent));
+  const progress = 1 - clampedPercent / 100;
+  const normalizedGain = progress ** SLIDER_CURVE_EXPONENT;
+  const linearGain = MIN_LINEAR_GAIN + normalizedGain * LINEAR_GAIN_RANGE;
+  return clampDb(20 * Math.log10(linearGain));
 }
 
 /**
@@ -50,15 +50,15 @@ export function getDbFromLinePos({ percent }: { percent: number }): number {
  * element for amplitudes that approach 0 dBFS.
  */
 export function getBarFractionFromOutputAmplitude({
-	outputAmplitude,
+  outputAmplitude,
 }: {
-	outputAmplitude: number;
+  outputAmplitude: number;
 }): number {
-	if (outputAmplitude <= 0) return 0;
-	const db = 20 * Math.log10(outputAmplitude);
-	if (db <= MIN_DISPLAY_DB) return 0;
-	return Math.min(
-		1,
-		((db - MIN_DISPLAY_DB) / -MIN_DISPLAY_DB) ** WAVEFORM_BAR_EXPONENT,
-	);
+  if (outputAmplitude <= 0) return 0;
+  const db = 20 * Math.log10(outputAmplitude);
+  if (db <= MIN_DISPLAY_DB) return 0;
+  return Math.min(
+    1,
+    ((db - MIN_DISPLAY_DB) / -MIN_DISPLAY_DB) ** WAVEFORM_BAR_EXPONENT,
+  );
 }

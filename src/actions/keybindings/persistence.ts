@@ -4,33 +4,33 @@ import type { TActionWithOptionalArgs } from "@/actions";
 import { isActionWithOptionalArgs } from "@/actions";
 import { runMigrations } from "./migrations";
 import {
-	getPersistedKeybindingsState,
-	type PersistedKeybindingsState,
+  getPersistedKeybindingsState,
+  type PersistedKeybindingsState,
 } from "./persisted-state";
 
 export interface DecodedKeybindingsState {
-	keybindings: Map<ShortcutKey, TActionWithOptionalArgs>;
-	isCustomized: boolean;
+  keybindings: Map<ShortcutKey, TActionWithOptionalArgs>;
+  isCustomized: boolean;
 }
 
 export function serializeKeybindingsState({
-	keybindings,
-	isCustomized,
+  keybindings,
+  isCustomized,
 }: DecodedKeybindingsState): PersistedKeybindingsState {
-	return {
-		keybindings: Object.fromEntries(keybindings),
-		isCustomized,
-	};
+  return {
+    keybindings: Object.fromEntries(keybindings),
+    isCustomized,
+  };
 }
 
 export function migratePersistedKeybindingsState({
-	state,
-	fromVersion,
+  state,
+  fromVersion,
 }: {
-	state: unknown;
-	fromVersion: number;
+  state: unknown;
+  fromVersion: number;
 }): unknown {
-	return runMigrations({ state, fromVersion });
+  return runMigrations({ state, fromVersion });
 }
 
 /**
@@ -42,39 +42,39 @@ export function migratePersistedKeybindingsState({
  * caller should keep its current state.
  */
 export function decodePersistedKeybindingsState({
-	state,
+  state,
 }: {
-	state: unknown;
+  state: unknown;
 }): DecodedKeybindingsState | null {
-	const persisted = getPersistedKeybindingsState({ state });
-	if (!persisted) {
-		console.warn(
-			"[keybindings] Persisted state has unexpected shape; keeping current keybindings.",
-			state,
-		);
-		return null;
-	}
+  const persisted = getPersistedKeybindingsState({ state });
+  if (!persisted) {
+    console.warn(
+      "[keybindings] Persisted state has unexpected shape; keeping current keybindings.",
+      state,
+    );
+    return null;
+  }
 
-	const keybindings = new Map<ShortcutKey, TActionWithOptionalArgs>();
-	const dropped: Array<{ key: string; action: string | undefined }> = [];
-	for (const [key, action] of Object.entries(persisted.keybindings)) {
-		if (action === undefined) continue;
-		if (!isShortcutKey(key) || !isActionWithOptionalArgs(action)) {
-			dropped.push({ key, action });
-			continue;
-		}
+  const keybindings = new Map<ShortcutKey, TActionWithOptionalArgs>();
+  const dropped: Array<{ key: string; action: string | undefined }> = [];
+  for (const [key, action] of Object.entries(persisted.keybindings)) {
+    if (action === undefined) continue;
+    if (!isShortcutKey(key) || !isActionWithOptionalArgs(action)) {
+      dropped.push({ key, action });
+      continue;
+    }
 
-		keybindings.set(key, action);
-	}
+    keybindings.set(key, action);
+  }
 
-	if (dropped.length > 0) {
-		console.warn("[keybindings] Dropped invalid persisted entries:", dropped);
-	}
+  if (dropped.length > 0) {
+    console.warn("[keybindings] Dropped invalid persisted entries:", dropped);
+  }
 
-	return {
-		keybindings,
-		isCustomized: persisted.isCustomized,
-	};
+  return {
+    keybindings,
+    isCustomized: persisted.isCustomized,
+  };
 }
 
 /**
@@ -86,29 +86,29 @@ export function decodePersistedKeybindingsState({
  * Accepts `unknown` because the input has already crossed a trust boundary.
  */
 export function parseImportedKeybindings({
-	config,
+  config,
 }: {
-	config: unknown;
+  config: unknown;
 }): Map<ShortcutKey, TActionWithOptionalArgs> {
-	if (typeof config !== "object" || config === null || Array.isArray(config)) {
-		throw new Error("Imported keybindings must be a JSON object");
-	}
+  if (typeof config !== "object" || config === null || Array.isArray(config)) {
+    throw new Error("Imported keybindings must be a JSON object");
+  }
 
-	const result = new Map<ShortcutKey, TActionWithOptionalArgs>();
-	for (const [key, action] of Object.entries(config)) {
-		if (action === undefined) continue;
-		if (typeof action !== "string") {
-			throw new Error(
-				`Invalid action for "${key}": expected string, got ${typeof action}`,
-			);
-		}
-		if (!isShortcutKey(key)) {
-			throw new Error(`Invalid shortcut key: ${JSON.stringify(key)}`);
-		}
-		if (!isActionWithOptionalArgs(action)) {
-			throw new Error(`Invalid action for "${key}": ${JSON.stringify(action)}`);
-		}
-		result.set(key, action);
-	}
-	return result;
+  const result = new Map<ShortcutKey, TActionWithOptionalArgs>();
+  for (const [key, action] of Object.entries(config)) {
+    if (action === undefined) continue;
+    if (typeof action !== "string") {
+      throw new Error(
+        `Invalid action for "${key}": expected string, got ${typeof action}`,
+      );
+    }
+    if (!isShortcutKey(key)) {
+      throw new Error(`Invalid shortcut key: ${JSON.stringify(key)}`);
+    }
+    if (!isActionWithOptionalArgs(action)) {
+      throw new Error(`Invalid action for "${key}": ${JSON.stringify(action)}`);
+    }
+    result.set(key, action);
+  }
+  return result;
 }

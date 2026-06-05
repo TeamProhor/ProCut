@@ -6,17 +6,17 @@ import { isGraphicParamPath } from "./graphic-param-channel";
 const ANIMATION_PROPERTY_PATH_SET = new Set<string>(ANIMATION_PROPERTY_PATHS);
 
 export function isAnimationPropertyPath(
-	propertyPath: string,
+  propertyPath: string,
 ): propertyPath is AnimationPropertyPath {
-	return ANIMATION_PROPERTY_PATH_SET.has(propertyPath);
+  return ANIMATION_PROPERTY_PATH_SET.has(propertyPath);
 }
 
 export function isAnimationPath(
-	propertyPath: string,
+  propertyPath: string,
 ): propertyPath is AnimationPath {
-	return (
-		isAnimationPropertyPath(propertyPath) ||
-		isGraphicParamPath(propertyPath) ||
-		isEffectParamPath(propertyPath)
-	);
+  return (
+    isAnimationPropertyPath(propertyPath) ||
+    isGraphicParamPath(propertyPath) ||
+    isEffectParamPath(propertyPath)
+  );
 }

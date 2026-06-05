@@ -12,29 +12,29 @@ const TIMELINE_DRAG_MIME = "application/x-timeline-drag";
  * keep a live copy here and hand it out via {@link getActive}.
  */
 export class TimelineDragSource {
-	private active: TimelineDragData | null = null;
+  private active: TimelineDragData | null = null;
 
-	begin({
-		dataTransfer,
-		dragData,
-	}: {
-		dataTransfer: DataTransfer;
-		dragData: TimelineDragData;
-	}): void {
-		dataTransfer.setData(TIMELINE_DRAG_MIME, JSON.stringify(dragData));
-		dataTransfer.effectAllowed = "copy";
-		this.active = dragData;
-	}
+  begin({
+    dataTransfer,
+    dragData,
+  }: {
+    dataTransfer: DataTransfer;
+    dragData: TimelineDragData;
+  }): void {
+    dataTransfer.setData(TIMELINE_DRAG_MIME, JSON.stringify(dragData));
+    dataTransfer.effectAllowed = "copy";
+    this.active = dragData;
+  }
 
-	end(): void {
-		this.active = null;
-	}
+  end(): void {
+    this.active = null;
+  }
 
-	getActive(): TimelineDragData | null {
-		return this.active;
-	}
+  getActive(): TimelineDragData | null {
+    return this.active;
+  }
 
-	isActive(): boolean {
-		return this.active !== null;
-	}
+  isActive(): boolean {
+    return this.active !== null;
+  }
 }

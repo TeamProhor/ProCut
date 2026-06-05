@@ -2,47 +2,47 @@ import type { RetimeConfig } from "@/timeline";
 import { clampRetimeRate } from "@/retime/rate";
 
 function getSafeRate({ rate }: { rate: number }): number {
-	return clampRetimeRate({ rate });
+  return clampRetimeRate({ rate });
 }
 
 export function getSourceTimeAtClipTime({
-	clipTime,
-	retime,
+  clipTime,
+  retime,
 }: {
-	clipTime: number;
-	retime?: RetimeConfig;
+  clipTime: number;
+  retime?: RetimeConfig;
 }): number {
-	return clipTime * getSafeRate({ rate: retime?.rate ?? 1 });
+  return clipTime * getSafeRate({ rate: retime?.rate ?? 1 });
 }
 
 export function getClipTimeAtSourceTime({
-	sourceTime,
-	retime,
+  sourceTime,
+  retime,
 }: {
-	sourceTime: number;
-	retime?: RetimeConfig;
+  sourceTime: number;
+  retime?: RetimeConfig;
 }): number {
-	return sourceTime / getSafeRate({ rate: retime?.rate ?? 1 });
+  return sourceTime / getSafeRate({ rate: retime?.rate ?? 1 });
 }
 
 export function getEffectiveRateAt({
-	retime,
+  retime,
 }: {
-	clipTime?: number;
-	retime?: RetimeConfig;
+  clipTime?: number;
+  retime?: RetimeConfig;
 }): number {
-	return getSafeRate({ rate: retime?.rate ?? 1 });
+  return getSafeRate({ rate: retime?.rate ?? 1 });
 }
 
 export function getTimelineDurationForSourceSpan({
-	sourceSpan,
-	retime,
+  sourceSpan,
+  retime,
 }: {
-	sourceSpan: number;
-	retime?: RetimeConfig;
+  sourceSpan: number;
+  retime?: RetimeConfig;
 }): number {
-	if (sourceSpan <= 0) {
-		return 0;
-	}
-	return sourceSpan / getSafeRate({ rate: retime?.rate ?? 1 });
+  if (sourceSpan <= 0) {
+    return 0;
+  }
+  return sourceSpan / getSafeRate({ rate: retime?.rate ?? 1 });
 }

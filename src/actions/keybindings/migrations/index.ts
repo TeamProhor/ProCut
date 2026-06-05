@@ -7,26 +7,26 @@ import { v6ToV7 } from "./v6-to-v7";
 type MigrationFn = ({ state }: { state: unknown }) => unknown;
 
 const migrations: Record<number, MigrationFn> = {
-	2: v2ToV3,
-	3: v3ToV4,
-	4: v4ToV5,
-	5: v5ToV6,
-	6: v6ToV7,
+  2: v2ToV3,
+  3: v3ToV4,
+  4: v4ToV5,
+  5: v5ToV6,
+  6: v6ToV7,
 };
 
 export const CURRENT_VERSION = 7;
 
 export function runMigrations({
-	state,
-	fromVersion,
+  state,
+  fromVersion,
 }: {
-	state: unknown;
-	fromVersion: number;
+  state: unknown;
+  fromVersion: number;
 }): unknown {
-	let current = state;
-	for (let version = fromVersion; version < CURRENT_VERSION; version++) {
-		const migrate = migrations[version];
-		if (migrate) current = migrate({ state: current });
-	}
-	return current;
+  let current = state;
+  for (let version = fromVersion; version < CURRENT_VERSION; version++) {
+    const migrate = migrations[version];
+    if (migrate) current = migrate({ state: current });
+  }
+  return current;
 }

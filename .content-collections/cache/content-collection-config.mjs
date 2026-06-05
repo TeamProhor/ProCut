@@ -16,23 +16,22 @@ var changelog = defineCollection({
     changes: z.array(
       z.object({
         type: z.string(),
-        text: z.string()
-      })
-    )
+        text: z.string(),
+      }),
+    ),
   }),
   transform: async (doc, { collection }) => {
     const allDocs = await collection.documents();
     const publishedDocs = allDocs.filter((entry) => entry.published !== false);
-    const sorted = [...publishedDocs].sort(
-      (a, b) => b.version.localeCompare(a.version, void 0, { numeric: true })
+    const sorted = [...publishedDocs].sort((a, b) =>
+      b.version.localeCompare(a.version, void 0, { numeric: true }),
     );
-    const isLatest = doc.published !== false && sorted[0]?.version === doc.version;
+    const isLatest =
+      doc.published !== false && sorted[0]?.version === doc.version;
     return { ...doc, isLatest };
-  }
+  },
 });
 var content_collections_default = defineConfig({
-  content: [changelog]
+  content: [changelog],
 });
-export {
-  content_collections_default as default
-};
+export { content_collections_default as default };

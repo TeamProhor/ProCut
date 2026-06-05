@@ -9,273 +9,275 @@ import { BasePage } from "../base-page";
 import { useTranslation } from "@/hooks/use-translation";
 
 interface Contributor {
-	id: number;
-	login: string;
-	avatar_url: string;
-	html_url: string;
-	contributions: number;
-	type: string;
+  id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
+  type: string;
 }
 
 async function getContributors(): Promise<Contributor[]> {
-	try {
-		const response = await fetch(
-			"https://api.github.com/repos/TeamProhor/ProCut/contributors?per_page=100",
-			{
-				headers: {
-					Accept: "application/vnd.github.v3+json",
-					"User-Agent": "ProCut-Web-App",
-				},
-			},
-		);
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/TeamProhor/ProCut/contributors?per_page=100",
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "ProCut-Web-App",
+        },
+      },
+    );
 
-		if (!response.ok) {
-			console.error("Failed to fetch contributors");
-			return [];
-		}
+    if (!response.ok) {
+      console.error("Failed to fetch contributors");
+      return [];
+    }
 
-		const contributors = (await response.json()) as Contributor[];
+    const contributors = (await response.json()) as Contributor[];
 
-		const filteredContributors = contributors.filter(
-			(contributor) => contributor.type === "User",
-		);
+    const filteredContributors = contributors.filter(
+      (contributor) => contributor.type === "User",
+    );
 
-		return filteredContributors;
-	} catch (error) {
-		console.error("Error fetching contributors:", error);
-		return [];
-	}
+    return filteredContributors;
+  } catch (error) {
+    console.error("Error fetching contributors:", error);
+    return [];
+  }
 }
 
 export default function ContributorsPage() {
-	const { t } = useTranslation();
-	const contributorsTrans = t.static.contributors;
-	const [contributors, setContributors] = useState<Contributor[]>([]);
+  const { t } = useTranslation();
+  const contributorsTrans = t.static.contributors;
+  const [contributors, setContributors] = useState<Contributor[]>([]);
 
-	useEffect(() => {
-		getContributors().then(setContributors);
-	}, []);
+  useEffect(() => {
+    getContributors().then(setContributors);
+  }, []);
 
-	const topContributors = contributors.slice(0, 2);
-	const otherContributors = contributors.slice(2);
-	const totalContributions = contributors.reduce(
-		(sum, c) => sum + c.contributions,
-		0,
-	);
+  const topContributors = contributors.slice(0, 2);
+  const otherContributors = contributors.slice(2);
+  const totalContributions = contributors.reduce(
+    (sum, c) => sum + c.contributions,
+    0,
+  );
 
-	return (
-		<BasePage
-			title={contributorsTrans.title}
-			description={contributorsTrans.description}
-		>
-			<div className="-mt-4 flex items-center justify-center gap-8 text-sm">
-				<StatItem
-					value={contributors.length}
-					label={contributorsTrans.stats.contributors}
-				/>
-				<StatItem
-					value={totalContributions}
-					label={contributorsTrans.stats.contributions}
-				/>
-			</div>
+  return (
+    <BasePage
+      title={contributorsTrans.title}
+      description={contributorsTrans.description}
+    >
+      <div className="-mt-4 flex items-center justify-center gap-8 text-sm">
+        <StatItem
+          value={contributors.length}
+          label={contributorsTrans.stats.contributors}
+        />
+        <StatItem
+          value={totalContributions}
+          label={contributorsTrans.stats.contributions}
+        />
+      </div>
 
-			<div className="mx-auto flex max-w-6xl flex-col gap-20">
-				{topContributors.length > 0 && (
-					<TopContributorsSection
-						contributors={topContributors}
-						title={contributorsTrans.sections.top.title}
-						description={contributorsTrans.sections.top.description}
-						contributionsLabel={contributorsTrans.stats.contributions}
-					/>
-				)}
-				{otherContributors.length > 0 && (
-					<AllContributorsSection
-						contributors={otherContributors}
-						title={contributorsTrans.sections.all.title}
-						description={contributorsTrans.sections.all.description}
-					/>
-				)}
-				<ExternalToolsSection
-					title={contributorsTrans.sections.external.title}
-					description={contributorsTrans.sections.external.description}
-					tools={t.site.externalTools}
-				/>
-				<GitHubContributeSection
-					title={contributorsTrans.joinCommunity.title}
-					description={contributorsTrans.joinCommunity.description}
-				/>
-			</div>
-		</BasePage>
-	);
+      <div className="mx-auto flex max-w-6xl flex-col gap-20">
+        {topContributors.length > 0 && (
+          <TopContributorsSection
+            contributors={topContributors}
+            title={contributorsTrans.sections.top.title}
+            description={contributorsTrans.sections.top.description}
+            contributionsLabel={contributorsTrans.stats.contributions}
+          />
+        )}
+        {otherContributors.length > 0 && (
+          <AllContributorsSection
+            contributors={otherContributors}
+            title={contributorsTrans.sections.all.title}
+            description={contributorsTrans.sections.all.description}
+          />
+        )}
+        <ExternalToolsSection
+          title={contributorsTrans.sections.external.title}
+          description={contributorsTrans.sections.external.description}
+          tools={t.site.externalTools}
+        />
+        <GitHubContributeSection
+          title={contributorsTrans.joinCommunity.title}
+          description={contributorsTrans.joinCommunity.description}
+        />
+      </div>
+    </BasePage>
+  );
 }
 
 function StatItem({ value, label }: { value: number; label: string }) {
-	return (
-		<div className="flex items-center gap-2">
-			<div className="bg-foreground size-2 rounded-full" />
-			<span className="font-medium">{value}</span>
-			<span className="text-muted-foreground">{label}</span>
-		</div>
-	);
+  return (
+    <div className="flex items-center gap-2">
+      <div className="bg-foreground size-2 rounded-full" />
+      <span className="font-medium">{value}</span>
+      <span className="text-muted-foreground">{label}</span>
+    </div>
+  );
 }
 
 function TopContributorsSection({
-	contributors,
-	title,
-	description,
-	contributionsLabel,
+  contributors,
+  title,
+  description,
+  contributionsLabel,
 }: {
-	contributors: Contributor[];
-	title: string;
-	description: string;
-	contributionsLabel: string;
+  contributors: Contributor[];
+  title: string;
+  description: string;
+  contributionsLabel: string;
 }) {
-	return (
-		<div className="flex flex-col gap-10">
-			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">{title}</h2>
-				<p className="text-muted-foreground">{description}</p>
-			</div>
+  return (
+    <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        <p className="text-muted-foreground">{description}</p>
+      </div>
 
-			<div className="mx-auto flex w-full max-w-xl flex-col justify-center gap-6 md:flex-row">
-				{contributors.map((contributor) => (
-					<TopContributorCard
-						key={contributor.id}
-						contributor={contributor}
-						contributionsLabel={contributionsLabel}
-					/>
-				))}
-			</div>
-		</div>
-	);
+      <div className="mx-auto flex w-full max-w-xl flex-col justify-center gap-6 md:flex-row">
+        {contributors.map((contributor) => (
+          <TopContributorCard
+            key={contributor.id}
+            contributor={contributor}
+            contributionsLabel={contributionsLabel}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function TopContributorCard({
-	contributor,
-	contributionsLabel,
+  contributor,
+  contributionsLabel,
 }: {
-	contributor: Contributor;
-	contributionsLabel: string;
+  contributor: Contributor;
+  contributionsLabel: string;
 }) {
-	return (
-		<Link
-			href={contributor.html_url}
-			target="_blank"
-			rel="noopener noreferrer"
-			className="w-full"
-		>
-			<Card>
-				<CardContent className="flex flex-col gap-6 p-8 text-center">
-					<Avatar className="mx-auto size-28">
-						<AvatarImage
-							src={contributor.avatar_url}
-							alt={`${contributor.login}'s avatar`}
-						/>
-						<AvatarFallback className="text-lg font-semibold">
-							{contributor.login.charAt(0).toUpperCase()}
-						</AvatarFallback>
-					</Avatar>
-					<div className="flex flex-col gap-2">
-						<h3 className="text-xl font-semibold">{contributor.login}</h3>
-						<div className="flex items-center justify-center gap-2">
-							<span className="font-medium">{contributor.contributions}</span>
-							<span className="text-muted-foreground">{contributionsLabel}</span>
-						</div>
-					</div>
-				</CardContent>
-			</Card>
-		</Link>
-	);
+  return (
+    <Link
+      href={contributor.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full"
+    >
+      <Card>
+        <CardContent className="flex flex-col gap-6 p-8 text-center">
+          <Avatar className="mx-auto size-28">
+            <AvatarImage
+              src={contributor.avatar_url}
+              alt={`${contributor.login}'s avatar`}
+            />
+            <AvatarFallback className="text-lg font-semibold">
+              {contributor.login.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-xl font-semibold">{contributor.login}</h3>
+            <div className="flex items-center justify-center gap-2">
+              <span className="font-medium">{contributor.contributions}</span>
+              <span className="text-muted-foreground">
+                {contributionsLabel}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  );
 }
 
 function AllContributorsSection({
-	contributors,
-	title,
-	description,
+  contributors,
+  title,
+  description,
 }: {
-	contributors: Contributor[];
-	title: string;
-	description: string;
+  contributors: Contributor[];
+  title: string;
+  description: string;
 }) {
-	return (
-		<div className="flex flex-col gap-12">
-			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">{title}</h2>
-				<p className="text-muted-foreground">{description}</p>
-			</div>
+  return (
+    <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        <p className="text-muted-foreground">{description}</p>
+      </div>
 
-			<div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-				{contributors.map((contributor) => (
-					<Link
-						key={contributor.id}
-						href={contributor.html_url}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="opacity-100 hover:opacity-70"
-					>
-						<div className="flex flex-col items-center gap-2 p-2">
-							<Avatar className="size-16">
-								<AvatarImage
-									src={contributor.avatar_url}
-									alt={`${contributor.login}'s avatar`}
-								/>
-								<AvatarFallback>
-									{contributor.login.charAt(0).toUpperCase()}
-								</AvatarFallback>
-							</Avatar>
-							<div className="text-center">
-								<h3 className="text-sm font-medium">{contributor.login}</h3>
-								<p className="text-muted-foreground text-xs">
-									{contributor.contributions}
-								</p>
-							</div>
-						</div>
-					</Link>
-				))}
-			</div>
-		</div>
-	);
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {contributors.map((contributor) => (
+          <Link
+            key={contributor.id}
+            href={contributor.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-100 hover:opacity-70"
+          >
+            <div className="flex flex-col items-center gap-2 p-2">
+              <Avatar className="size-16">
+                <AvatarImage
+                  src={contributor.avatar_url}
+                  alt={`${contributor.login}'s avatar`}
+                />
+                <AvatarFallback>
+                  {contributor.login.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="text-center">
+                <h3 className="text-sm font-medium">{contributor.login}</h3>
+                <p className="text-muted-foreground text-xs">
+                  {contributor.contributions}
+                </p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ExternalToolsSection({
-	title,
-	description,
-	tools,
+  title,
+  description,
+  tools,
 }: {
-	title: string;
-	description: string;
-	tools: any[];
+  title: string;
+  description: string;
+  tools: any[];
 }) {
-	return (
-		<div className="flex flex-col gap-10">
-			<div className="flex flex-col gap-2 text-center">
-				<h2 className="text-2xl font-semibold">{title}</h2>
-				<p className="text-muted-foreground">{description}</p>
-			</div>
+  return (
+    <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-2 text-center">
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        <p className="text-muted-foreground">{description}</p>
+      </div>
 
-			<div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
-				{tools.map((tool, index) => (
-					<Link
-						key={tool.url}
-						href={tool.url}
-						target="_blank"
-						className="block"
-						style={{ animationDelay: `${index * 100}ms` }}
-					>
-						<Card className="h-full">
-							<CardContent className="flex items-center justify-center h-full flex-col gap-4 p-6 text-center">
-								<tool.icon className="size-8" />
-								<div className="flex flex-1 flex-col gap-2">
-									<h3 className="text-lg font-semibold">{tool.name}</h3>
-									<p className="text-muted-foreground text-sm">
-										{tool.description}
-									</p>
-								</div>
-							</CardContent>
-						</Card>
-					</Link>
-				))}
-			</div>
-		</div>
-	);
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
+        {tools.map((tool, index) => (
+          <Link
+            key={tool.url}
+            href={tool.url}
+            target="_blank"
+            className="block"
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            <Card className="h-full">
+              <CardContent className="flex items-center justify-center h-full flex-col gap-4 p-6 text-center">
+                <tool.icon className="size-8" />
+                <div className="flex flex-1 flex-col gap-2">
+                  <h3 className="text-lg font-semibold">{tool.name}</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {tool.description}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }

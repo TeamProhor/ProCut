@@ -4,17 +4,17 @@ import { registerDefaultStickerProviders } from "./providers";
 import type { StickerResolveOptions } from "@/stickers/types";
 
 export function resolveStickerId({
-	stickerId,
-	options,
+  stickerId,
+  options,
 }: {
-	stickerId: string;
-	options?: StickerResolveOptions;
+  stickerId: string;
+  options?: StickerResolveOptions;
 }): string {
-	registerDefaultStickerProviders();
+  registerDefaultStickerProviders();
 
-	const parsedStickerId = parseStickerId({ stickerId });
-	return stickersRegistry.get(parsedStickerId.providerId).resolveUrl({
-		stickerId,
-		options,
-	});
+  const parsedStickerId = parseStickerId({ stickerId });
+  return stickersRegistry.get(parsedStickerId.providerId).resolveUrl({
+    stickerId,
+    options,
+  });
 }

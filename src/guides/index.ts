@@ -6,9 +6,9 @@ export type { GuideDefinition, GuideId, GuideRenderProps } from "./registry";
 export { getGuidePreviewOverlaySource } from "./preview-overlay";
 
 export function getGuideById(guideId: string | null): GuideDefinition | null {
-	if (!guideId) {
-		return null;
-	}
+  if (!guideId) {
+    return null;
+  }
 
-	return GUIDE_REGISTRY.find((guide) => guide.id === guideId) ?? null;
+  return GUIDE_REGISTRY.find((guide) => guide.id === guideId) ?? null;
 }

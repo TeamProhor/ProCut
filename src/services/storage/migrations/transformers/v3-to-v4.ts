@@ -2,187 +2,187 @@ import type { MigrationResult, ProjectRecord } from "./types";
 import { getProjectId, isRecord } from "./utils";
 
 const LEGACY_FONT_WEIGHT_MAP = new Map<string, string>([
-	["normal", "400"],
-	["bold", "700"],
+  ["normal", "400"],
+  ["bold", "700"],
 ]);
 
 const VALID_NUMERIC_FONT_WEIGHTS = new Set([
-	"100",
-	"200",
-	"300",
-	"400",
-	"500",
-	"600",
-	"700",
-	"800",
-	"900",
+  "100",
+  "200",
+  "300",
+  "400",
+  "500",
+  "600",
+  "700",
+  "800",
+  "900",
 ]);
 
 export function transformProjectV3ToV4({
-	project,
+  project,
 }: {
-	project: ProjectRecord;
+  project: ProjectRecord;
 }): MigrationResult<ProjectRecord> {
-	const projectId = getProjectId({ project });
-	if (!projectId) {
-		return { project, skipped: true, reason: "no project id" };
-	}
+  const projectId = getProjectId({ project });
+  if (!projectId) {
+    return { project, skipped: true, reason: "no project id" };
+  }
 
-	if (isV4Project({ project })) {
-		return { project, skipped: true, reason: "already v4" };
-	}
+  if (isV4Project({ project })) {
+    return { project, skipped: true, reason: "already v4" };
+  }
 
-	const migratedProject = normalizeProjectTextFontWeights({ project });
+  const migratedProject = normalizeProjectTextFontWeights({ project });
 
-	return {
-		project: {
-			...migratedProject,
-			version: 4,
-		},
-		skipped: false,
-	};
+  return {
+    project: {
+      ...migratedProject,
+      version: 4,
+    },
+    skipped: false,
+  };
 }
 
 function normalizeProjectTextFontWeights({
-	project,
+  project,
 }: {
-	project: ProjectRecord;
+  project: ProjectRecord;
 }): ProjectRecord {
-	const scenesValue = project.scenes;
-	if (!Array.isArray(scenesValue)) {
-		return project;
-	}
+  const scenesValue = project.scenes;
+  if (!Array.isArray(scenesValue)) {
+    return project;
+  }
 
-	let hasSceneChanges = false;
-	const normalizedScenes = scenesValue.map((scene) => {
-		const normalizedScene = normalizeSceneTextFontWeights({ scene });
-		if (normalizedScene !== scene) {
-			hasSceneChanges = true;
-		}
-		return normalizedScene;
-	});
+  let hasSceneChanges = false;
+  const normalizedScenes = scenesValue.map((scene) => {
+    const normalizedScene = normalizeSceneTextFontWeights({ scene });
+    if (normalizedScene !== scene) {
+      hasSceneChanges = true;
+    }
+    return normalizedScene;
+  });
 
-	if (!hasSceneChanges) {
-		return project;
-	}
+  if (!hasSceneChanges) {
+    return project;
+  }
 
-	return {
-		...project,
-		scenes: normalizedScenes,
-	};
+  return {
+    ...project,
+    scenes: normalizedScenes,
+  };
 }
 
 function normalizeSceneTextFontWeights({ scene }: { scene: unknown }): unknown {
-	if (!isRecord(scene)) {
-		return scene;
-	}
+  if (!isRecord(scene)) {
+    return scene;
+  }
 
-	const tracksValue = scene.tracks;
-	if (!Array.isArray(tracksValue)) {
-		return scene;
-	}
+  const tracksValue = scene.tracks;
+  if (!Array.isArray(tracksValue)) {
+    return scene;
+  }
 
-	let hasTrackChanges = false;
-	const normalizedTracks = tracksValue.map((track) => {
-		const normalizedTrack = normalizeTrackTextFontWeights({ track });
-		if (normalizedTrack !== track) {
-			hasTrackChanges = true;
-		}
-		return normalizedTrack;
-	});
+  let hasTrackChanges = false;
+  const normalizedTracks = tracksValue.map((track) => {
+    const normalizedTrack = normalizeTrackTextFontWeights({ track });
+    if (normalizedTrack !== track) {
+      hasTrackChanges = true;
+    }
+    return normalizedTrack;
+  });
 
-	if (!hasTrackChanges) {
-		return scene;
-	}
+  if (!hasTrackChanges) {
+    return scene;
+  }
 
-	return {
-		...scene,
-		tracks: normalizedTracks,
-	};
+  return {
+    ...scene,
+    tracks: normalizedTracks,
+  };
 }
 
 function normalizeTrackTextFontWeights({ track }: { track: unknown }): unknown {
-	if (!isRecord(track)) {
-		return track;
-	}
+  if (!isRecord(track)) {
+    return track;
+  }
 
-	if (track.type !== "text") {
-		return track;
-	}
+  if (track.type !== "text") {
+    return track;
+  }
 
-	const elementsValue = track.elements;
-	if (!Array.isArray(elementsValue)) {
-		return track;
-	}
+  const elementsValue = track.elements;
+  if (!Array.isArray(elementsValue)) {
+    return track;
+  }
 
-	let hasElementChanges = false;
-	const normalizedElements = elementsValue.map((element) => {
-		const normalizedElement = normalizeTextElementFontWeight({ element });
-		if (normalizedElement !== element) {
-			hasElementChanges = true;
-		}
-		return normalizedElement;
-	});
+  let hasElementChanges = false;
+  const normalizedElements = elementsValue.map((element) => {
+    const normalizedElement = normalizeTextElementFontWeight({ element });
+    if (normalizedElement !== element) {
+      hasElementChanges = true;
+    }
+    return normalizedElement;
+  });
 
-	if (!hasElementChanges) {
-		return track;
-	}
+  if (!hasElementChanges) {
+    return track;
+  }
 
-	return {
-		...track,
-		elements: normalizedElements,
-	};
+  return {
+    ...track,
+    elements: normalizedElements,
+  };
 }
 
 function normalizeTextElementFontWeight({
-	element,
+  element,
 }: {
-	element: unknown;
+  element: unknown;
 }): unknown {
-	if (!isRecord(element) || element.type !== "text") {
-		return element;
-	}
+  if (!isRecord(element) || element.type !== "text") {
+    return element;
+  }
 
-	const normalizedWeight = normalizeFontWeight({ value: element.fontWeight });
-	if (normalizedWeight === element.fontWeight) {
-		return element;
-	}
+  const normalizedWeight = normalizeFontWeight({ value: element.fontWeight });
+  if (normalizedWeight === element.fontWeight) {
+    return element;
+  }
 
-	return {
-		...element,
-		fontWeight: normalizedWeight,
-	};
+  return {
+    ...element,
+    fontWeight: normalizedWeight,
+  };
 }
 
 function normalizeFontWeight({ value }: { value: unknown }): unknown {
-	if (typeof value === "number") {
-		const numericWeight = String(value);
-		if (VALID_NUMERIC_FONT_WEIGHTS.has(numericWeight)) {
-			return numericWeight;
-		}
-		return value;
-	}
+  if (typeof value === "number") {
+    const numericWeight = String(value);
+    if (VALID_NUMERIC_FONT_WEIGHTS.has(numericWeight)) {
+      return numericWeight;
+    }
+    return value;
+  }
 
-	if (typeof value !== "string") {
-		return value;
-	}
+  if (typeof value !== "string") {
+    return value;
+  }
 
-	const normalized = value.trim().toLowerCase();
-	const mapped = LEGACY_FONT_WEIGHT_MAP.get(normalized);
-	if (mapped !== undefined) {
-		return mapped;
-	}
+  const normalized = value.trim().toLowerCase();
+  const mapped = LEGACY_FONT_WEIGHT_MAP.get(normalized);
+  if (mapped !== undefined) {
+    return mapped;
+  }
 
-	if (VALID_NUMERIC_FONT_WEIGHTS.has(normalized)) {
-		return normalized;
-	}
+  if (VALID_NUMERIC_FONT_WEIGHTS.has(normalized)) {
+    return normalized;
+  }
 
-	return value;
+  return value;
 }
 
 export { getProjectId } from "./utils";
 
 function isV4Project({ project }: { project: ProjectRecord }): boolean {
-	const versionValue = project.version;
-	return typeof versionValue === "number" && versionValue >= 4;
+  const versionValue = project.version;
+  return typeof versionValue === "number" && versionValue >= 4;
 }
