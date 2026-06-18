@@ -42,3 +42,4 @@ next-env.d.ts
 
 # repowise API keys (local)
 .repowise/.env
+/dist/
